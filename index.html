@@ -1,0 +1,271 @@
+<!DOCTYPE html >
+<html lang="en" style="background-color: #D1ECEE">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secure Trust-less Paper Wallets</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+  </head>
+  <body style="background-color: #D1ECEE">
+    <!--Header -->
+    <div class="container-fluid col-12" style="margin: 0;padding: 0;">
+    <div class="jumbotron jumbotron-fluid" style="height: 91vh;">
+  <div class="container">
+    <h1 class="display-3">Fluid jumbotron</h1>
+    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  </div>
+</div>
+</div>
+
+
+<!--Nav bar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark no-gutter">
+        
+<a class="navbar-brand justify-content-left" href="../index.html" style="padding: 0;">
+<img src="images/gold.png" alt="Logo" style="width:80px;height:auto;"></a>
+        
+  <p class="ml-auto my-auto d-lg-none" style="color:#7588ED;margin-right: 2%;">Menu</p> 
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+        <nav class="collapse navbar-collapse navbar-toggleable-md h5 text-white text-sm-center justify-content-end " id="navbarNav">
+              
+              <a class="nav-link hover whitetext" style="color: #7588ED;"  >Home</a>
+            <a class="nav-link hover whitetext" href="about.html">How It Works</a> 
+
+              <a class="nav-link hover whitetext"  href="gen.html" >Generate Key</a>
+              <a class="nav-link hover whitetext" href="buy.html">Buy Wallet</a> 
+              <a class="nav-link hover whitetext" href="redeem.html" style="">Spend Wallet</a>
+                      
+        </nav>
+</nav>
+
+
+<div class="container-fluid text-center " style="font-family: 'Oswald', sans-serif;" >
+              
+              <div class="row  display-flex  rounded mx-auto col-11" style="margin: 2%;background: white;padding: 2%;">
+                
+                <div class="col-sm-8 col-lg-5 mx-auto" style="margin: 2%;background: white;">
+                   <h1>The price of bitcoin has grown 1431% since 2014</h1><canvas id="line-chart" width="800" height="450"></canvas>
+                    <a href="https://coinmarketcap.com/currencies/bitcoin/historical-data/?start=20130428&end=20180409" style=""><p>Bitcoin Coin Market Cap</p></a>
+                </div>
+
+                <div class="col-sm-8 col-lg-5 d-block mx-auto my-auto" style="margin: 2%;background: white;">
+                    <img class="ounded" src="images/atm.jpg" alt="Using Bitcoin Atm">
+                </div>
+             
+              </div>  
+       
+
+          <div class="row   display-flex rounded mx-auto col-11" style="margin: 2%;background: white;padding: 2%;">
+
+                <div class="col-sm-8 col-lg-5 mx-auto col-lg-push-12 my-auto" style="margin: 2%;" >
+                   <img class="rounded" src="images/missing.jpeg" alt="Lost Bitcoin">
+                </div>
+
+                <div class="col-sm-8 col-lg-5 d-block mx-auto col-lg-push-3" style="margin: 2%;">
+                    <h1>20% <br>of  Bitcoins are permanently lost </h1><canvas id="pie-chart1" width="800" height="450"></canvas>
+                    
+                     <a href="http://fortune.com/2017/11/25/lost-bitcoins/" style="font-family: 'Roboto', sans-serif;"><p> Chainalysism
+                     Firm Study</p></a>
+                </div>
+           
+              </div>  
+</div>
+
+<div class="col-12" style="padding: 0;"> <h1 class="display-3 text-center" style="margin-bottom:0;padding: 0%;background: white;font-family: 'Raleway', sans-serif;">DJ Wallets Secure Your Bitcoin</h1>
+
+
+
+
+<div class="row row-eq-height text-center" style="padding-top:0%;padding-bottom: 3%;background: white;margin:0;">
+
+<div class="col-sm-6 col-lg-3" >
+
+  <div class="rounded-circle bg-primary liststuff" style="padding:15%;margin-left: 10%;">
+  <img class="" src="images/locked.svg" alt=""> 
+  </div>
+  <h1>Secure</h1> 
+  Multi-Signature and Offline Key Generation provide layered security. 
+
+</div>
+
+<div class="col-sm-6 col-lg-3">
+  <div class="rounded-circle bg-warning liststuff" style="padding:15%;margin-left: 10%;">
+  <img class="" src="images/bitcoin.svg" alt=""></div>
+  
+  <h1>Affordable</h1>
+  Our Wallets are only 15 USD, leaving you more money to invest in Bitcoin. 
+</div>
+
+
+
+
+
+
+<div class="col-sm-6 col-lg-3">
+<div class="rounded-circle bg-info liststuff" style="padding:15%;margin-left: 10%;">
+<img class="" src="images/profits.svg" alt="">
+</div>
+<h1>Reliable</h1>
+  Mutltiple backups provide redundancy in case of accidents or lost.  
+</div>
+
+
+
+
+<div class="col-sm-6 col-lg-3">
+
+<div class="rounded-circle bg-success liststuff" style="padding:15%;margin-left: 10%;">
+  <img class="" src="images/simple.svg" alt=""></div>
+
+  <h1>Simple</h1>
+  A simple solution with many ways to learn about Bitcoin and security.  
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+ 
+
+<div class="row text-center" style="margin: 0;padding: 0;">
+
+    <div class="col-sm-2 my-auto mx-auto" style="padding:2%;">
+        <img class="img-responsive" style="" src="images/gears.svg" alt="">
+
+      <button type="button" class="btn btn-primary mx-auto" style="margin:2%;">
+        <h3>How It Works</h3>
+      </button>
+
+   </div>
+
+  <div class="col-sm-2 my-auto mx-auto" style="padding:2%;">
+    <img class="img-responsive " style="" src="images/cart.svg" alt="">
+    <button type="button" class="btn btn-primary mx-auto" style="margin:2%;">
+        <h3>Buy Wallet</h3>
+      </button>
+</div>
+</div>
+
+
+
+
+
+
+<div id="footer" class="text-center container-fluid navbar-dark bg-dark col-12" style="padding-bottom: 5%;">
+
+<div class="row text-center col-12">
+
+
+
+  <div class="col-sm-3 my-auto mx-auto" style="padding:2%;">
+    <p class="text-white">Learn More</p>
+  </div>
+
+
+    <div class="col-sm-3 my-auto mx-auto" style="padding:2%;">
+    <p class="text-white">Get A Wallet</p></div>
+
+    <div class="col-sm-3 my-auto mx-auto" style="padding:2%;">
+    <p class="text-white">Contact</p>
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+<script>
+
+new Chart(document.getElementById("pie-chart1"), {
+    type: 'pie',
+    data: {
+      labels: ["Lost", "Non-Lost", ],
+      datasets: [{
+        
+        backgroundColor: ["#3e95cd", "#8e5ea2"],
+        data: [20,80]
+      }]
+    },
+    options: {
+
+      tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                    
+                    if (label=="20") {
+                        label = 'Lost Bitcoin';
+                    }
+                    if (label=="80") {
+                        label = 'Non-Lost Bitcoin';
+                    }
+                    
+                    return label;
+                }
+            }
+        }
+     , legend: {
+            display: false
+          },
+      title: {
+        display: false
+      }
+
+    }
+});
+
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: [2014,2015,2016,2017,2018],
+    datasets: [{ 
+        data: [457,244,416,1071,7000],
+        label: "Price",
+        borderColor: "#3e95cd",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: false
+    }
+  }
+});
+
+</script>
+</html>
+
+
+
