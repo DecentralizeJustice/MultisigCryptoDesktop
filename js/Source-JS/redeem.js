@@ -12,7 +12,7 @@ $( document ).ready(function() {
 
 
 //transacton  global object
-let transInfo= {
+var transInfo= {
   changeAddress:"",
   changeAmount:Decimal(0),
   recommendFees:{},
@@ -24,13 +24,13 @@ let transInfo= {
 
 
 //trsaction global for bitcoin js
-let txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
+var txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
 
 
 
 
 //slider
-let keyboardSlider = document.getElementById('keyboard');
+var keyboardSlider = document.getElementById('keyboard');
 
 setupFeeInfo(transInfo).then(newtrans => transInfo=newtrans); 
 
