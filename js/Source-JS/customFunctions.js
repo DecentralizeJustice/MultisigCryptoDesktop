@@ -3,7 +3,8 @@ const noUiSlider = require('nouislider')
 const wNumb = require("wnumb")
 const bitcoin = require('bitcoinjs-lib')
 const Decimal = require('decimal.js')
-
+const $ = require("jquery")
+"use strict";
 
 module.exports = {
 
@@ -18,6 +19,15 @@ module.exports = {
 	publickeyToAddress: publickeyToAddress,
 	getByteCount: getByteCount,
 	getByteCountWrapper:getByteCountWrapper,
+  testcases: testcases,
+  sliderChangeManual: sliderChangeManual,
+  updateverything:updateverything,
+  bytsame:bytsame,
+  bytdown:bytdown,
+  byteup:byteup,
+  satoshiToBtc:satoshiToBtc,
+  setuptransInfo:setuptransInfo,
+  lockWrapper:lockWrapper,
 };
 
   async function getFeeInfo(trans) {
@@ -197,4 +207,211 @@ function getByteCount(inputs, outputs) {
 function getByteCountWrapper(numInputs,numOutputs){
   return getByteCount({'MULTISIG-P2SH-P2WSH:3-3':numInputs},{'P2WSH':numOutputs})
 }
+
+
+function testcases(proposed){ 
+  hideAllWarnigns();
+  // inputs !=ouptus
+  if(!(Decimal(proposed.amountToSend).plus(proposed.feeAmount).plus(proposed.changeAmount)
+      .equals(proposed.addressInfo.balance))){
+    $("#toolittle").show();
+    return false;
+    };
+
+  //<resonable fee
+   if (Decimal(makeSureNotNegative(proposed.recommendFees.lowfee))
+        .greaterThan(Decimal(proposed.feeAmount).div(proposed.byteSize))) {
+    $("#minerfeetoolittle").show();
+    return false;
+  }
+
+  //fee too high to fit on range
+  if((proposed.recommendFees.highfee+10)<(Decimal(proposed.feeAmount).div(proposed.byteSize))) {
+    $("#feetoohigh").show();
+      return false;}
+  
+  //change too low
+  if (proposed.changeAmount!=0){
+    if(proposed.changeAmount<(getByteCountWrapper(proposed.addressInfo.numInputs,2)-
+      getByteCountWrapper(proposed.addressInfo.numInputs,1))){
+      $("#changeadresstoolittle").show();
+        return false;}
+  };
+
+  //<low fee recommended but allow
+  if(proposed.recommendFees.lowfee>(Decimal(proposed.feeAmount).div(proposed.byteSize))) {
+    $("#youreallyshouldnot").show();
+   };
+  
+  return true;      
+};
+
+
+function sliderChangeManual(transInfo){  
+  let newFeeRate=keyboard.noUiSlider.get();
+  let proposed=Object.assign({}, transInfo);
+  proposed.feeAmount= Decimal(proposed.byteSize).times(Decimal(Math.round(newFeeRate)));
+  if (proposed.changeAmount==0){
+    proposed.amountToSend=Decimal(proposed.addressInfo.balance).minus(Decimal(proposed.feeAmount));}
+  else{
+        if ($("#sendAmountDiv").find(".lockedButton").is(":visible")){
+          proposed.changeAmount=Decimal(proposed.addressInfo.balance).minus(Decimal(proposed.amountToSend)).minus(Decimal(proposed.feeAmount));}
+        else{
+          proposed.amountToSend=Decimal(proposed.addressInfo.balance).minus(proposed.feeAmount).minus(proposed.changeAmount);
+      };
+  };
+
+  if (testcases(proposed)){
+      transInfo=proposed;
+      updateverything(transInfo);}
+  else{
+    keyboard.noUiSlider.set((Decimal(transInfo.feeAmount).div(Decimal(transInfo.byteSize))));
+      };
+};
+
+function updateverything(transInfo){
+  //update amount to send
+
+  $("#amount").val(satoshiToBtc(transInfo.amountToSend));
+  //update the slider
+  keyboard.noUiSlider.set(Math.round(Decimal(transInfo.feeAmount)/Decimal(transInfo.byteSize)));
+  if (transInfo.changeAmount!=0){
+  let btc=satoshiToBtc(transInfo.changeAmount);
+  $("#change").text(Number(btc).toFixed(8).replace(/\.?0+$/,""));}
+
+};
+
+//if nothing changes, but the adress eg 321->3214
+function bytsame(pro){
+  transInfo=pro;
+  };
+
+function bytdown(proposed,transInfo){
+  proposed.changeAmount=0;
+  let oldratio=Decimal(transInfo.feeAmount).div(Decimal(transInfo.byteSize));
+  proposed.byteSize=Decimal(getByteCountWrapper(proposed.addressInfo.numInputs,1))
+  proposed.feeAmount=Decimal(proposed.byteSize).times(Decimal(oldratio))
+  proposed.amountToSend=Decimal(proposed.addressInfo.balance).minus(Decimal(proposed.feeAmount))
+
+   if (testcases(proposed)){
+      transInfo=proposed;
+      updateverything(transInfo);
+      $("#changinfo").fadeOut();
+      $("#sendAmountDiv").fadeOut();
+      $("#changeAmountDiv").fadeOut();
+              
+   }else{
+     $("#changeadress").val(transInfo.changeAddress); 
+     return;
+      };
+};
+
+function  hideAllWarnigns(){
+      $("#minerfeetoolittle").hide();
+      $("#toolittle").hide();
+      $("#youreallyshouldnot").hide();
+      $("#feetoohigh").hide();
+      $("#changeadresstoolittle").hide();      
+};
+
+function walletIsEmpty(){
+  $(".emptywallet").show();
+  $("#loader").hide();
+};
+
+function btcToSatoshi(btc){
+  return (Decimal(btc).div(Decimal(0.00000001)));
+};
+
+function satoshiToBtc(sat){
+  return (Decimal(sat).times(Decimal(0.00000001)));
+};
+
+
+   
+
+
+//Lock status related code
+function showLockImg(divToLock){
+  $(divToLock).find(".unlockedimg").fadeOut( "fast", function() {
+    $(divToLock).find(".lockedimg").fadeIn( "fast");
+});};
+
+
+function showUnLockImg(divToUnlock){
+  $(divToUnlock).find(".lockedimg").fadeOut( "fast", function() {
+    $(divToUnlock).find(".unlockedimg").fadeIn( "fast");
+});};
+
+
+function lockThisDivSwitch(div){
+  $(div).find(".unlockedButton").fadeOut("fast",function(){
+    $(div).find(".lockedButton").fadeIn();
+});};
+
+function unlockThisDivSwitch(div){
+  $(div).find(".lockedButton").fadeOut("fast",function(){
+    $(div).find(".unlockedButton").fadeIn();
+});};
+
+
+function isThisLocked(divToCheck){
+  let divStatus=$(divToCheck).find(".lockedButton").is(":visible");
+  if (divStatus){return true}
+    else{return false}
+};
+function getOtherLockDiv(clickedDiv){
+  let jquerydiv=$(clickedDiv).attr('id')
+   if(jquerydiv==="changeAmountDiv"){
+    return sendAmountDiv
+   }else{
+    return changeAmountDiv
+}};
+
+function lockWrapper(divToLock){
+  let otherDiv=getOtherLockDiv(divToLock);
+  
+  if (isThisLocked(divToLock)){
+    unlockThisDivSwitch(divToLock);
+    showUnLockImg(divToLock);
+    lockThisDivSwitch(otherDiv);
+    showLockImg(otherDiv);
+
+  }else{
+    lockThisDivSwitch(divToLock);
+    showLockImg(divToLock);
+    unlockThisDivSwitch(otherDiv);
+    showUnLockImg(otherDiv);
+
+};}
+
+//helper function for if adress add causes bytes to go up eg __->321
+function byteup(proposed,transInfo){
+  let oldratio=Decimal(transInfo.feeAmount).div(Decimal(transInfo.byteSize));
+  proposed.byteSize=Decimal(getByteCountWrapper(proposed.addressInfo.numInputs,2))
+  proposed.changeAmount=oldratio.times(Decimal(proposed.byteSize).minus(Decimal(transInfo.byteSize)));
+  proposed.feeAmount=Decimal(proposed.byteSize).times(oldratio);
+  proposed.amountToSend=Decimal(proposed.addressInfo.balance).minus(Decimal(proposed.changeAmount)).minus(Decimal(proposed.feeAmount))
+   if (testcases(proposed)){
+      transInfo=proposed;
+      updateverything(transInfo);
+      $("#changinfo").fadeIn();
+      $("#changeAmountDiv").fadeIn();
+      $("#sendAmountDiv").fadeIn();
+              
+   }else{
+     $("#changeadress").val(transInfo.changeAddress); 
+     return;
+      };
+  };
+
+  function setuptransInfo(transInfo){
+  $("#Singleinfo").hide();
+  $("#gooffline").show();
+  $("#Balance").text(satoshiToBtc(transInfo.addressInfo.balance).toString()+" BTC");
+  $("#amount").val(Decimal(transInfo.amountToSend).times(Decimal(0.00000001)));
+  $("#linktoadress").attr("href","https://testnet.smartbit.com.au/address/"+transInfo.addressInfo.address);
+};
+
+
 
