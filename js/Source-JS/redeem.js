@@ -1,3 +1,4 @@
+"use strict";
 
 const $ = require("jquery")
 const bitcoin = require('bitcoinjs-lib')
@@ -7,7 +8,7 @@ const noUiSlider = require('nouislider')
 const Decimal = require('decimal.js')
 const wNumb = require("wnumb")
 const cust = require("./customFunctions.js");
-"use strict";
+
 
 $( document ).ready(function() {
 
@@ -24,20 +25,13 @@ var transInfo= {
 };
 
 
-
-
 //trsaction global for bitcoin js
 var txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
-
-
-
 
 //slider
 var keyboardSlider = document.getElementById('keyboard');
 
 setupFeeInfo(transInfo).then(newtrans => transInfo=newtrans); 
-
-
 
 async function setupFeeInfo(trans){
   let transstuff =   await cust.getFeeInfo(trans)
@@ -59,11 +53,6 @@ async function getAddressInfo(transInfo){
  await cust.parseAddressData(stuff,transInfo)
  cust.setuptransInfo(transInfo) 
 }
-
-
-
-
-
 
 //tooltips
 jQuery('[data-toggle="tooltip"]').tooltip();
@@ -136,12 +125,6 @@ $("#amount").change(function(){
 });
 
 
-
-
-
-
-
-
 $("#changeadress").change(function(){
   let proposed=Object.assign({}, transInfo);
   if($("#changeadress").val()!=""){
@@ -161,8 +144,6 @@ $("#changeadress").change(function(){
   };
 });
 
-
-
 $("#advancedoptions").change(function() {
   if(this.checked) {
     $("#showadvancedoptions").show();
@@ -173,51 +154,13 @@ $("#advancedoptions").change(function() {
     };
 });
 
-
-
-
-
-function confirmSimpleTrans(transaction){
-  let btcAmount=satoshiToBtc(transaction.amountToSend);
-  let btcSendAddress= "adfaa235435wtvv"
-  let feeInSatoshi=transaction.feeAmount/transaction.byteSize
-  $("#sendInfo").html(`${btcAmount} BTC`)
-  $("#sendToWhichAdressInfo").html(`${btcSendAddress}`)
-  $("#sendFeeInfo").html(`~${feeInSatoshi} sat/byte`)
-  $("#singleTrans").show()
-};
-
-function confimDoubleTrans(transaction){
-  let mainBtcAmount=satoshiToBtc(transaction.amountToSend)
-  let mainSendAddress="adfaa235435wtvv"
-  let changeBtcAmount=satoshiToBtc(transaction.changeAmount)
-  let changeSendAddress="fdaafaafdafadaf"
-  let feeInSatoshi=transaction.feeAmount/transaction.byteSize
-  $("#multipleMainSendAmount").html(`${mainBtcAmount} BTC`)
-  $("#multipleMainAddress").html(`${mainSendAddress}`)
-  $("#changeSendAmount").html(`${changeBtcAmount} BTC`)
-  $("#changeAddress").html(`${changeSendAddress}`)
-  $("#doubleTrans").show()
-};
-
-
-function createDefaultTrans(){
-  let defaultTrans=Object.assign({}, transInfo)
-  defaultTrans.byteSize=cust.getByteCountWrapper(defaultTrans.addressInfo.numInputs,1)
-  defaultTrans.changeAmount=0
-  defaultTrans.feeAmount=Decimal(defaultTrans.byteSize).times(defaultTrans.recommendFees.midfee)
-  defaultTrans.amountToSend=Decimal(defaultTrans.addressInfo.balance).minus(defaultTrans.feeAmount)
-  defaultTrans.advancedOptions=false
-  return defaultTrans
-};
-
 $("#goToConfirmTrans").click(function(){
     if (!(transInfo.advancedOptions)){
-      confirmSimpleTrans(createDefaultTrans())
+      cust.confirmSimpleTrans(cust.createDefaultTrans(transInfo))
       }else{
       if (transInfo.changeAddress==""){
-        confirmSimpleTrans(transInfo)
-      }else{confimDoubleTrans(transInfo)}}
+        cust.confirmSimpleTrans(transInfo)
+      }else{cust.confirmDoubleTrans(transInfo)}}
     $("#setuptrans").hide()
     $("#confirmTrans").show()
 
@@ -231,51 +174,12 @@ $("#editTransaction").click(function(){
 });
 
 
-
-
-function buildTransaction(transaction){
-    let pubKeys= [
-      transaction.addressInfo.pubkeys[0],
-      transaction.addressInfo.pubkeys[1],
-      transaction.addressInfo.pubkeys[2]
-    ].map(function (hex) { return Buffer.from(hex, 'hex') })
-    var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys) // 3 of 3
-    var redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
-    
-    var scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
-    for (i = 0; i < (transaction.addressInfo.transactions.length-0); i++){
-    txb.addInput(transaction.addressInfo.transactions[i][0],transaction.addressInfo.transactions[i][1],null, scriptPubKey);
-    }
-    
-    txb.addOutput ("mqgSLgUyDSwPG387ePKKXSLMXnWKrxDur5",Decimal(transaction.amountToSend).toNumber());
-    if (transaction.advancedOptions && transaction.changeAddress!=""){
-      txb.addOutput ("mmC4uVA4nP1EbK1eryxtXQRCkfCXNUhPWh",Decimal(transaction.changeAmount).toNumber());
-    }
-    };
-
-function signTransaction(key,transaction,bitcoinjsTransaction){
-    let pubKeys= [
-      transaction.addressInfo.pubkeys[0],
-      transaction.addressInfo.pubkeys[1],
-      transaction.addressInfo.pubkeys[2]
-    ].map(function (hex) { return Buffer.from(hex, 'hex') })
-
-    var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys) // 3 of 3
-    var redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
-    var scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
-    key=bitcoin.ECPair.fromWIF(key, bitcoin.networks.testnet);
-    for (i = 0; i < (transaction.addressInfo.transactions.length-0); i++){
-        bitcoinjsTransaction.sign (i, key, redeemScript, null, transaction.addressInfo.transactions[i][2], witnessScript);
-        };
-    };
-
-
 $("#startsigs").click(function(){
     $("#confirmTrans").hide();
     $("#profile").show();
     $("#firstsig").addClass("active");
     $("#setup").removeClass("active");
-    buildTransaction(createDefaultTrans());
+    cust.buildTransaction(cust.createDefaultTrans(transInfo),txb);
 });
 
 
@@ -283,7 +187,7 @@ $("#startsigs").click(function(){
 $("#1stSignaturesubmit").click(function(){
     $("#agreefirst").val("cTFWphyQSKUp9RNEftrXgbgbiTg49wz4wfhrAzmutigyjxUw4DqD")
     let key=$("#agreefirst").val()
-    signTransaction(key,transInfo,txb);
+    cust.signTransaction(key,transInfo,txb);
     $("#profile").hide();
     $("#2ndpanelstuff").show();
     $("#2ndsig").addClass("active");
@@ -297,7 +201,7 @@ $("#2ndSignaturesubmit").click(function(){
   }else{
     $("#agreesecond").val("cQtNm3feFWK5hzR78wUtAowA8pqYDVJsdSVnm4b8qDExEmMvfCNs")
     let key=$("#agreesecond").val()
-    signTransaction(key,transInfo,txb);
+    cust.signTransaction(key,transInfo,txb);
     $("#2ndpanelstuff").hide();
     $("#3rdpanelstuff").show();
     $("#3rdstuffsign").addClass("active");
@@ -308,65 +212,26 @@ $("#2ndSignaturesubmit").click(function(){
 $("#3rdSignaturesubmit").click(function(){
     $("#agreethird").val("cTLCTCWSqoBziY51yHNx1uF2PpEGRZoQHdWsGGpjjmw15YpsFZ9B")
     let key =$("#agreethird").val()
-    signTransaction(key,transInfo,txb);//$("#agreethird").val()
+    cust.signTransaction(key,transInfo,txb);//$("#agreethird").val()
     $("#3rdpanelstuff").hide();
     $("#lastpanelstuff").show();
     $("#sendtomempool").addClass("active");
     $("#3rdstuffsign").removeClass("active");
         });
 
-
 //qrcode stuff
-
-
-function createqr(transaction){
-  var canvas = document.getElementById('canvas')
-  let txhex = txb.buildIncomplete().toHex();
-  QRCode.toCanvas(canvas, `${transaction.addressInfo.pubkeys},${txhex}`,{ errorCorrectionLevel: 'L' }, function (error) {
-    if (error) console.error(error)
-    $("#canvas").show()
-})}
-
 //show qr code button
 $("#showqrcode").click(function(){
-  createqr(transInfo)
+  cust.createqr(transInfo,txb)
 });
 
 $(".copyTrans").click(function(){
   let txhex = txb.build().toHex();
-  copyToClipboard(txhex)
-
+  cust.copyToClipboard(txhex)
 });
-
-function copyToClipboard(hexcode) {
-  var $temp = $("<input>");
-  $("body").append($temp);
-  $temp.val(hexcode).select();
-  document.execCommand("copy");
-  $temp.remove();
-}
 
 $(".showQR").click(function(){
-  fillDivwithQr()
-
+  cust.fillDivwithQr(txb)
 });
-
-function fillDivwithQr(){
-  let canvas = document.getElementById('showLastQrCode')
-  let txhex = txb.build().toHex ();
-  QRCode.toCanvas(canvas, `${txhex}`,{ errorCorrectionLevel: 'L' }, function (error) {
-    if (error) console.error(error)
-    $("#showLastQrCode").show()
-})}
-
-
-
-
-
-
-
-
-
-
 
 });
