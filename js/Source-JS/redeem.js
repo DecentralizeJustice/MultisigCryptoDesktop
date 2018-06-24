@@ -220,6 +220,9 @@ $("#3rdSignaturesubmit").click(function(){
         });
 
 //qrcode stuff
+
+
+
 //show qr code button
 $("#showqrcode").click(function(){
   cust.createqr(transInfo,txb)
