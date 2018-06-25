@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secure Trust-less Paper Wallets</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="js/bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
+  </head>
+  <body style="background-color: #D1ECEE;">
+    <!--Header -->
+    <div class="container-fluid no-margin no-padding">
+    <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-3">Fluid jumbotron</h1>
+    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  </div>
+</div>
+</div>
+
+
+<!--Nav bar-->
+<!--Nav bar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark no-gutter">
+        
+<a class="navbar-brand justify-content-left" href="../index.html" style="padding: 0;">
+<img src="images/gold.png" alt="Logo" style="width:80px;height:auto;"></a>
+        
+  <p class="ml-auto my-auto d-lg-none" style="color:#7588ED;margin-right: 2%;">Menu</p> 
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+        <nav class="collapse navbar-collapse navbar-toggleable-md h5 text-white text-sm-center justify-content-end " id="navbarNav">
+              
+              <a class="nav-link hover whitetext" href="index.html" style="" >Home</a>
+            <a class="nav-link hover whitetext" href="about.html">How It Works</a> 
+
+              <a class="nav-link"  style="color: #7588ED;" >Generate Key</a>
+              <a class="nav-link hover whitetext" href="buy.html">Buy Wallet</a> 
+              <a class="nav-link hover whitetext" href="redeem.html" style="">Spend Wallet</a>
+                      
+        </nav>
+</nav>
+
+
+
+<div style="padding:1%;margin: 1%;" class="col-8 mx-auto rounded">
+<div id="Genmemphrase" class="text-center col-md-12 mx-auto d-block" style="margin-top: 5%;">
+  <p class=""><h2>Select Phrase Length</h2></p>
+
+ 
+<div style="">
+<button id="phr24" type="button" class="btn btn-dark phr">24</button>
+<button id="phr21" type="button" class="btn btn-dark phr">21</button>
+<button id="phr18" type="button" class="btn btn-dark phr">18</button><br>
+<button id="phr15" type="button" class="btn btn-dark phr" style="margin-top: 2%;">15</button>
+<button id="phr12" type="button" class="btn btn-success phr" style="margin-top: 2%;">12</button>
+    </div>
+
+<button  type="button" class="btn btn-primary genphrase" style="margin:5%;">Generate Phrase</button>
+<div id="stufff" style="margin-bottom: 5%;">
+<p class="h3">Mnemonic Phrase</p>
+<p class="memphrase h4"></p>
+
+
+
+<p class="h3 text-center" style="margin-top: 3%;">BIP32 Extended Public Key</p>
+
+<div class="row">
+<div class="col-12 my-auto col-md-6">
+<p class="xpub h6 text-center col-12 mx-auto " style="word-wrap: break-word;text-align: center;"></p></div>
+
+<div class="col-12 col-md-6" style="">
+<canvas id="canvas"></canvas></div>
+</div>
+</div>
+
+</div>
+</div>
+
+</html>
+
+</body>
