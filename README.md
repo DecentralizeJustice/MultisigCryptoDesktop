@@ -1,8 +1,11 @@
 <a href="http://www.multisigcrypto.com">
   <img src="readMeArt/art/bannerlogo.png" width="100%" height="300">
 </a>
-# Multi-Sig-Crypto
-Mutli-Sig-Cyrpto allows web wallets to be used securely in a decentralized manner using a combination of paper wallets, cellphones, and computers. 
+
+
+# Multi-Sig-Crypto            
+
+Mutli-Sig-Crypto allows web wallets to be used securely in a decentralized manner using a combination of paper wallets, cellphones, and computers. 
 
 ## How It Works
 Multi-Sig-Crypto allows for several approaches to using web wallets securely, but here we will outline one example that demonstrates the underlying principles of our project. 
