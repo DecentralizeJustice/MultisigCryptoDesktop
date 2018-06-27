@@ -12,7 +12,7 @@ Multi-Sig-Crypto allows for several approaches to using web wallets securely, bu
 
 <img src="readMeArt/art/howInfo1.png" width="100%" height="900">
 
-Matt creates his keys on several devices, and this method is so secure that he can safely use a public printer and computer to print his wallet.  
+Matt creates his keys on several devices, and this method is so secure that he can safely use a public printer and computer to print his wallet. A hacker would have to hack Matt's phone, labtop, and the public computer that he used to create the wallet if they wanted to steal Matt's private keys. 
 
 ## Advantages
 - Decentralized Protection      
