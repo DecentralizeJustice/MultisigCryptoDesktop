@@ -1,11 +1,9 @@
-const BigInteger = require('bigi');
-const bip39 = require('bip39');
+
 const $ = require("jquery");
 const domready = require("domready");
-const bitcoin = require('bitcoinjs-lib')
 const QRCode = require('qrcode')
 const funcLib = require("./generateFunctions.js")
-const jsPDF = require('jspdf')
+
 
 
 var choiceArray =[]
@@ -50,16 +48,18 @@ $("#genphrase").click(function() {
 $("#genpPDF").click(function() {
     $( "#pdfOrMem" ).fadeOut()
     setTimeout(function(){  $("#generatepdf").fadeIn() }, 500)
+    thirdKeyInfo=funcLib.genMenmonic(phraseNum,choiceArray[0])
 })
 
-$(".submitpdfcreate").click(function() {
-  thirdKeyInfo=funcLib.genMenmonic(phraseNum,choiceArray[0])
-  $('#numOfAdresses').val()
+$("#makeMultiSigPdf").click(function() {
+  $(this).attr("disabled","disabled")
+  let numberOfAdresses=$('#numOfAdresses').val()
   //testnet stuff
   $('#1stXpub').val("xpub6EVy23JzvYeb1C5k5mSEMw7nQPLv9S29Nbwz8cU9r6rmdrPojDiMBoe4GVnqxtKwrieV9FW4ujusQz3ACFYhCGHcF3cFovW8taJCCjUUsaT")
   $('#2ndXpub').val("xpub6EYuazUxjau1KQEWygQZ18h7wiifQ8czPo3vdFPPr63GExw5EEMdyGbftTFcJiwavgRi8pokaqYWndas2jYzfgYJ5iazsy888Wom2KQ3Dhx")
-  let pubKeyArray=[$('#btc1stXpub').val(),$('btc2ndXpub').val(),thirdKeyInfo[2]]
-  funcLib.createAddress(pubKeyArray,"bitcoin")
+  let pubKeyArray=[$('#1stXpub').val(),$('#2ndXpub').val(),thirdKeyInfo[1]]
+  let multiSigAdress=funcLib.createAddressArray(pubKeyArray,numberOfAdresses,choiceArray[0])
+  return multiSigAdress
 })
 
 
