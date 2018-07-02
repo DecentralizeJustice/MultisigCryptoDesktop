@@ -9,8 +9,7 @@ const jspdf = require('jsPdf')
 
 module.exports = {
 genMenmonic:genMenmonic,
-createAddress:createAddress,
-xpubToPubkey:xpubToPubkey,
+createAddressArray:createAddressArray,
 
 }
 
@@ -45,7 +44,7 @@ function xpubToPubkey(xpub,index){
     return address
 }
 
-function createAddress(pubKeys,network){
+function createSingleAddress(pubKeys,network){
     let networkMap = new Map()
     networkMap.set("bitcoin", bitcoin.networks.testnet);
     let witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
@@ -53,5 +52,9 @@ function createAddress(pubKeys,network){
     let scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
     let P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, networkMap.network )
     return P2SHaddress
+}
+
+function createAddressArray(){
+
 }
 

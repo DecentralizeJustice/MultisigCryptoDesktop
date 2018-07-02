@@ -5,7 +5,7 @@
 
 # Multi-Sig-Crypto            
 
-Mutli-Sig-Crypto is a web wallet that is secured through decentralized methods using a combination of paper wallets, cellphones, and computers along with browser side Javascript. 
+Mutli-Sig-Crypto is a web wallet that is secured through decentralized methods using a combination of paper wallets, cellphones, hardware wallets, and computers along with browser side Javascript. 
 
 ## How It Works
 Multi-Sig-Crypto allows for several approaches to using web wallets securely, but here we will outline one example that demonstrates the underlying principles of our project: 
