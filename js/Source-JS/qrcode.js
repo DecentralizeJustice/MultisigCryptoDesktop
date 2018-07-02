@@ -1,6 +1,5 @@
 const $ = require("jquery")
 
-
 $(document).ready(function(){
 
 function useCamera(){
@@ -13,8 +12,8 @@ function useCamera(){
         scanner.stop();
         $("#qrcodereaderror").addClass("d-none");
         $("#qrcodereaderror").removeClass("d-inline");
-        $("#methodselection").show();
-        $("#camerawindow").hide();
+        $("#methodselection").show()
+        $("#camerawindow").hide()
         jQuery('#ModalCenter').modal('hide');
       });
 
@@ -30,7 +29,6 @@ function useCamera(){
             .catch(function (e) {
               console.log(e);
             });
-
 
 jQuery('#ModalCenter').on('hidden.bs.modal', function () {
     scanner.stop();
@@ -49,8 +47,7 @@ $( ".file" ).change(function() {
   openQRCamera(this);
 });
 
-
-var divtoaddtextto;
+let divtoaddtextto
 
 function log(stuff){
   divtoaddtextto= $(stuff).parent().find(".form-control")[0];

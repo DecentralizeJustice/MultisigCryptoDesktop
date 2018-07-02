@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Multi-Signature Crypto Wallet</title>
-    <script src="js/bundles/generatebundle.js"></script>
+    <script src="js/bundles/genKeysbundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -48,18 +48,18 @@
 
     <div id="selectCoin" class="text-center col-md-12 mx-auto">
         <p class="h4" style="padding-top: 2%;"> Select Which Crypto You Want to Store:<p>
-        <div  class="row text-center justify-content-center" style="padding:5%;margin: 0%;">
-          <!--Eth-->
-          <div id="Ethereum" class="col-3 coinPick  mx-auto d-block" style="width: 100%;padding-top: 0%;padding-bottom: 0%;" >
-            <img src="images/eth.svg" alt="Ethereum" style="width: 60%;padding-top: 0%;padding-bottom: 0%; ">
+        <div  class="row text-center justify-content-center" style="padding:2%;">
+          <!--Btc-->
+          <div id="Ethereum" class="col-3 mx-auto d-block" style="width: 100%;" >
+              <img src="images/eth.svg" alt="Ethereum" style="width: 60%;">
           </div>
           <!--Btc-->
-          <div id="Bitcoin" class="col-3 coinPick  mx-auto d-block" style="width: 100%;padding-top: 0%;padding-bottom: 0%;" >
-              <img src="images/bitcoin.svg" alt="Bitcoin" style="width: 100%;padding-top: 0%;padding-bottom: 0%; ">
+          <div id="Bitcoin" class="col-3 coinPick  mx-auto d-block" style="width: 100%;" >
+              <img src="images/bitcoin.svg" alt="Bitcoin" style="width: 100%;">
           </div>
           <!--Ltc-->
-          <div id="Litecoin" class="col-3 coinPick  mx-auto d-block" style="width: 100%;padding-top: 0%;padding-bottom: 0%;" >
-              <img src="images/litecoin.svg" alt="Litecoin" style="width: 100%;padding-top: 0%;padding-bottom: 0%; ">
+          <div id="Litecoin" class="col-3 mx-auto d-block" style="width: 100%;" >
+              <img src="images/litecoin.svg" alt="Litecoin" style="width: 100%;">
           </div>
       </div>
     </div>
@@ -89,6 +89,21 @@
               <canvas id="canvas"></canvas>
           </div>
         </div>
+  </div>
+
+  <div id="generatepdf" class="text-center col-md-12 mx-auto" style="display: none;">
+     <div class="form-group col-6 mx-auto">
+    <label for="1stXpub">1st Public Key</label>
+    <input  class="form-control" id="1stXpub"  placeholder="xpub8777899.....">
+    <label for="2ndXpub">2nd Public Key</label>
+    <input class="form-control" id="2ndXpub" placeholder="xpub8777899.....">
+     <label for="numOfAdresses">Number of Adresses</label>
+    <select class="form-control" id="numOfAdresses">
+      <option>5</option>
+      <option>10</option>
+      <option>15</option>
+    </select>
+  <button  id="btcCreatePdf" type="submit" class="btn btn-primary mt-3 submitpdfcreate">Submit</button>
   </div>
 
 

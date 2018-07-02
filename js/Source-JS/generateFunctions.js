@@ -9,6 +9,8 @@ const jspdf = require('jsPdf')
 
 module.exports = {
 genMenmonic:genMenmonic,
+createAddress:createAddress,
+xpubToPubkey:xpubToPubkey,
 
 }
 
@@ -32,6 +34,24 @@ function returnCorrectPath(coin){
 	let numMap = new Map()
     numMap.set("Litecoin", "m/44'/2'/0'/0");numMap.set("Bitcoin", "m/44'/0'/0'/0");
     numMap.set("Ethereum", "m/44'/60'/0'/0");
-	let path = numMap.get(coin)
+    let path = numMap.get(coin)
 	return path
 }
+
+
+function xpubToPubkey(xpub,index){
+    let node = bitcoin.HDNode.fromBase58(xpub)
+    let address = node.derive(0).getPublicKeyBuffer()
+    return address
+}
+
+function createAddress(pubKeys,network){
+    let networkMap = new Map()
+    networkMap.set("bitcoin", bitcoin.networks.testnet);
+    let witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
+    let redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
+    let scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
+    let P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, networkMap.network )
+    return P2SHaddress
+}
+
