@@ -1,7 +1,6 @@
 
 const $ = require("jquery");
 const domready = require("domready");
-const QRCode = require('qrcode')
 const funcLib = require("./generateFunctions.js")
 
 
@@ -23,26 +22,23 @@ $( ".coinPick" ).click(function() {
 
 //use array and .phr function to update phrase lenght
   $(".phrButton").click(function() {
-      let id=$(this).attr("id");
-      let num =parseInt(id.replace("phr", ""));
-      $(`#phr`+phraseNum).removeClass("btn-success");
-      $(`#phr`+phraseNum).addClass("btn-dark");
+      let id=$(this).attr("id")
+      let num =parseInt(id.replace("phr", ""))
+      $(`#phr`+phraseNum).removeClass("btn-success")
+      $(`#phr`+phraseNum).addClass("btn-dark")
       phraseNum=num;
-      $(`#phr`+phraseNum).removeClass("btn-dark");
-      $(`#phr`+phraseNum).addClass("btn-success");
+      $(`#phr`+phraseNum).removeClass("btn-dark")
+      $(`#phr`+phraseNum).addClass("btn-success")
   });
 
 //Hanldes the mem gen
 $("#genphrase").click(function() {
     $( "#pdfOrMem" ).fadeOut()
     setTimeout(function(){  $("#genJustmem").fadeIn() }, 500)
-    let memonicStuff=funcLib.genMenmonic(phraseNum,choiceArray[0]);
-    $(".memphrase").html(memonicStuff[0]);
-    $(".xpub").html(memonicStuff[1]);
-    QRCode.toCanvas(document.getElementById('canvas'), 
-      memonicStuff[1],{ errorCorrectionLevel: 'L' }, function (error) {
-      if (error) console.error(error)
-    })
+    let memonicStuff=funcLib.genMenmonic(phraseNum,choiceArray[0])
+    $(".memphrase").html(memonicStuff[0])
+    $(".xpub").html(memonicStuff[1])
+    funcLib.addQrCodeToPage('canvas',memonicStuff[1])
 })
 
 $("#genpPDF").click(function() {
