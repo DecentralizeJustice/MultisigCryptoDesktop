@@ -31,7 +31,7 @@ var txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
 //slider
 var keyboardSlider = document.getElementById('keyboard');
 
-setupFeeInfo(transInfo).then(newtrans => transInfo=newtrans); 
+setupFeeInfo(transInfo).then(newtrans => transInfo=newtrans)
 
 async function setupFeeInfo(trans){
   let transstuff =   await cust.getFeeInfo(trans)
