@@ -55,7 +55,8 @@ $("#makeMultiSigPdf").click(function() {
   $('#2ndXpub').val("xpub6EYuazUxjau1KQEWygQZ18h7wiifQ8czPo3vdFPPr63GExw5EEMdyGbftTFcJiwavgRi8pokaqYWndas2jYzfgYJ5iazsy888Wom2KQ3Dhx")
   let pubKeyArray=[$('#1stXpub').val(),$('#2ndXpub').val(),thirdKeyInfo[1]]
   let multiSigAdress=funcLib.createAddressArray(pubKeyArray,numberOfAdresses,choiceArray[0])
-  
+  funcLib.createPDF(multiSigAdress)
+  $(this).removeAttr("disabled");   
 })
 
 

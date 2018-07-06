@@ -56,13 +56,13 @@ function createSingleAddress(pubKeys,network){
     return P2SHaddress
 }
 
-function createAddressArray(xpubArray,numOfAdresses,network){
-    let adressArray=[]
-    for (let i = 0; i < numOfAdresses; i++) {
+function createAddressArray(xpubArray,numOfAddresses,network){
+    let addressArray=[]
+    for (let i = 0; i < numOfAddresses; i++) {
         let pubkeyArray=xpubArray.map(element => {return (xpubToPubkey(element,i)) })
-        adressArray.push(createSingleAddress(pubkeyArray,network))
+        addressArray.push(createSingleAddress(pubkeyArray,network))
     }
-    return adressArray
+    return addressArray
 }
 
 
@@ -71,14 +71,48 @@ function addQrCodeToPage(idOfDiv,infoToAd){
     infoToAd,{ errorCorrectionLevel: 'L' })
 }
 
-async function createPDF(){
+async function createPDF(addressArray){
     let imgData = pdfImages.logoUrl
-    let url= await createQRcodeUrl("ttt")
-    let doc = new jsPDF()
-    doc.addImage(imgData, 'JPEG', 05, 05, 120, 50)
-    doc.addImage(url, 'JPEG', 05, 50, 30, 30)
-    doc.save('multisigAdresses.pdf')
+    let pdf = new jsPDF()
+    pdf.setFontSize(10);
+    pdf.addImage(imgData, 'JPEG', 05, 05, 120, 50)
+    pdf = await addMultisigdata(pdf,addressArray)
+    pdf.save('multisigAddresses.pdf')
 
+}
+
+async function addMultisigdata(doc,addressArray){
+    let posVar=[25,70]
+    //Add index 0 early to avoid inefficiencies of checking in for loop
+    doc = await placeTextandQRcode(posVar[0],posVar[1],`${addressArray[0]}`,doc,`${0}`)
+    for (let i = 1; i < addressArray.length; i++) {
+        posVar = positionFinder(posVar,i)
+        doc = await placeTextandQRcode(posVar[0],posVar[1],`${addressArray[i]}`,doc,`${i}`)
+    }
+    return doc
+}
+
+
+function positionFinder(Pos,index){
+    let xOffSet=90
+    let yOffSet=40
+
+    if (index % 2) {
+        Pos[0]=Pos[0]+xOffSet
+    }
+    else{
+        Pos[0]=Pos[0]-xOffSet
+        Pos[1]=Pos[1]+yOffSet
+    }
+    return Pos
+}
+
+async function placeTextandQRcode(xPos,yPos,text,doc,index){
+    qrcode= await createQRcodeUrl(text)
+    doc.addImage(qrcode, 'JPEG', xPos+19, yPos, 30, 30)
+    doc.text(xPos, yPos, text)
+    doc.text(xPos+10, yPos+14, index)
+    return doc
 }
 
 async function createQRcodeUrl(qrCodeInfo){
@@ -86,6 +120,6 @@ async function createQRcodeUrl(qrCodeInfo){
    return  urlCode
 }
 
-createPDF()
+
 
 
