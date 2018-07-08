@@ -1,5 +1,5 @@
 const $ = require("jquery")
-
+const QrCode = require('qrcode-reader');
 $(document).ready(function(){
 
 function useCamera(){
@@ -36,7 +36,7 @@ jQuery('#ModalCenter').on('hidden.bs.modal', function () {
 
 
 $(".qr").click(function() {
-  log(this);
+  store(this);
 });
 
 $(".usecamera").click(function() {
@@ -49,7 +49,7 @@ $( ".file" ).change(function() {
 
 let divtoaddtextto
 
-function log(stuff){
+function store(stuff){
   divtoaddtextto= $(stuff).parent().find(".form-control")[0];
 };
 
@@ -64,17 +64,17 @@ jQuery('#ModalCenter').on('hidden.bs.modal', function () {
 function openQRCamera(node) {
   var reader = new FileReader();
   reader.onload = function() {
-  qrcode.callback = function(res) {
-      if(res=="error decoding QR Code") {
-        $("#qrcodereaderror").addClass("d-inline");
-      } else {
-       divtoaddtextto.value=res;
-         jQuery('#ModalCenter').modal('hide');
-      };  
-    };
-    qrcode.decode(reader.result);
-  };
+  var qr = new QrCode();
+  qr.callback = function(error, results) {
+      if(error) {
+        $("#qrcodereaderror").addClass("d-inline")
+      }
+       divtoaddtextto.value=results.result
+       jQuery('#ModalCenter').modal('hide');
+    }
+    qr.decode(reader.result);
+  }
   reader.readAsDataURL(node.files[0]);
-};
+}
 
 })

@@ -166,18 +166,18 @@ async function addMultisigdata(doc,addressArray){
 }
 
 
-function positionFinder(Pos,index){
+function positionFinder(position,index){
     let xOffSet=90
     let yOffSet=40
 
     if (index % 2) {
-        Pos[0]=Pos[0]+xOffSet
+        position[0]=position[0]+xOffSet
     }
     else{
-        Pos[0]=Pos[0]-xOffSet
-        Pos[1]=Pos[1]+yOffSet
+        position[0]=position[0]-xOffSet
+        position[1]=position[1]+yOffSet
     }
-    return Pos
+    return position
 }
 
 async function placeTextandQRcode(xPos,yPos,text,doc,index){
