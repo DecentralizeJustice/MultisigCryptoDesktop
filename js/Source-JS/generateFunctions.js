@@ -71,19 +71,19 @@ function addQrCodeToPage(idOfDiv,infoToAd){
     infoToAd,{ errorCorrectionLevel: 'L' })
 }
 
-async function createPDF(addressArray,mnemonic){
+async function createPDF(addressArray,mnemonic,pubkeyArray){
     const imgData = pdfImages.logoUrl
     let pdf = new jsPDF()
-    pdf.setFontSize(10);
     pdf.addImage(imgData, 'JPEG', 05, 05, 120, 50)
     pdf = await addMultisigdata(pdf,addressArray)
     pdf = await place3rdMenmonicInfo(pdf,mnemonic)
+    pdf = await place3PublicKeys(pdf,pubkeyArray)
     pdf.save('multisigAddresses.pdf')
 
 }
 
 async function addMultisigdata(pdf,addressArray){
-    let posVar=[25,70]
+    let posVar=[25,160]
     //Add index 0 early to avoid inefficiencies of checking in for loop
     pdf = await placeTextandQRcode(posVar[0],posVar[1],`${addressArray[0]}`,pdf,`${0}`)
     for (let i = 1; i < addressArray.length; i++) {
@@ -111,15 +111,29 @@ function positionFinder(position,index){
 async function placeTextandQRcode(xPos,yPos,text,pdf,index){
     qrcode= await createQRcodeUrl(text)
     pdf.addImage(qrcode, 'JPEG', xPos+19, yPos, 30, 30)
+    pdf.setFontSize(10)
     pdf.text(xPos, yPos, text)
     pdf.text(xPos+10, yPos+14, index)
     return pdf
 }
 
 async function place3rdMenmonicInfo(pdf,mnemonic){
+  const xPos=35
+  const yPos=90
   qrcode= await createQRcodeUrl(mnemonic)
-  pdf.addImage(qrcode, 'JPEG', 145, 15, 35, 35)
-  pdf.text(150, 15, "3rd Menmonic")
+  pdf.addImage(qrcode, 'JPEG', xPos, yPos, 50, 50)
+  pdf.setFontSize(15)
+  pdf.text(xPos+9, yPos+1, "3rd Menmonic")
+  return pdf
+}
+
+async function place3PublicKeys(pdf,pubkeyArray){
+  const xPos=119
+  const yPos=87
+  qrcode= await createQRcodeUrl(`${pubkeyArray[0]},${pubkeyArray[1]},${pubkeyArray[2]}`)
+  pdf.addImage(qrcode, 'JPEG', xPos, yPos, 60, 60)
+  pdf.setFontSize(15)
+  pdf.text(xPos+16, yPos, "Public Keys")
   return pdf
 }
 
