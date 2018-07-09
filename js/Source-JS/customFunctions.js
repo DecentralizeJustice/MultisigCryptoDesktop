@@ -150,8 +150,8 @@ function parseAddressData(rawdata,transInfo){
   transInfo.amountToSend=(Decimal(transInfo.addressInfo.balance).minus(Decimal(transInfo.feeAmount)))
 };
 
-function getAddress(transInfo,xpubs,addressIndex){
-  xpubkeyArray=(xpubs).split(",")
+function getAddress(transInfo,xpubkeyArray,addressIndex){
+
   pubkeyArray=xpubArrayToPubkeyArray(xpubkeyArray,addressIndex)
   transInfo.addressInfo.address=publicKeyArrayToAddress(pubkeyArray)
   transInfo.addressInfo.pubkeys= pubkeyArray
