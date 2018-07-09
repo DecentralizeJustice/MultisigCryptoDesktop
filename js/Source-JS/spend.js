@@ -40,19 +40,6 @@ async function setupFeeInfo(trans){
   return transstuff
 }
 
-$("#gotoadressinfo").click(function(){
-  $("#gooffline").hide();
-  $("#setuptrans").show();
-});
-
-
-async function getAddressInfo(transInfo){
-
- transInfo=await cust.getAddress(transInfo); 
- let stuff=await cust.getSingleAddressInfo(transInfo.addressInfo.address)
- await cust.parseAddressData(stuff,transInfo)
- cust.setuptransInfo(transInfo) 
-}
 
 //tooltips
 jQuery('[data-toggle="tooltip"]').tooltip();
@@ -65,10 +52,19 @@ $("#Bitcoin").click(function() {
   $("#Singleinfo").show();
 });
 
+$("#gotoadressinfo").click(function(){
+  $("#gooffline").hide();
+  $("#setuptrans").show();
+});
+
+
 $(".submitadressinfo1").click(function() {
     $(".submitadressinfo1").hide();
     $("#loader").show();
-    getAddressInfo(transInfo)
+     //testing
+    $("#btcpubkeys").val("xpub6EVy23JzvYeb1C5k5mSEMw7nQPLv9S29Nbwz8cU9r6rmdrPojDiMBoe4GVnqxtKwrieV9FW4ujusQz3ACFYhCGHcF3cFovW8taJCCjUUsaT,xpub6EVy23JzvYeb1C5k5mSEMw7nQPLv9S29Nbwz8cU9r6rmdrPojDiMBoe4GVnqxtKwrieV9FW4ujusQz3ACFYhCGHcF3cFovW8taJCCjUUsaT,xpub6EVy23JzvYeb1C5k5mSEMw7nQPLv9S29Nbwz8cU9r6rmdrPojDiMBoe4GVnqxtKwrieV9FW4ujusQz3ACFYhCGHcF3cFovW8taJCCjUUsaT")
+    let xpubKeyString=$("#btcpubkeys").val()
+    cust.getAddressInfo(transInfo,xpubKeyString,parseInt($("#index").val()))
 });
 
 

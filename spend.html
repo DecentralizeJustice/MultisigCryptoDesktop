@@ -126,18 +126,20 @@
 <div  class="row text-center justify-content-center" style="padding:5%;margin: 0%;">
 
  <!--Eth-->
-<div class="col-md-5">
-<div id="Ethereum" class="col-8 img-responsive coinpick  mx-auto d-block" style="width: 100%;
-    padding-top: 0%;padding-bottom: 0%;" >
-  <img src="images/eth.svg" alt="Ethereum" style="width: 60%;
-    padding-top: 0%;padding-bottom: 0%; "></div>
+
+<div id="Ethereum" class="col-2   mx-auto d-block" style="width: 100%;">
+  <img src="images/eth.svg" alt="Ethereum" style="width: 100%;">
 </div>
+
 <!--Btc-->
-<div class="col-md-5">
-<div id="Bitcoin" class="col-8 img-responsive coinpick  mx-auto d-block" style="width: 100%;
-    padding-top: 0%;padding-bottom: 0%;" >
-  <img src="images/bitcoin.svg" alt="Bitcoin" style="width: 100%;
-    padding-top: 0%;padding-bottom: 0%; "></div>
+
+<div id="Bitcoin" class="col-3 mx-auto d-block" style="width: 100%;" >
+  <img src="images/bitcoin.svg" alt="Bitcoin" style="width: 100%;">
+</div>
+
+  <!--Ltc-->
+<div id="Litecoin" class="col-3 mx-auto d-block" style="width: 100%;" >
+    <img src="images/litecoin.svg" alt="Litecoin" style="width: 100%;">
 </div>
 
 </div>
@@ -152,14 +154,27 @@
     <div class="row justify-content-center">
           
       <!--Address-->
-      <div class="form-group col-9  row row-eq-height">
-        <span class="col-4 offset-4" style="">
-        <label for="1givenxpub">Public keys</label>
-        <textarea class="form-control col-12" id="btcpubkeys" placeholder="" rows="3" style="padding:0;margin: 0;"></textarea>
-        </span>
-        <div class="col-1 my-auto qr" style="padding: 0%;margin: 0%;" data-toggle="modal" data-target="#ModalCenter">
-          <img class="col-12 mx-auto" src="images/qr.svg" alt="Qr Code" style="padding:0;margin-top:22px;width: 50%;height: auto; ">
+      <div class="form-group col-9  row row-eq-height mt-1">
+        
+        <div class="form-group col-4 offset-2">
+          <label for="exampleFormControlSelect1">Address Number</label>
+            <select class="form-control col-8 mx-auto" id="index">
+              <option>0</option><option>1</option>
+              <option>2</option><option>3</option>
+              <option>4</option><option>5</option>
+              <option>6</option><option>7</option>
+              <option>8</option><option>9</option>
+            </select>
+      </div>
+
+        <div class="form-group col-4">          
+          <label for="1givenxpub">Extended Public keys</label>
+          <textarea class="form-control col-12" id="btcpubkeys" placeholder="" rows="3"></textarea>
         </div>
+        <span class="col-1 my-auto qr m-1 p-0">
+          <img class="col-md-12" src="images/qr.svg" alt="Qr Code" style="min-height: 10px;" data-toggle="modal" data-target="#ModalCenter">
+        </span>
+
       </div>
     
       <span class="col-12">

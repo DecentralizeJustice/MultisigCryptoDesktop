@@ -17,7 +17,6 @@ module.exports = {
 	getSingleAddressInfo: getSingleAddressInfo,
 	getCORS: getCORS,
 	parseAddressData: parseAddressData,
-	publickeyToAddress: publickeyToAddress,
 	getByteCount: getByteCount,
 	getByteCountWrapper:getByteCountWrapper,
   testcases: testcases,
@@ -37,6 +36,8 @@ module.exports = {
   createqr:createqr,
   copyToClipboard:copyToClipboard,
   fillDivwithQr:fillDivwithQr,
+  getAddressInfo:getAddressInfo,
+
 };
 
   async function getFeeInfo(trans) {
@@ -48,6 +49,16 @@ module.exports = {
     trans.recommendFees={highfee:feePerByteHigh, midfee:feePerByteMid,lowfee:feePerByteLow}
     return trans
   };
+//quick empty address fix, fix later!!!!! quick fix only
+  async function getAddressInfo(transInfo,xpubKeyString,addressIndex){
+   
+   transInfo=await getAddress(transInfo,xpubKeyString,addressIndex)
+
+   let stuff=await getSingleAddressInfo(transInfo.addressInfo.address)
+   console.log(stuff)
+   await parseAddressData(stuff,transInfo)
+   if (stuff.final_balance!==0){setuptransInfo(transInfo)} 
+}
 
 
  function setupTooltips(fees){
@@ -99,14 +110,6 @@ module.exports = {
 
 };
 
-function getAddress(transInfo){
-  //testing
-  $("#btcpubkeys").val("029d5ea4ef0bbf9adb9cda8ab2eacd5c440f4e36999582e7484f27fef871011c5f,02bdffd977d271c0a72d2c9e563fdab34d94b7f7f9e69f64ca6cc0378bcbb18fa3,02f5c569bf4fd8ebb861507c238e2c2300c152edc2544d068d83e8ce75411a683e")
-  pubkeyArray=($("#btcpubkeys").val()).split(",")    
-  transInfo.addressInfo.address=publickeyToAddress(pubkeyArray)
-  transInfo.addressInfo.pubkeys= pubkeyArray  
-  return transInfo
-};
 
 async function getSingleAddressInfo(adress){
   let request = await getCORS(`https://api.blockcypher.com/v1/btc/test3/addrs/${adress}?unspentOnly=true`)
@@ -147,8 +150,15 @@ function parseAddressData(rawdata,transInfo){
   transInfo.amountToSend=(Decimal(transInfo.addressInfo.balance).minus(Decimal(transInfo.feeAmount)))
 };
 
-function publickeyToAddress(publickeyarray){
+function getAddress(transInfo,xpubs,addressIndex){
+  xpubkeyArray=(xpubs).split(",")
+  pubkeyArray=xpubArrayToPubkeyArray(xpubkeyArray,addressIndex)
+  transInfo.addressInfo.address=publicKeyArrayToAddress(pubkeyArray)
+  transInfo.addressInfo.pubkeys= pubkeyArray
+  return transInfo
+}
 
+function publicKeyArrayToAddress(publickeyarray){
   var pubKeys = [publickeyarray[0],publickeyarray[1],
   publickeyarray[2]].map(function (hex) { return Buffer.from(hex, 'hex') })
   var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
@@ -160,6 +170,19 @@ function publickeyToAddress(publickeyarray){
   return P2SHaddress
 }
 
+ function xpubArrayToPubkeyArray(xpubkeyArray,index){
+  let pubKeyArry= [xpubkeyArray[0],xpubkeyArray[1],
+    xpubkeyArray[2]].map((element) => xpubToPubkey(element,index))
+
+  return pubKeyArry
+
+}
+
+function xpubToPubkey(xpub,index){
+    let node = bitcoin.HDNode.fromBase58(xpub)
+    let pubkey = node.derive(index).getPublicKeyBuffer()
+    return pubkey
+}
 //get transactions size from https://gist.github.com/dabura667/1bb77d63d38bfd99a0ce453db74e0115
 // Usage:
 // getByteCount({'MULTISIG-P2SH:2-4':45},{'P2PKH':1}) Means "45 inputs of P2SH Multisig and 1 output of P2PKH"
