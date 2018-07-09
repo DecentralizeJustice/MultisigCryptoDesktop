@@ -55,7 +55,6 @@ module.exports = {
    transInfo=await getAddress(transInfo,xpubKeyString,addressIndex)
 
    let stuff=await getSingleAddressInfo(transInfo.addressInfo.address)
-   console.log(stuff)
    await parseAddressData(stuff,transInfo)
    if (stuff.final_balance!==0){setuptransInfo(transInfo)} 
 }
@@ -161,12 +160,11 @@ function getAddress(transInfo,xpubs,addressIndex){
 function publicKeyArrayToAddress(publickeyarray){
   var pubKeys = [publickeyarray[0],publickeyarray[1],
   publickeyarray[2]].map(function (hex) { return Buffer.from(hex, 'hex') })
-  var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
-  var witnessScriptHash = bitcoin.crypto.sha256(witnessScript)
-  var redeemScript = bitcoin.script.witnessScriptHash.output.encode(witnessScriptHash)
-  var redeemScriptHash = bitcoin.crypto.hash160(redeemScript)
-  var scriptPubKey = bitcoin.script.scriptHash.output.encode(redeemScriptHash)
-  var P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, bitcoin.networks.testnet)
+  let witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
+  let redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
+  let scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
+  let P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, bitcoin.networks.testnet)
+
   return P2SHaddress
 }
 

@@ -48,11 +48,13 @@ function xpubToPubkey(xpub,index){
 
 function createSingleAddress(pubKeys,network){
     let networkMap = new Map()
-    networkMap.set("bitcoin", bitcoin.networks.testnet)
-    let witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
-    let redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
-    let scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
-    let P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, networkMap.network )
+    networkMap.set("Bitcoin", bitcoin.networks.testnet)
+    var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
+    var witnessScriptHash = bitcoin.crypto.sha256(witnessScript)
+    var redeemScript = bitcoin.script.witnessScriptHash.output.encode(witnessScriptHash)
+    var redeemScriptHash = bitcoin.crypto.hash160(redeemScript)
+    var scriptPubKey = bitcoin.script.scriptHash.output.encode(redeemScriptHash)
+    var P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, networkMap.get(network)) 
     return P2SHaddress
 }
 
