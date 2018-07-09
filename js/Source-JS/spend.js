@@ -62,7 +62,7 @@ $(".submitadressinfo1").click(function() {
     $(".submitadressinfo1").hide();
     $("#loader").show();
      //testing
-    //$("#btcpubkeys").val("xpub6F1EavjrmsGdDNs7kcXVXc2CdDb3rkFNvgV3M5LJrQBvJ247MP1KuAVwmXwLFRDxeeHBz1cfayt74nvs2rvDUtd7EpdS14sPEaWbmHbMK7n,xpub6FF1XH67SZunxrHbAd3dyu8mcoAXHoFF1QwXmapmw6kTdxTwpA8AFAJTvFQJdXiQ6T3TdnGPXi68XDW8bKJLFDWPyTNtWeLfs4bA9LV5Pz7,xpub6DdfJh1xDfVpgtCohdudi4k7ce9FW9A2N9HTLFe3XzHMZdQ5Y5rVXpEPJUhNZNdYUacwiXmrdFAjveXNVNmV5MUupPYtYrMcbg8pQNDLLtU")
+    $("#btcpubkeys").val("xpub6F1EavjrmsGdDNs7kcXVXc2CdDb3rkFNvgV3M5LJrQBvJ247MP1KuAVwmXwLFRDxeeHBz1cfayt74nvs2rvDUtd7EpdS14sPEaWbmHbMK7n,xpub6FF1XH67SZunxrHbAd3dyu8mcoAXHoFF1QwXmapmw6kTdxTwpA8AFAJTvFQJdXiQ6T3TdnGPXi68XDW8bKJLFDWPyTNtWeLfs4bA9LV5Pz7,xpub6DdfJh1xDfVpgtCohdudi4k7ce9FW9A2N9HTLFe3XzHMZdQ5Y5rVXpEPJUhNZNdYUacwiXmrdFAjveXNVNmV5MUupPYtYrMcbg8pQNDLLtU")
     let xpubKeyString=$("#btcpubkeys").val()
     cust.getAddressInfo(transInfo,xpubKeyString,parseInt($("#index").val()))
 });

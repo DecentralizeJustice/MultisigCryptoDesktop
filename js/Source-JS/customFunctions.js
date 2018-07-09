@@ -55,6 +55,7 @@ module.exports = {
    transInfo=await getAddress(transInfo,xpubKeyString,addressIndex)
 
    let stuff=await getSingleAddressInfo(transInfo.addressInfo.address)
+   console.log(stuff)
    await parseAddressData(stuff,transInfo)
    if (stuff.final_balance!==0){setuptransInfo(transInfo)} 
 }
