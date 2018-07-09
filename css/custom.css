@@ -37,4 +37,6 @@ nav{
 
 .custombigbox { 
     opacity: .96;
+    background-color: #ffffff;
+    margin-top: 27vh;
 }
