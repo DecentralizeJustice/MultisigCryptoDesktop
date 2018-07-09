@@ -19,10 +19,15 @@ function useCamera(){
 
       Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
-          scanner.start(cameras[0]).catch((err) => {
+          if(cameras[1]){scanner.start(cameras[1]).catch((err) => {
             console.log("Camera Not Allowed")
             jQuery('#ModalCenter').modal('hide');
           })} 
+          else {scanner.start(cameras[0]).catch((err) => {
+            console.log("Camera Not Allowed")
+            jQuery('#ModalCenter').modal('hide');
+          })}
+        } 
           else {
             console.log('No cameras found.');
           }})
