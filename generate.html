@@ -7,6 +7,9 @@
     <title>Multi-Signature Crypto Wallet</title>
     <script src="js/bundles/genKeysbundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="js/bundles/qrCodeBundle.js"></script>
+    <!--qr code video from https://github.com/schmich/instascan-->
+    <script src="js/Source-JS/instascan.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/custom.css">
@@ -34,6 +37,46 @@
         </nav>
 </nav>
 
+
+
+<!-- Qr Modal -->
+<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">QR Code </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body justify-content-center">
+
+      <div class="row col-12" id="methodselection">
+        
+        <div class="col-6 mx-auto justify-content-center">
+          <p class="text-center" >Upload Image</p>
+          <label for="upload">
+            <img  class="col-12" src="images/folder.svg" alt="Upload" style="padding:0;margin: 0; ">
+            <input class="file" type="file" id="upload" style="display:none" >
+          </label>
+        </div>
+        <div class="col-6 mx-auto">
+          <p class="text-center" >Use Camera</p>
+          <img  class="usecamera col-12" src="images/camera.svg" alt="Use Camera" style="padding:0;margin: 0; ">
+        </div>
+        <!--Error reading qr code-->
+        <p class="text-center text-danger d-none mx-auto col-12" id="qrcodereaderror">Error Reading QR Code. Try another photo or method. </p>
+      </div>
+      <div id="camerawindow" style="overflow: hidden; display:none;">
+        <video id="preview" style=""></video>
+
+      </div>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 <div class="h-100">
 <div style="" class="col-7 mx-auto rounded custombigbox p-3">
@@ -84,19 +127,30 @@
   </div>
 
   <div id="generatepdf" class="text-center col-md-12 mx-auto" style="display: none;">
-     <div class="form-group col-6 mx-auto">
-    <label for="1stXpub">1st Public Key</label>
-    <input  class="form-control" id="1stXpub"  placeholder="xpub8777899.....">
-    <label for="2ndXpub">2nd Public Key</label>
-    <input class="form-control" id="2ndXpub" placeholder="xpub8777899.....">
-     <label for="numOfAdresses">Number of Adresses</label>
-    <select class="form-control col-4 mx-auto" id="numOfAdresses">
-      <option>4</option>
-      <option>6</option>
+      <div class="form-group col-12 mx-auto row">
+          <div class="col-md-6">
+              <label for="1stXpub">1st Public Key</label>
+              <input  class="form-control qrplace" id="1stXpub"  placeholder="xpub8777899.....">
+              <img class="col-md-3 qr mx-auto mt-2" src="images/qr.svg" alt="Qr Code" style="min-height: 10px;" data-toggle="modal" data-target="#ModalCenter">
+          </div>
 
-    </select>
-  <button  type="button" class="btn btn-primary mt-3 " id="makeMultiSigPdf" >Submit</button>
-  </div>
+          <div class="col-md-6">
+              <label for="2ndXpub">2nd Public Key</label>
+              <input class="form-control qrplace" id="2ndXpub" placeholder="xpub8777899.....">
+                 <img class="col-md-3 qr mx-auto mt-2" src="images/qr1.svg" alt="Qr Code" style="min-height: 10px;" data-toggle="modal" data-target="#ModalCenter">
+          </div>
+
+          <div class="col-md-6 mx-auto mt-3">
+               <label for="numOfAdresses">Number of Adresses</label>
+              <select class="form-control col-4 mx-auto" id="numOfAdresses">
+                <option>4</option>
+                <option>6</option>
+              </select>
+          </div>
+        <div class="w-100">
+            <button  type="button" class="btn btn-primary mt-3 mx-auto" id="makeMultiSigPdf" >Submit</button>
+        </div>
+      </div>
 
 
 
