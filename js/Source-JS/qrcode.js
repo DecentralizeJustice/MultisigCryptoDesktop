@@ -8,7 +8,7 @@ function useCamera(){
   
   var scanner = new Instascan.Scanner({ video: document.getElementById('preview'),backgroundScan: false,scanPeriod: 3 });
       scanner.addListener('scan', function (content) {
-        divtoaddtextto.value=content;
+        divtoaddtextto.val(content)
         scanner.stop();
         $("#qrcodereaderror").addClass("d-none");
         $("#qrcodereaderror").removeClass("d-inline");
@@ -50,8 +50,9 @@ $( ".file" ).change(function() {
 let divtoaddtextto
 
 function store(stuff){
-  divtoaddtextto= $(stuff).parent().find(".form-control")[0];
-};
+  divtoaddtextto= $(stuff).parent().find(".qrplace")
+
+}
 
 jQuery('#ModalCenter').on('hidden.bs.modal', function () {
   $("#qrcodereaderror").addClass("d-none");
@@ -69,7 +70,7 @@ function openQRCamera(node) {
       if(error) {
         $("#qrcodereaderror").addClass("d-inline")
       }
-       divtoaddtextto.value=results.result
+       divtoaddtextto.val(results.result)
        jQuery('#ModalCenter').modal('hide');
     }
     qr.decode(reader.result);
