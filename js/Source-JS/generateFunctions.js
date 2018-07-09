@@ -141,12 +141,12 @@ async function place3PublicKeys(pdf,pubkeyArray){
   pdf.setFontSize(12)
   pdf.text(xPos+11, yPos, "0 XPub")
   pdf.text(xPos+61, yPos, "1 XPub")
-  pdf.text(xPos+36, yPos+40, "2 XPub")
+  pdf.text(xPos+36g, yPos+40, "2 XPub")
   return pdf
 }
 
 async function createQRcodeUrl(qrCodeInfo){
-   let urlCode=await QRCode.toDataURL(qrCodeInfo)
+   const urlCode=await QRCode.toDataURL(qrCodeInfo)
    return  urlCode
 }
 

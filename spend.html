@@ -61,18 +61,18 @@
       </div>
       <div class="modal-body justify-content-center">
 
-      <div class="row col-10 offset-1 " id="methodselection">
+      <div class="row col-12" id="methodselection">
         
-        <div class="col-5 mr-auto">
+        <div class="col-6 mx-auto justify-content-center">
           <p class="text-center" >Upload Image</p>
           <label for="upload">
-            <img  class="mx-auto" src="images/folder.svg" alt="Upload" style="padding:0;margin: 0; ">
+            <img  class="col-12" src="images/folder.svg" alt="Upload" style="padding:0;margin: 0; ">
             <input class="file" type="file" id="upload" style="display:none" >
           </label>
         </div>
-        <div class="col-5 ml-auto">
+        <div class="col-6 mx-auto">
           <p class="text-center" >Use Camera</p>
-          <img  class="mx-auto usecamera" src="images/camera.svg" alt="Use Camera" style="padding:0;margin: 0; ">
+          <img  class="usecamera col-12" src="images/camera.svg" alt="Use Camera" style="padding:0;margin: 0; ">
         </div>
         <!--Error reading qr code-->
         <p class="text-center text-danger d-none mx-auto col-12" id="qrcodereaderror">Error Reading QR Code. Try another photo or method. </p>
@@ -148,9 +148,9 @@
     <div class="row justify-content-center">
           
       <!--Address-->
-      <div class="form-group col-9  row row-eq-height mt-1">
+      <div class="form-group  row mt-3 ">
         
-        <div class="form-group col-4 offset-2">
+        <div class="form-group col-3 mt-2">
           <label for="exampleFormControlSelect1">Address Number</label>
             <select class="form-control col-8 mx-auto" id="index">
               <option>0</option><option>1</option>
@@ -161,14 +161,37 @@
             </select>
       </div>
 
-        <div class="form-group col-4">          
-          <label for="1givenxpub">Extended Public keys</label>
-          <textarea class="form-control col-12 qrplace" id="btcpubkeys" placeholder="" rows="3"></textarea>
+        <div class="form-group col-3 row">  
+          <div class="col-md-12 row mt-2" >
+            <div class="col-md-12">       
+              <label for="1givenxpub"> 1st Public Key</label>
+              <textarea class="form-control col-md-12 qrplace " id="btcpubkeys" placeholder="" rows="1"></textarea>
+            </div>  
+            <img class="col-md-5 qr h-50 mx-auto" src="images/qr.svg" alt="Qr Code" style="min-height: 10px;" data-toggle="modal" data-target="#ModalCenter">
+          </div>
+        </div>
 
-      </div>
-        <span class="col-1 my-auto qr m-1 p-0">
-          <img class="col-md-12" src="images/qr.svg" alt="Qr Code" style="min-height: 10px;" data-toggle="modal" data-target="#ModalCenter">
-        </span>
+
+        <div class="form-group col-3 row">  
+          <div class="col-md-12 row mt-2" >
+            <div class="col-md-12">       
+              <label for="1givenxpub"> 2nd Public Key</label>
+              <textarea class="form-control col-md-12 qrplace " id="btcpubkeys" placeholder="" rows="1"></textarea>
+            </div>  
+            <img class="col-md-5 qr h-50 mx-auto" src="images/qr.svg" alt="Qr Code" style="min-height: 10px;" data-toggle="modal" data-target="#ModalCenter">
+          </div>
+        </div>
+
+
+        <div class="form-group col-3 row">  
+          <div class="col-md-12 row mt-2" >
+            <div class="col-md-12">       
+              <label for="1givenxpub"> 3rd Public Key</label>
+              <textarea class="form-control col-md-12 qrplace " id="btcpubkeys" placeholder="" rows="1"></textarea>
+            </div>  
+            <img class="col-md-5 qr h-50 mx-auto" src="images/qr.svg" alt="Qr Code" style="min-height: 10px;" data-toggle="modal" data-target="#ModalCenter">
+          </div>
+        </div>
 
       </div>
     
