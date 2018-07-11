@@ -3,7 +3,7 @@
 </a>
 
 
-# Sponsors             
+# [Sponsors](https://github.com/DecentralizeJustice/MultiSigCrypto#sponsors-1)             
 
 Multi-Sig-Crypto is an open source project by Decentralized Justice made possible by these wonderful supporters:
 <br>
