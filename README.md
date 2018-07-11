@@ -9,10 +9,9 @@ Multi-Sig-Crypto is an open source project by Decentralized Justice made possibl
 <br>
 
 <div style="text-align: center;">
-<img src="readMeArt/art/justis.png" width="15%" height="auto">
-<p style="margin: auto;">Justis Allen</p>
+<img src="readMeArt/art/sponsors.png" width="20%" height="auto">
 </div>
-g
+
 
 # Multi-Sig-Crypto            
 
