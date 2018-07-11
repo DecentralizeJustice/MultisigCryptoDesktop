@@ -38,6 +38,7 @@ $("#genphrase").click(function() {
     let memonicStuff=funcLib.genMenmonic(phraseNum,choiceArray[0])
     $(".memphrase").html(memonicStuff[0])
     $(".xpub").html(memonicStuff[1])
+    funcLib.addQrCodeToPage('qrmemoniccode',memonicStuff[0])
     funcLib.addQrCodeToPage('canvas',memonicStuff[1])
 })
 

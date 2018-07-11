@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Multi-Signature Crypto Wallet</title>
-    <script src="js/bundles/genKeysbundle.js"></script>
+    <script src="js/bundles/genstuffBundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="js/bundles/qrCodeBundle.js"></script>
     <!--qr code video from https://github.com/schmich/instascan-->
@@ -113,16 +113,28 @@
     </div>
 
     <div id="genJustmem" class="text-center col-md-12 mx-auto" style="display: none;">
-        <p class="h3">Mnemonic Phrase</p>
-        <p class="memphrase h4"></p>
+      <p class="h3">Mnemonic Phrase</p>
+      <div class="row">
+          <div class="col-12 my-auto col-md-6">
+          <p class="memphrase h4"></p>
+          </div>
+           <div class="col-12 col-md-6" style="">
+              <canvas id="qrmemoniccode"></canvas>
+          </div>
+        </div>
+
+        
+
+
         <p class="h3 text-center" style="margin-top: 3%;">BIP32 Extended Public Key</p>
         <div class="row">
-          <div class="col-12 my-auto col-md-6">
-          <p class="xpub h6 text-center col-12 mx-auto " style="word-wrap: break-word;text-align: center;"></p>
-          </div>
           <div class="col-12 col-md-6" style="">
               <canvas id="canvas"></canvas>
           </div>
+          <div class="col-12 my-auto col-md-6">
+          <p class="xpub h6 text-center col-12 mx-auto " style="word-wrap: break-word;text-align: center;"></p>
+          </div>
+          
         </div>
   </div>
 
