@@ -12,7 +12,7 @@ Multi-Sig-Crypto is an open source project by Decentralized Justice made possibl
 <img src="readMeArt/art/justis.png" width="15%" height="auto">
 <p style="margin: auto;">Justis Allen</p>
 </div>
-
+g
 
 # Multi-Sig-Crypto            
 
@@ -41,4 +41,4 @@ If you have any general questions open up an issue on our github, make a post on
 
 ## Sponsors              
 - Justis Allen  
- Critical Resistance organizer, minimalist, runner, and barefoot and music enthusiast
+ [Critical Resistance](http://criticalresistance.org/) organizer, minimalist, runner, and barefoot and music enthusiast
