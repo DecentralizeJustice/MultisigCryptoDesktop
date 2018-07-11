@@ -7,12 +7,12 @@
 
 Multi-Sig-Crypto is an open source project by Decentralized Justice made possible by these wonderful supporters:
 <br>
-<div style="">
+
 <div style="text-align: center;">
 <img src="readMeArt/art/justis.png" width="15%" height="auto">
 <p style="margin: auto;">Justis Allen</p>
 </div>
-</div>
+
 
 # Multi-Sig-Crypto            
 
