@@ -2,6 +2,16 @@
   <img src="readMeArt/art/bannerlogo.png" width="100%" height="300">
 </a>
 
+<h1 align="center">Sponsors</h1>
+
+Multi-Sig-Crypto is an open source project by Decentralized Justice made possible by these wonderful supporters:
+<br>
+<div style="">
+<div style="text-align: center;">
+<img src="readMeArt/art/justis.png" width="15%" height="auto">
+<p style="margin: auto;">[Justis Allen](#sponsors)</p>
+</div>
+</div>
 
 # Multi-Sig-Crypto            
 
@@ -27,3 +37,6 @@ Matt creates his keys on several devices, and this method is so secure that he c
 ## Open Source Community 
 Multi-Sig-Crypto aims to foster a community that is open, welcoming, and easy to join. MSC hopes to be the change that we want to see in the crypto space. If you have any questions about why we did something or a more technical aspect, checkout our wiki.
 If you have any general questions open up an issue on our github, make a post on our reddit, or shoot us a email @.... All engagement is appreciated and valued.
+##Sponsors 
+- Justis Allen  
+ Critical Resistance organizer, minimalist, runner, and barefoot and music enthusiast
