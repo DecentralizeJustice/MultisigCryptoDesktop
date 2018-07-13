@@ -62,9 +62,10 @@ $(".submitadressinfo1").click(function() {
     $(".submitadressinfo1").hide();
     $("#loader").show();
      //testing
-    $("#0pubkey").val("xpub6F1EavjrmsGdDNs7kcXVXc2CdDb3rkFNvgV3M5LJrQBvJ247MP1KuAVwmXwLFRDxeeHBz1cfayt74nvs2rvDUtd7EpdS14sPEaWbmHbMK7n")
-    $("#1pubkey").val("xpub6FF1XH67SZunxrHbAd3dyu8mcoAXHoFF1QwXmapmw6kTdxTwpA8AFAJTvFQJdXiQ6T3TdnGPXi68XDW8bKJLFDWPyTNtWeLfs4bA9LV5Pz7")
-    $("#2pubkey").val("xpub6DdfJh1xDfVpgtCohdudi4k7ce9FW9A2N9HTLFe3XzHMZdQ5Y5rVXpEPJUhNZNdYUacwiXmrdFAjveXNVNmV5MUupPYtYrMcbg8pQNDLLtU")
+
+    $("#0pubkey").val("xpub6ESrUEbUAZ2dtXxoFqGjgS5pde3hyUoeLNYvz2Q2b2eMHrGVwLrCAu39kMTNn6nNEHpz5B59Ae6pEVg2YPTdHk9MLUkuwGium9kUDj6uoVn")
+    $("#1pubkey").val("xpub6EhD7PPnFCFUPXXY43Cxd9M7mgn4sewJ5yuDQ32Yn1h28rvEZkvH6zaoZ3HeLYtDDdvNwSfS6cYP5ypMAhLsa672mX9nP555bjBefQ5PahR")
+    $("#2pubkey").val("xpub6EYuazUxjau1KQEWygQZ18h7wiifQ8czPo3vdFPPr63GExw5EEMdyGbftTFcJiwavgRi8pokaqYWndas2jYzfgYJ5iazsy888Wom2KQ3Dhx")
 
 
     //let xpubKeyString=$("#0pubkey").val()

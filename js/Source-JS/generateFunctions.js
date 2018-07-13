@@ -16,13 +16,10 @@ addQrCodeToPage:addQrCodeToPage,
 }
 
 //Random Numbers from https://www.npmjs.com/package/secure-random
-function rng () { return secureRandom(32, {type: 'Buffer'}) }
 
-function genMenmonic(phraseLenght,coin){
-    let numMap = new Map()
-    numMap.set(12, 16);numMap.set(15, 20);numMap.set(18, 24);
-    numMap.set(21, 28);numMap.set(24, 32)
-    let length=numMap.get(phraseLenght)
+
+function genMenmonic(coin){
+    let length=32
     let mnemonic = bip39.entropyToMnemonic(secureRandom(length, {type: 'Array'}))
     let seed = bip39.mnemonicToSeed(mnemonic)
     let node = bitcoin.HDNode.fromSeedBuffer(seed)
@@ -78,7 +75,9 @@ async function createPDF(addressArray,mnemonic,pubkeyArray){
     let pdf = new jsPDF()
     pdf.addImage(imgData, 'JPEG', 05, 05, 120, 50)
     pdf = await addMultisigdata(pdf,addressArray)
+    
     pdf = await place3rdMenmonicInfo(pdf,mnemonic)
+
     pdf = await place3PublicKeys(pdf,pubkeyArray)
     pdf.save('multisigAddresses.pdf')
 
@@ -133,7 +132,7 @@ async function place3PublicKeys(pdf,pubkeyArray){
   const xPos=110
   const yPos=60
   pubKey0= await createQRcodeUrl(`${pubkeyArray[0]}`)
-  pubKey1= await createQRcodeUrl(`${pubkeyArray[1]},`)
+  pubKey1= await createQRcodeUrl(`${pubkeyArray[1]}`)
   pubKey2= await createQRcodeUrl(`${pubkeyArray[2]}`)
   pdf.addImage(pubKey0, 'JPEG', xPos, yPos, 35, 35)
   pdf.addImage(pubKey1, 'JPEG', xPos+50, yPos, 35, 35)

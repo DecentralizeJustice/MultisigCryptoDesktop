@@ -446,7 +446,7 @@ function byteup(proposed,transInfo){
 
 function confirmSimpleTrans(transaction){
   let btcAmount=satoshiToBtc(transaction.amountToSend);
-  let btcSendAddress= "adfaa235435wtvv"
+  let btcSendAddress= "2NB6DZ9ZPdMHPCcznLqPZ5ApUnh9Z2sbPP4"
   let feeInSatoshi=transaction.feeAmount/transaction.byteSize
   $("#sendInfo").html(`${btcAmount} BTC`)
   $("#sendToWhichAdressInfo").html(`${btcSendAddress}`)
@@ -500,7 +500,7 @@ function signTransaction(key,transaction,bitcoinjsTransaction){
     }
 function confirmDoubleTrans(transaction){
   let mainBtcAmount=satoshiToBtc(transaction.amountToSend)
-  let mainSendAddress="adfaa235435wtvv"
+  let mainSendAddress="2NB6DZ9ZPdMHPCcznLqPZ5ApUnh9Z2sbPP4"
   let changeBtcAmount=satoshiToBtc(transaction.changeAmount)
   let changeSendAddress="fdaafaafdafadaf"
   let feeInSatoshi=transaction.feeAmount/transaction.byteSize

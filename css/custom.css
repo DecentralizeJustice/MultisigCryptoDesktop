@@ -8,17 +8,16 @@
     color: white;
 }
 html{
- height: 100%;
- overflow: hidden;
+
 }
 
 body{
 
     /* This image will be displayed fullscreen */
-    background:url('../images/backgroundImage.jpeg') no-repeat center center;
+    background:url('../images/background.png') no-repeat center center;
 
     /* Ensure the html element always takes up the full height of the browser window */
-    min-height:100%;
+    min-height:100vh;
 
     /* The Magic */
     background-size:cover;
