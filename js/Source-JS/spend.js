@@ -36,7 +36,7 @@ setupFeeInfo(transInfo).then(newtrans => transInfo=newtrans)
 async function setupFeeInfo(trans){
   let transstuff =   await cust.getFeeInfo(trans)
   cust.setupTooltips(transstuff.recommendFees)
-  cust.setUpSlider(transstuff.recommendFees,keyboardSlider)
+  cust.setUpSlider(transstuff.recommendFees,keyboardSlider,transstuff)
   return transstuff
 }
 

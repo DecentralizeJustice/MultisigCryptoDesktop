@@ -73,7 +73,7 @@ module.exports = {
 	}};
 
 
- function setUpSlider(feeIntel,keyboardSlider){
+ function setUpSlider(feeIntel,keyboardSlider,transInfo){
 
 
  noUiSlider.create(keyboardSlider, {
@@ -105,7 +105,7 @@ module.exports = {
     }
   })
     keyboardSlider.noUiSlider.on('end.one', function(){
-  		sliderChangeManual(); 
+  		sliderChangeManual(transInfo); 
 	});
 
 };
