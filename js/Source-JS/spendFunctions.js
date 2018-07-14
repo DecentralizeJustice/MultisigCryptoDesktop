@@ -54,9 +54,7 @@ module.exports = {
   async function getAddressInfo(transInfo,xpubKeyString,addressIndex){
    
    transInfo=await getAddress(transInfo,xpubKeyString,addressIndex)
-
    let stuff=await getSingleAddressInfo(transInfo.addressInfo.address)
-   console.log(transInfo)
    await parseAddressData(stuff,transInfo)
    if (stuff.final_balance!==0){setuptransInfo(transInfo)} 
 }
@@ -449,7 +447,7 @@ function byteup(proposed,transInfo){
 
 function confirmSimpleTrans(transaction){
   let btcAmount=satoshiToBtc(transaction.amountToSend);
-  let btcSendAddress= "mqgSLgUyDSwPG387ePKKXSLMXnWKrxDur5"
+  let btcSendAddress= transaction.mainReceivingAddress;
   let feeInSatoshi=transaction.feeAmount/transaction.byteSize
   $("#sendInfo").html(`${btcAmount} BTC`)
   $("#sendToWhichAdressInfo").html(`${btcSendAddress}`)
@@ -469,7 +467,7 @@ function buildTransaction(transaction,txb){
     txb.addInput(transaction.addressInfo.transactions[i][0],transaction.addressInfo.transactions[i][1],null, scriptPubKey);
     }
     
-    txb.addOutput ("mqgSLgUyDSwPG387ePKKXSLMXnWKrxDur5",Decimal(transaction.amountToSend).toNumber());
+    txb.addOutput (transaction.mainReceivingAddress,Decimal(transaction.amountToSend).toNumber());
     if (transaction.advancedOptions && transaction.changeAddress!=""){
       txb.addOutput ("mmC4uVA4nP1EbK1eryxtXQRCkfCXNUhPWh",Decimal(transaction.changeAmount).toNumber());
     }
@@ -486,8 +484,6 @@ function createDefaultTrans(transInfo){
 
 
 function signTransaction(key,transaction,bitcoinjsTransaction){
-    
-    console.log(transaction.addressInfo.pubkeys)
 
     let pubKeys= [
       transaction.addressInfo.pubkeys[0],

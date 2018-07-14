@@ -22,6 +22,7 @@ var transInfo= {
   amountToSend:0,
   feeAmount:0,
   advancedOptions:false,
+  mainReceivingAddress:""
 };
 
 
@@ -61,6 +62,10 @@ $("#gotoadressinfo").click(function(){
 $(".submitadressinfo1").click(function() {
     $(".submitadressinfo1").hide();
     $("#loader").show();
+    //testMat
+    $("#0pubkey").val("tpubDEPTmYGgemYDi5SuR5WzQwJ8c32hgyMMyNFiaaxrYKsQqUbvnmDpyr5wdAdhGRM897t11uTTRADq5DYNuWCGRgM2WjMTru3JaswZ7cbWMgy")
+    $("#1pubkey").val("tpubDEUHJXyEWLe2wjYsYSCRHJBEQ2mJsAiWSXouJjiiYMQvNTJiHEEFp42x3ptDjChdoahWRReLKrHuYUQujDkX8fZpMKhbwXnJqLdp2QD4Ld6")
+    $("#2pubkey").val("tpubDFCVdDeWPAm574otuz2YPkyGQDff5GaN1R6X6NwUVTuECiUJKaQqvSc4DdhgY3PufeiBvaVf5qHEdzqZA4uitKx7JBGwFcABumtw8PRyXgx")
     let xpubKeyString=[$("#0pubkey").val(),$("#1pubkey").val(),$("#2pubkey").val()]
     cust.getAddressInfo(transInfo,xpubKeyString,parseInt($("#index").val()))
 });
@@ -149,6 +154,9 @@ $("#advancedoptions").change(function() {
 });
 
 $("#goToConfirmTrans").click(function(){
+  //testmat
+  $("#adresssend").val("2MwdNvHB7gronsTXzeRZhorQ6KcVLV3C6R3")
+  transInfo.mainReceivingAddress=$("#adresssend").val()
     if (!(transInfo.advancedOptions)){
       cust.confirmSimpleTrans(cust.createDefaultTrans(transInfo))
       }else{
