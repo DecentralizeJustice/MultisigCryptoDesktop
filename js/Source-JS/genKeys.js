@@ -24,9 +24,7 @@ $( ".coinPick" ).click(function() {
 $("#genphrase").click(function() {
     $( "#pdfOrMem" ).fadeOut()
     setTimeout(function(){  $("#genJustmem").fadeIn() }, 500)
-    console.log(choiceArray)
     let memonicStuff=funcLib.genMenmonic(choiceArray[0])
-    console.log(memonicStuff)
     $(".memphrase").html(memonicStuff[0])
     $(".xpub").html(memonicStuff[1])
     funcLib.addQrCodeToPage('qrmemoniccode',memonicStuff[0])

@@ -56,6 +56,7 @@ module.exports = {
    transInfo=await getAddress(transInfo,xpubKeyString,addressIndex)
 
    let stuff=await getSingleAddressInfo(transInfo.addressInfo.address)
+   console.log(transInfo)
    await parseAddressData(stuff,transInfo)
    if (stuff.final_balance!==0){setuptransInfo(transInfo)} 
 }
@@ -159,14 +160,14 @@ function getAddress(transInfo,xpubkeyArray,addressIndex){
 }
 
 function publicKeyArrayToAddress(publickeyarray){
-  var pubKeys = [publickeyarray[0],publickeyarray[1],
-  publickeyarray[2]].map(function (hex) { return Buffer.from(hex, 'hex') })
-  let witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
-  let redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
-  let scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
-  let P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, bitcoin.networks.testnet)
 
-  return P2SHaddress
+    var witnessScript = bitcoin.script.multisig.output.encode(3, publickeyarray)
+    var witnessScriptHash = bitcoin.crypto.sha256(witnessScript)
+    var redeemScript = bitcoin.script.witnessScriptHash.output.encode(witnessScriptHash)
+    var redeemScriptHash = bitcoin.crypto.hash160(redeemScript)
+    var scriptPubKey = bitcoin.script.scriptHash.output.encode(redeemScriptHash)
+    var P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, bitcoin.networks.testnet) 
+    return P2SHaddress
 }
 
  function xpubArrayToPubkeyArray(xpubkeyArray,index){
@@ -180,7 +181,7 @@ function publicKeyArrayToAddress(publickeyarray){
 
 
 function xpubToPubkey(xpub,index){
-    let node = bitcoin.HDNode.fromBase58(xpub)
+    let node = bitcoin.HDNode.fromBase58(xpub,bitcoin.networks.testnet)
     let pubkey = node.derive(index).getPublicKeyBuffer()
     return pubkey
 }
@@ -448,7 +449,7 @@ function byteup(proposed,transInfo){
 
 function confirmSimpleTrans(transaction){
   let btcAmount=satoshiToBtc(transaction.amountToSend);
-  let btcSendAddress= "2NB6DZ9ZPdMHPCcznLqPZ5ApUnh9Z2sbPP4"
+  let btcSendAddress= "mqgSLgUyDSwPG387ePKKXSLMXnWKrxDur5"
   let feeInSatoshi=transaction.feeAmount/transaction.byteSize
   $("#sendInfo").html(`${btcAmount} BTC`)
   $("#sendToWhichAdressInfo").html(`${btcSendAddress}`)
@@ -463,7 +464,6 @@ function buildTransaction(transaction,txb){
     ].map(function (hex) { return Buffer.from(hex, 'hex') })
     var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys) // 3 of 3
     var redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
-    
     var scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
     for (let i = 0; i < (transaction.addressInfo.transactions.length-0); i++){
     txb.addInput(transaction.addressInfo.transactions[i][0],transaction.addressInfo.transactions[i][1],null, scriptPubKey);
@@ -486,12 +486,14 @@ function createDefaultTrans(transInfo){
 
 
 function signTransaction(key,transaction,bitcoinjsTransaction){
+    
+    console.log(transaction.addressInfo.pubkeys)
+
     let pubKeys= [
       transaction.addressInfo.pubkeys[0],
       transaction.addressInfo.pubkeys[1],
       transaction.addressInfo.pubkeys[2]
     ].map(function (hex) { return Buffer.from(hex, 'hex') })
-
     var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys) // 3 of 3
     var redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
     var scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
@@ -502,7 +504,7 @@ function signTransaction(key,transaction,bitcoinjsTransaction){
     }
 function confirmDoubleTrans(transaction){
   let mainBtcAmount=satoshiToBtc(transaction.amountToSend)
-  let mainSendAddress="2NB6DZ9ZPdMHPCcznLqPZ5ApUnh9Z2sbPP4"
+  let mainSendAddress="mqgSLgUyDSwPG387ePKKXSLMXnWKrxDur5"
   let changeBtcAmount=satoshiToBtc(transaction.changeAmount)
   let changeSendAddress="fdaafaafdafadaf"
   let feeInSatoshi=transaction.feeAmount/transaction.byteSize
@@ -537,22 +539,16 @@ function fillDivwithQr(txb){
     $("#showLastQrCode").show()
 })}
 
-function menmonictoPrivateKey(mnemonic,index){
+function menmonicToWif(mnemonic,index){
+  let seed = bip39.mnemonicToSeed(mnemonic) 
+  let hdMaster = bitcoin.HDNode.fromSeedBuffer(seed, bitcoin.networks.testnet)
+  let key = hdMaster.derivePath(`m/44'/1'/0'/0/${index}`)
+  return key.keyPair.toWIF()
 
- var seed = bip39.mnemonicToSeed(mnemonic) 
- let xprvString = bitcoin.HDNode.fromSeedBuffer(seed).toBase58();
- console.log(xprvString)
-
-
- 
- //let node = bip32.fromBase58(xpriv)
- 
- //console.log(node.toWIF())
- //let address = bitcoin.HDNode.fromBase58(xpubString).derivePath("0/0")
- //return address
 }
-console.log(menmonictoPrivateKey("story inflict robot time lawn limit boss reform coin clay simple auction lonely napkin fan",1))
 
-
+console.log(menmonicToWif("teach royal mandate mixed elephant situate regret giggle drama canoe pistol wire",0))
+console.log(menmonicToWif("office bounce tray wage witness junk surge saddle display print valley adult",0))
+console.log(menmonicToWif("appear test banner eye color track half top mother disease oblige uphold",0))
 
 

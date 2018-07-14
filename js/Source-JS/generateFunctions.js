@@ -31,27 +31,25 @@ function genMenmonic(coin){
 function returnCorrectPath(coin){
 	let numMap = new Map()
   numMap.set("Bitcoin", "m/44'/1'/0'/0");
-
   let path = numMap.get(coin)
 	return path
 }
 
 
 function xpubToPubkey(xpub,index){
-    let node = bitcoin.HDNode.fromBase58(xpub)
+    let node = bitcoin.HDNode.fromBase58(xpub,bitcoin.networks.testnet)
     let pubkey = node.derive(index).getPublicKeyBuffer()
     return pubkey
 }
 
 function createSingleAddress(pubKeys,network){
-    let networkMap = new Map()
-    networkMap.set("Bitcoin", bitcoin.networks.testnet)
+
     var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys)
     var witnessScriptHash = bitcoin.crypto.sha256(witnessScript)
     var redeemScript = bitcoin.script.witnessScriptHash.output.encode(witnessScriptHash)
     var redeemScriptHash = bitcoin.crypto.hash160(redeemScript)
     var scriptPubKey = bitcoin.script.scriptHash.output.encode(redeemScriptHash)
-    var P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, networkMap.get(network)) 
+    var P2SHaddress = bitcoin.address.fromOutputScript(scriptPubKey, bitcoin.networks.testnet) 
     return P2SHaddress
 }
 

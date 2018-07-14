@@ -179,7 +179,7 @@ $("#startsigs").click(function(){
 
 //first panel
 $("#1stSignaturesubmit").click(function(){
-    $("#agreefirst").val("cTFWphyQSKUp9RNEftrXgbgbiTg49wz4wfhrAzmutigyjxUw4DqD")
+
     let key=$("#agreefirst").val()
     cust.signTransaction(key,transInfo,txb);
     $("#profile").hide();
@@ -193,7 +193,7 @@ $("#2ndSignaturesubmit").click(function(){
   if  ($("#showqrcode").is(':visible')!=true){
     $("#showqrcode").show()
   }else{
-    $("#agreesecond").val("cQtNm3feFWK5hzR78wUtAowA8pqYDVJsdSVnm4b8qDExEmMvfCNs")
+
     let key=$("#agreesecond").val()
     cust.signTransaction(key,transInfo,txb);
     $("#2ndpanelstuff").hide();
@@ -204,9 +204,9 @@ $("#2ndSignaturesubmit").click(function(){
 
 //3rd panel
 $("#3rdSignaturesubmit").click(function(){
-    $("#agreethird").val("cTLCTCWSqoBziY51yHNx1uF2PpEGRZoQHdWsGGpjjmw15YpsFZ9B")
+
     let key =$("#agreethird").val()
-    cust.signTransaction(key,transInfo,txb);//$("#agreethird").val()
+    cust.signTransaction(key,transInfo,txb);
     $("#3rdpanelstuff").hide();
     $("#lastpanelstuff").show();
     $("#sendtomempool").addClass("active");
