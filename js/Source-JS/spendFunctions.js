@@ -5,6 +5,7 @@ const bitcoin = require('bitcoinjs-lib')
 const Decimal = require('decimal.js')
 const $ = require("jquery")
 const QRCode = require('qrcode')
+const bip39 = require('bip39')
 "use strict";
 
 module.exports = {
@@ -55,7 +56,6 @@ module.exports = {
    transInfo=await getAddress(transInfo,xpubKeyString,addressIndex)
 
    let stuff=await getSingleAddressInfo(transInfo.addressInfo.address)
-   console.log(stuff)
    await parseAddressData(stuff,transInfo)
    if (stuff.final_balance!==0){setuptransInfo(transInfo)} 
 }
@@ -170,12 +170,14 @@ function publicKeyArrayToAddress(publickeyarray){
 }
 
  function xpubArrayToPubkeyArray(xpubkeyArray,index){
+
   let pubKeyArry= [xpubkeyArray[0],xpubkeyArray[1],
     xpubkeyArray[2]].map((element) => xpubToPubkey(element,index))
 
   return pubKeyArry
 
 }
+
 
 function xpubToPubkey(xpub,index){
     let node = bitcoin.HDNode.fromBase58(xpub)
@@ -534,6 +536,22 @@ function fillDivwithQr(txb){
     if (error) console.error(error)
     $("#showLastQrCode").show()
 })}
+
+function menmonictoPrivateKey(mnemonic,index){
+
+ var seed = bip39.mnemonicToSeed(mnemonic) 
+ let xprvString = bitcoin.HDNode.fromSeedBuffer(seed).toBase58();
+ console.log(xprvString)
+
+
+ 
+ //let node = bip32.fromBase58(xpriv)
+ 
+ //console.log(node.toWIF())
+ //let address = bitcoin.HDNode.fromBase58(xpubString).derivePath("0/0")
+ //return address
+}
+console.log(menmonictoPrivateKey("story inflict robot time lawn limit boss reform coin clay simple auction lonely napkin fan",1))
 
 
 

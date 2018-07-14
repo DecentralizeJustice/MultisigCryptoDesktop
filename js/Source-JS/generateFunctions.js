@@ -19,10 +19,10 @@ addQrCodeToPage:addQrCodeToPage,
 
 
 function genMenmonic(coin){
-    let length=32
-    let mnemonic = bip39.entropyToMnemonic(secureRandom(length, {type: 'Array'}))
+    let length=16
+    let mnemonic = bip39.entropyToMnemonic(secureRandom(length, {type: 'Buffer'}))
     let seed = bip39.mnemonicToSeed(mnemonic)
-    let node = bitcoin.HDNode.fromSeedBuffer(seed)
+    let node = bitcoin.HDNode.fromSeedBuffer(seed,bitcoin.networks.testnet)
     let path = returnCorrectPath(coin)
     child1 = node.derivePath(path).neutered().toBase58()
     return [mnemonic,child1]
@@ -30,9 +30,9 @@ function genMenmonic(coin){
 
 function returnCorrectPath(coin){
 	let numMap = new Map()
-    numMap.set("Litecoin", "m/44'/2'/0'/0");numMap.set("Bitcoin", "m/44'/0'/0'/0");
-    numMap.set("Ethereum", "m/44'/60'/0'/0");
-    let path = numMap.get(coin)
+  numMap.set("Bitcoin", "m/44'/1'/0'/0");
+
+  let path = numMap.get(coin)
 	return path
 }
 
@@ -136,7 +136,7 @@ async function place3PublicKeys(pdf,pubkeyArray){
   pubKey2= await createQRcodeUrl(`${pubkeyArray[2]}`)
   pdf.addImage(pubKey0, 'JPEG', xPos, yPos, 35, 35)
   pdf.addImage(pubKey1, 'JPEG', xPos+50, yPos, 35, 35)
-  pdf.addImage(pubKey1, 'JPEG', xPos+25, yPos+40, 35, 35)
+  pdf.addImage(pubKey2, 'JPEG', xPos+25, yPos+40, 35, 35)
   pdf.setFontSize(12)
   pdf.text(xPos+11, yPos, "0 XPub")
   pdf.text(xPos+61, yPos, "1 XPub")

@@ -24,7 +24,9 @@ $( ".coinPick" ).click(function() {
 $("#genphrase").click(function() {
     $( "#pdfOrMem" ).fadeOut()
     setTimeout(function(){  $("#genJustmem").fadeIn() }, 500)
+    console.log(choiceArray)
     let memonicStuff=funcLib.genMenmonic(choiceArray[0])
+    console.log(memonicStuff)
     $(".memphrase").html(memonicStuff[0])
     $(".xpub").html(memonicStuff[1])
     funcLib.addQrCodeToPage('qrmemoniccode',memonicStuff[0])
@@ -40,9 +42,6 @@ $("#genpPDF").click(function() {
 $("#makeMultiSigPdf").click(function() {
   $(this).attr("disabled","disabled")
   let numberOfAdresses=$('#numOfAdresses').val()
-  //test stuff
-  $('#1stXpub').val("xpub6EVy23JzvYeb1C5k5mSEMw7nQPLv9S29Nbwz8cU9r6rmdrPojDiMBoe4GVnqxtKwrieV9FW4ujusQz3ACFYhCGHcF3cFovW8taJCCjUUsaT")
-  $('#2ndXpub').val("xpub6EYuazUxjau1KQEWygQZ18h7wiifQ8czPo3vdFPPr63GExw5EEMdyGbftTFcJiwavgRi8pokaqYWndas2jYzfgYJ5iazsy888Wom2KQ3Dhx")
   let pubKeyArray=[$('#1stXpub').val(),$('#2ndXpub').val(),thirdKeyInfo[1]]
   let multiSigAdress=funcLib.createAddressArray(pubKeyArray,numberOfAdresses,choiceArray[0])
   funcLib.createPDF(multiSigAdress,thirdKeyInfo[0],pubKeyArray)

@@ -7,7 +7,7 @@ const QRCode = require('qrcode')
 const noUiSlider = require('nouislider')
 const Decimal = require('decimal.js')
 const wNumb = require("wnumb")
-const cust = require("./customFunctions.js");
+const cust = require("./spendFunctions.js");
 
 
 $( document ).ready(function() {
@@ -61,14 +61,6 @@ $("#gotoadressinfo").click(function(){
 $(".submitadressinfo1").click(function() {
     $(".submitadressinfo1").hide();
     $("#loader").show();
-     //testing
-
-    $("#0pubkey").val("xpub6ESrUEbUAZ2dtXxoFqGjgS5pde3hyUoeLNYvz2Q2b2eMHrGVwLrCAu39kMTNn6nNEHpz5B59Ae6pEVg2YPTdHk9MLUkuwGium9kUDj6uoVn")
-    $("#1pubkey").val("xpub6EhD7PPnFCFUPXXY43Cxd9M7mgn4sewJ5yuDQ32Yn1h28rvEZkvH6zaoZ3HeLYtDDdvNwSfS6cYP5ypMAhLsa672mX9nP555bjBefQ5PahR")
-    $("#2pubkey").val("xpub6EYuazUxjau1KQEWygQZ18h7wiifQ8czPo3vdFPPr63GExw5EEMdyGbftTFcJiwavgRi8pokaqYWndas2jYzfgYJ5iazsy888Wom2KQ3Dhx")
-
-
-    //let xpubKeyString=$("#0pubkey").val()
     let xpubKeyString=[$("#0pubkey").val(),$("#1pubkey").val(),$("#2pubkey").val()]
     cust.getAddressInfo(transInfo,xpubKeyString,parseInt($("#index").val()))
 });
