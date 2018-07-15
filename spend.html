@@ -445,14 +445,32 @@
 
 <div class="text-center" id="profile" style="display: none;">
 
- <p style="padding-top: 3%;" class="h4 ">Please Enter Your Created Private key<p>
-        <div class="form-group col-12 mx-auto">
-            <label for="exampleFormControlTextarea1">Mnemonic Phrase</label>
-            <textarea class="form-control mx-auto col-8" id="memphrasesingle" placeholder="match cat dog house....." rows="3"></textarea>
-          </div>
-          <div class="form-group w-100">
-          <label for="agreefirst">Created Private Key</label>
-          <input  class="form-control w-50 mx-auto" id="agreefirst" placeholder="3b.....">
+ <p style="padding-top: 3%;" class="h4 ">Please Enter Your 1st Private Key Info<p>
+        
+        <div class="form-group col-10 offset-3 row">
+            <div class="col-7 m-0 ">
+                <label for="exampleFormControlTextarea1">Mnemonic Phrase</label>
+                <textarea class="form-control mx-auto col-12 qrplace" id="memphrasesingle" placeholder="match cat dog house....." rows="3"></textarea>
+            </div>
+            <div class="col-2 qr my-auto m-0"  data-toggle="modal" data-target="#ModalCenter">
+                  <img class="col-7 mx-auto my-auto m-0 p-0" src="images/qr.svg" alt="Qr Code" >
+           </div>
+        </div>
+
+
+
+          <div class="form-group col-12 row">
+
+              <div class="col-8 offset-2">
+                 <label for="agreefirst">Private Key</label>
+                 <input  class="form-control col-12 mx-auto qrplace" id="agreefirst" placeholder="3b.....">
+              </div>
+              
+              <div class="col-1 qr my-auto m-0"  data-toggle="modal" data-target="#ModalCenter">
+                      <img class="col-12 mx-auto my-auto m-0 p-0" src="images/qr.svg" alt="Qr Code" >
+               </div>
+
+
           </div>
       
     <button  id="1stSignaturesubmit" type="button" class="btn btn-primary" style="margin-bottom: 2%;">Continue</button>
@@ -460,20 +478,38 @@
 
 
   </div>
+
+
     <div class="text-center" id="2ndpanelstuff" style="display: none;">
 
- <p style="padding-top: 3%;" class="h4 ">Please Enter Your 1st Given Private key<p>
+ <p style="padding-top: 3%;" class="h4 ">Please Enter Your 2nd Private Key Info<p>
           
           
-          <div class="form-group col-8 mx-auto row">
-            <span class="col-9">
-              <label for="">1st Given private Key</label>
-              <input  class="form-control col-6 mx-auto" id="agreesecond" placeholder="Kwu5px54ryLhCev...">
-            </span>
-            <div class="col-1 my-auto qr" style="padding: 0%;margin: 0%;" data-toggle="modal" data-target="#ModalCenter">
-              <img class="col-12 mx-auto" src="images/qr.svg" alt="Qr Code" style="padding:0;margin-top:22px;width: 50%;height: auto; ">
+        <div class="form-group col-10 offset-3 row">
+            <div class="col-7 m-0 ">
+                <label for="exampleFormControlTextarea1">Mnemonic Phrase</label>
+                <textarea class="form-control mx-auto col-12 qrplace" id="memphrase2nd" placeholder="match cat dog house....." rows="3"></textarea>
             </div>
+            <div class="col-2 qr my-auto m-0"  data-toggle="modal" data-target="#ModalCenter">
+                  <img class="col-7 mx-auto my-auto m-0 p-0" src="images/qr.svg" alt="Qr Code" >
+           </div>
+        </div>
+
+
+           <div class="form-group col-12 row">
+
+              <div class="col-8 offset-2">
+                 <label for="agreefirst">Private Key</label>
+                 <input  class="form-control col-12 mx-auto qrplace" id="agreesecond" placeholder="3b.....">
+              </div>
+              
+              <div class="col-1 qr my-auto m-0"  data-toggle="modal" data-target="#ModalCenter">
+                      <img class="col-12 mx-auto my-auto m-0 p-0" src="images/qr.svg" alt="Qr Code" >
+               </div>
+
+
           </div>
+
     <button  id="showqrcode" type="button" class="btn btn-danger" style="margin-bottom: 2%;display: none;">Show QR Code</button>
     <button  id="2ndSignaturesubmit" type="button" class="btn btn-primary" style="margin-bottom: 2%;">Continue</button>
 
@@ -486,17 +522,31 @@
 
       <div class="text-center" id="3rdpanelstuff" style="display: none;">
 
- <p style="padding-top: 3%;" class="h4 ">Please Enter Your 2nd Given Private key<p>
-        <section class="col-8 row mx-auto">
-          <!--Address to send to-->
-          <div class="form-group col-8">
-          <label for="">2nd Given private Key</label>
-          <input  class="form-control w-50 mx-auto" id="agreethird" placeholder="Kwu5px54ryLhCev...">
-          </div>
-             <div class="col-1 my-auto qr" style="padding: 0%;margin: 0%;" data-toggle="modal" data-target="#ModalCenter">
-              <img class="col-12 mx-auto" src="images/qr.svg" alt="Qr Code" style="padding:0;margin-top:22px;width: 50%;height: auto; ">
+ <p style="padding-top: 3%;" class="h4 ">Please Enter Your 3rd Private key<p>
+        <div class="form-group col-10 offset-3 row">
+            <div class="col-7 m-0 ">
+                <label for="exampleFormControlTextarea1">Mnemonic Phrase</label>
+                <textarea class="form-control mx-auto col-12 qrplace" id="memphrase3rd" placeholder="match cat dog house....." rows="3"></textarea>
             </div>
-        </section>
+            <div class="col-2 qr my-auto m-0"  data-toggle="modal" data-target="#ModalCenter">
+                  <img class="col-7 mx-auto my-auto m-0 p-0" src="images/qr.svg" alt="Qr Code" >
+           </div>
+        </div>
+
+
+           <div class="form-group col-12 row">
+
+              <div class="col-8 offset-2">
+                 <label for="agreefirst">Private Key</label>
+                 <input  class="form-control col-12 mx-auto qrplace" id="agreethird" placeholder="3b.....">
+              </div>
+              
+              <div class="col-1 qr my-auto m-0"  data-toggle="modal" data-target="#ModalCenter">
+                      <img class="col-12 mx-auto my-auto m-0 p-0" src="images/qr.svg" alt="Qr Code" >
+               </div>
+
+
+          </div>
       
     <button  id="3rdSignaturesubmit" type="button" class="btn btn-primary" style="margin-bottom: 2%;">Continue</button>
 

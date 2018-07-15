@@ -188,7 +188,7 @@ $("#startsigs").click(function(){
 //first panel
 $("#1stSignaturesubmit").click(function(){
 
-    let key=$("#agreefirst").val()
+    let key=cust.getKeyFromDom($("#memphrasesingle").val(),$("#agreefirst").val())
     cust.signTransaction(key,transInfo,txb);
     $("#profile").hide();
     $("#2ndpanelstuff").show();
@@ -202,7 +202,7 @@ $("#2ndSignaturesubmit").click(function(){
     $("#showqrcode").show()
   }else{
 
-    let key=$("#agreesecond").val()
+    let key=cust.getKeyFromDom($("#memphrase2nd").val(),$("#agreesecond").val())
     cust.signTransaction(key,transInfo,txb);
     $("#2ndpanelstuff").hide();
     $("#3rdpanelstuff").show();
@@ -213,7 +213,7 @@ $("#2ndSignaturesubmit").click(function(){
 //3rd panel
 $("#3rdSignaturesubmit").click(function(){
 
-    let key =$("#agreethird").val()
+    let key=cust.getKeyFromDom($("#memphrase3rd").val(),$("#agreethird").val())
     cust.signTransaction(key,transInfo,txb);
     $("#3rdpanelstuff").hide();
     $("#lastpanelstuff").show();

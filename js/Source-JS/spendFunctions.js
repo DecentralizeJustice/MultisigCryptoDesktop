@@ -38,6 +38,7 @@ module.exports = {
   copyToClipboard:copyToClipboard,
   fillDivwithQr:fillDivwithQr,
   getAddressInfo:getAddressInfo,
+  getKeyFromDom:getKeyFromDom,
 
 };
 
@@ -543,8 +544,13 @@ function menmonicToWif(mnemonic,index){
 
 }
 
-console.log(menmonicToWif("teach royal mandate mixed elephant situate regret giggle drama canoe pistol wire",0))
-console.log(menmonicToWif("office bounce tray wage witness junk surge saddle display print valley adult",0))
-console.log(menmonicToWif("appear test banner eye color track half top mother disease oblige uphold",0))
+function getKeyFromDom(memVal,keyVal){
+  if (memVal===""){
+    return keyVal
+  }
+  else{
+    return menmonicToWif(memVal,0)
+  }
+}
 
 
