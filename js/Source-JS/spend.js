@@ -68,6 +68,8 @@ $(".submitadressinfo1").click(function() {
     $("#2pubkey").val("tpubDFCVdDeWPAm574otuz2YPkyGQDff5GaN1R6X6NwUVTuECiUJKaQqvSc4DdhgY3PufeiBvaVf5qHEdzqZA4uitKx7JBGwFcABumtw8PRyXgx")
     let xpubKeyString=[$("#0pubkey").val(),$("#1pubkey").val(),$("#2pubkey").val()]
     cust.getAddressInfo(transInfo,xpubKeyString,parseInt($("#index").val()))
+    //set change address
+    $("#changeAddress").val(transInfo.changeAddress)
 });
 
 
@@ -84,17 +86,18 @@ $("#sendAmountDiv").click(function(){
 //feebuttons 
 $("#settomidfee").click(function(){
   keyboardSlider.noUiSlider.set(transInfo.recommendFees.midfee);
-  cust.sliderChangeManual(transInfo);
+  transInfo=cust.sliderChangeManual(transInfo);
 });
 
 $("#settolowfee").click(function(){
   keyboardSlider.noUiSlider.set(transInfo.recommendFees.lowfee);
-  cust.sliderChangeManual(transInfo);
+  transInfo=cust.sliderChangeManual(transInfo);
+
 });
 
 $("#settohighfee").click(function(){
   keyboardSlider.noUiSlider.set(transInfo.recommendFees.highfee);
-  cust.sliderChangeManual(transInfo);
+  transInfo=cust.sliderChangeManual(transInfo);
 });
 
 //control the fadeout of alerts
@@ -107,20 +110,22 @@ $("#amount").change(function(){
   let proposed=Object.assign({}, transInfo);
 
   if (Decimal(proposed.changeAmount).eq(0)){
-    proposed.amountToSend=btcToSatoshi((Number($("#amount").val())).toFixed(8));
+    proposed.amountToSend=cust.btcToSatoshi((Number($("#amount").val())).toFixed(8));
     proposed.feeAmount=Decimal(proposed.addressInfo.balance).minus(proposed.amountToSend);
     
     }else{
-    proposed.amountToSend=btcToSatoshi((Number($("#amount").val())).toFixed(8));
+    proposed.amountToSend=cust.btcToSatoshi((Number($("#amount").val())).toFixed(8));
     proposed.changeAmount=Decimal(proposed.addressInfo.balance).minus(proposed.amountToSend).minus(proposed.feeAmount);
   };
   
-  if (testcases(proposed)){
+  if (cust.testcases(proposed)){
     transInfo=proposed;
-    updateverything(transInfo);}
+
+    transInfo=cust.updateverything(transInfo);}
   else{
-   $("#amount").val(satoshiToBtc(transInfo.amountToSend)); 
+   $("#amount").val(cust.satoshiToBtc(transInfo.amountToSend)); 
   };
+
 });
 
 
@@ -154,15 +159,17 @@ $("#advancedoptions").change(function() {
 });
 
 $("#goToConfirmTrans").click(function(){
+  console.log(transInfo.feeAmount/transInfo.byteSize)
   //testmat
   $("#adresssend").val("2MwdNvHB7gronsTXzeRZhorQ6KcVLV3C6R3")
   transInfo.mainReceivingAddress=$("#adresssend").val()
+
     if (!(transInfo.advancedOptions)){
-      cust.confirmSimpleTrans(cust.createDefaultTrans(transInfo))
+      
+      cust.confirmTrans(cust.createDefaultTrans(transInfo))
       }else{
-      if (transInfo.changeAddress==""){
-        cust.confirmSimpleTrans(transInfo)
-      }else{cust.confirmDoubleTrans(transInfo)}}
+        cust.confirmTrans(transInfo)}
+
     $("#setuptrans").hide()
     $("#confirmTrans").show()
 
@@ -181,7 +188,7 @@ $("#startsigs").click(function(){
     $("#profile").show();
     $("#firstsig").addClass("active");
     $("#setup").removeClass("active");
-    cust.buildTransaction(cust.createDefaultTrans(transInfo),txb);
+    cust.buildTransaction(transInfo,txb);
 });
 
 

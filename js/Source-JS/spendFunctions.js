@@ -26,14 +26,14 @@ module.exports = {
   bytsame:bytsame,
   bytdown:bytdown,
   byteup:byteup,
+  btcToSatoshi:btcToSatoshi,
   satoshiToBtc:satoshiToBtc,
   setuptransInfo:setuptransInfo,
   lockWrapper:lockWrapper,
-  confirmSimpleTrans:confirmSimpleTrans,
+  confirmTrans:confirmTrans,
   buildTransaction:buildTransaction,
   createDefaultTrans:createDefaultTrans,
   signTransaction:signTransaction,
-  confirmDoubleTrans:confirmDoubleTrans,
   createqr:createqr,
   copyToClipboard:copyToClipboard,
   fillDivwithQr:fillDivwithQr,
@@ -129,9 +129,6 @@ function parseAddressData(rawdata,transInfo){
   let transactionssum=Decimal(0);
   let transhashindex=[];
   let cleandata=rawdata;
-
-
-
   if (cleandata.balance==0){
       walletIsEmpty();
       return
@@ -154,9 +151,12 @@ function getAddress(transInfo,xpubkeyArray,addressIndex){
 
   pubkeyArray=xpubArrayToPubkeyArray(xpubkeyArray,addressIndex)
   transInfo.addressInfo.address=publicKeyArrayToAddress(pubkeyArray)
+  let changePubkeyArray=xpubArrayToPubkeyArray(xpubkeyArray,addressIndex+1)
+  transInfo.changeAddress=publicKeyArrayToAddress(changePubkeyArray)
   transInfo.addressInfo.pubkeys= pubkeyArray
   return transInfo
 }
+
 
 function publicKeyArrayToAddress(publickeyarray){
 
@@ -173,7 +173,6 @@ function publicKeyArrayToAddress(publickeyarray){
 
   let pubKeyArry= [xpubkeyArray[0],xpubkeyArray[1],
     xpubkeyArray[2]].map((element) => xpubToPubkey(element,index))
-
   return pubKeyArry
 
 }
@@ -296,21 +295,23 @@ function sliderChangeManual(transInfo){
 
   if (testcases(proposed)){
       transInfo=proposed;
-      updateverything(transInfo);}
+      updateverything(transInfo);
+    }
   else{
     keyboard.noUiSlider.set((Decimal(transInfo.feeAmount).div(Decimal(transInfo.byteSize))));
       };
+  return transInfo
 };
 
 function updateverything(transInfo){
   //update amount to send
-
   $("#amount").val(satoshiToBtc(transInfo.amountToSend));
   //update the slider
   keyboard.noUiSlider.set(Math.round(Decimal(transInfo.feeAmount)/Decimal(transInfo.byteSize)));
   if (transInfo.changeAmount!=0){
   let btc=satoshiToBtc(transInfo.changeAmount);
   $("#change").text(Number(btc).toFixed(8).replace(/\.?0+$/,""));}
+  return transInfo
 
 };
 
@@ -446,7 +447,7 @@ function byteup(proposed,transInfo){
   $("#linktoadress").attr("href","https://testnet.smartbit.com.au/address/"+transInfo.addressInfo.address);
 };
 
-function confirmSimpleTrans(transaction){
+function confirmTrans(transaction){
   let btcAmount=satoshiToBtc(transaction.amountToSend);
   let btcSendAddress= transaction.mainReceivingAddress;
   let feeInSatoshi=transaction.feeAmount/transaction.byteSize
@@ -553,4 +554,9 @@ function getKeyFromDom(memVal,keyVal){
   }
 }
 
+function binarySearchAlg(arrayLenght){
+  let splitElement= Math.ceil(arrayLenght/2)
+  return splitElement
+}
+console.log(binarySearchAlg(3))
 
