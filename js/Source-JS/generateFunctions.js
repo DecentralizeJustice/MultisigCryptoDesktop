@@ -13,6 +13,7 @@ genMenmonic:genMenmonic,
 createAddressArray:createAddressArray,
 createPDF:createPDF,
 addQrCodeToPage:addQrCodeToPage,
+genmemPDF:genmemPDF,
 }
 
 //Random Numbers from https://www.npmjs.com/package/secure-random
@@ -148,5 +149,42 @@ async function createQRcodeUrl(qrCodeInfo){
 }
 
 
+async function genmemPDF(memInfo){
+  let pdf = new jsPDF()
+  const logo = pdfImages.logoUrl
+  pdf.addImage(logo, 'JPEG', 05, 05, 120, 50)
+  //let xpub= await createQRcodeUrl(`${memInfo[1]}`)
+  pdf = await addMemtoGenPdf(pdf,memInfo[0])
+  pdf = await addXpubtoGenPdf(pdf,memInfo[1])
+  pdf.save('privateMenmonic.pdf')
+}
 
+async function addMemtoGenPdf(pdf,memInfo){
+  
+  let xPos=80
+  let yPos=70
+  let memmonic= await createQRcodeUrl(`${memInfo}`)
+  pdf.addImage(memmonic, 'JPEG', xPos-40, yPos+10, 50, 50)
+  pdf.setFontSize(20)
+  pdf.text(xPos, yPos, "Mnemonic Phrase")
+  var splitMem = pdf.splitTextToSize(memInfo, 100);
+  pdf.setFontSize(16)
+  pdf.text(xPos+35, yPos+30, splitMem);
+  return pdf
+}
+
+
+async function addXpubtoGenPdf(pdf,memInfo){
+  
+  let xPos=80
+  let yPos=150
+  let memmonic= await createQRcodeUrl(`${memInfo}`)
+  pdf.addImage(memmonic, 'JPEG', xPos+35, yPos+10, 50, 50)
+  pdf.setFontSize(20)
+  pdf.text(xPos, yPos, "Bip 39 Extended Key")
+  var splitMem = pdf.splitTextToSize(memInfo, 100);
+  pdf.setFontSize(13)
+  pdf.text(xPos-40, yPos+20, splitMem);
+  return pdf
+}
 

@@ -8,6 +8,7 @@ const funcLib = require("./generateFunctions.js")
 var choiceArray =[]
 var phraseNum=12
 var thirdKeyInfo=[]
+var memonicStuff
 
 
 domready(function () {
@@ -24,7 +25,7 @@ $( ".coinPick" ).click(function() {
 $("#genphrase").click(function() {
     $( "#pdfOrMem" ).fadeOut()
     setTimeout(function(){  $("#genJustmem").fadeIn() }, 500)
-    let memonicStuff=funcLib.genMenmonic(choiceArray[0])
+    memonicStuff=funcLib.genMenmonic(choiceArray[0])
     $(".memphrase").html(memonicStuff[0])
     $(".xpub").html(memonicStuff[1])
     funcLib.addQrCodeToPage('qrmemoniccode',memonicStuff[0])
@@ -35,6 +36,10 @@ $("#genpPDF").click(function() {
     $( "#pdfOrMem" ).fadeOut()
     setTimeout(function(){  $("#generatepdf").fadeIn() }, 500)
     thirdKeyInfo=funcLib.genMenmonic(choiceArray[0])
+})
+
+$("#generateMempdf").click(function() {
+    funcLib.genmemPDF(memonicStuff)
 })
 
 $("#makeMultiSigPdf").click(function() {
