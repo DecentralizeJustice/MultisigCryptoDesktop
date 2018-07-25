@@ -39,6 +39,7 @@ module.exports = {
   fillDivwithQr:fillDivwithQr,
   getAddressInfo:getAddressInfo,
   getKeyFromDom:getKeyFromDom,
+  findAddress:findAddress,
 
 };
 
@@ -553,10 +554,45 @@ function getKeyFromDom(memVal,keyVal){
     return menmonicToWif(memVal,0)
   }
 }
+function getAddressSimple(xpubkeyArray,addressIndex){
+  const pubkeyArray=xpubArrayToPubkeyArray(xpubkeyArray,addressIndex) 
+  return publicKeyArrayToAddress(pubkeyArray)
+}
 
-function binarySearchAlg(arrayLenght){
+function findMiddle(arrayLenght){
   let splitElement= Math.ceil(arrayLenght/2)
   return splitElement
 }
-console.log(binarySearchAlg(3))
+function doubleInput(number){
+  if (number===0){return 1}else{
+    return number+number
+  }
+}
 
+function sleep(ms){
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
+}
+async function getaddressStatus(address){
+  let info=await getCORS(`https://chain.so/api/v2/address/BTCTEST/${address}`) 
+  if (parseFloat(info.data.balance)>0){return "address we seek"}
+  if (info.data.total_txs===0){return "empty"}
+  return "on to the next"
+  
+}
+
+async function findRange(xpubKeyArray,index){
+  await sleep(250)
+  let addressStatus = await getaddressStatus(getAddressSimple(xpubKeyArray,index))
+  if(addressStatus==="address we seek"){return [index]}
+  if(addressStatus==="empty"){return [index/2,index]}
+  if(addressStatus==="on to the next"){return findRange(xpubKeyArray,doubleInput(index))}
+}
+
+
+async function findAddress(xpubKeyArray){
+  let addressrange = await findRange(xpubKeyArray,0)
+  console.log(addressrange)
+
+}

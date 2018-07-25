@@ -174,8 +174,7 @@ async function addMemtoGenPdf(pdf,memInfo){
 }
 
 
-async function addXpubtoGenPdf(pdf,memInfo){
-  
+async function addXpubtoGenPdf(pdf,memInfo){ 
   let xPos=80
   let yPos=150
   let memmonic= await createQRcodeUrl(`${memInfo}`)

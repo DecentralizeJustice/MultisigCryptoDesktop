@@ -63,11 +63,12 @@ $(".submitadressinfo1").click(function() {
     $(".submitadressinfo1").hide();
     $("#loader").show();
     //testMat
-    $("#0pubkey").val("tpubDEPTmYGgemYDi5SuR5WzQwJ8c32hgyMMyNFiaaxrYKsQqUbvnmDpyr5wdAdhGRM897t11uTTRADq5DYNuWCGRgM2WjMTru3JaswZ7cbWMgy")
-    $("#1pubkey").val("tpubDEUHJXyEWLe2wjYsYSCRHJBEQ2mJsAiWSXouJjiiYMQvNTJiHEEFp42x3ptDjChdoahWRReLKrHuYUQujDkX8fZpMKhbwXnJqLdp2QD4Ld6")
-    $("#2pubkey").val("tpubDFCVdDeWPAm574otuz2YPkyGQDff5GaN1R6X6NwUVTuECiUJKaQqvSc4DdhgY3PufeiBvaVf5qHEdzqZA4uitKx7JBGwFcABumtw8PRyXgx")
-    let xpubKeyString=[$("#0pubkey").val(),$("#1pubkey").val(),$("#2pubkey").val()]
-    cust.getAddressInfo(transInfo,xpubKeyString,parseInt($("#index").val()))
+    $("#0pubkey").val("tpubDEhiyXoKm8MKDkEfSurDKwtT4AcP36YGZM2N87bLSKj9paEQcZFGtMCvBH7DLKb5yu8ER6HQxMaRgMiS84oRECMcCYGJTgDz3gW24pmnHRm")
+    $("#1pubkey").val("tpubDFGvD5Vz6TgszCygwRfd6PJRdkPQmFVrkYGBjeP1feaoyEJSoEVKZiQEYLQCgWeC2FJKRP2v3iF7yCfoAMwWvR2Vdch7Cx5NwjMrqSMqkw2")
+    $("#2pubkey").val("tpubDFevuoPTgsbgEPrvZt1jEoonWVwUxgtFcyi7bK5HQdZz7pf8xSNtaoDsrg1CG2SAc47r2YZtkNCWg4bCsT3oEFJm1BY3UbVjaNtiRVdWe8Z")
+    let xpubKeyArray=[$("#0pubkey").val(),$("#1pubkey").val(),$("#2pubkey").val()]
+    cust.findAddress(xpubKeyArray)
+    //cust.getAddressInfo(transInfo,xpubKeyString,parseInt($("#index").val()))
     //set change address
     $("#changeAddress").val(transInfo.changeAddress)
 });
