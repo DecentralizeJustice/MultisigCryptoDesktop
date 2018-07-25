@@ -582,17 +582,44 @@ async function getaddressStatus(address){
   
 }
 
+ function createArrayfromRange(range){
+  let intArray=[]
+  for (i = range[0]; i < (range[1]+1); i++) { 
+    intArray.push(i)
+  }
+  return intArray
+ }
 async function findRange(xpubKeyArray,index){
-  await sleep(250)
+  await sleep(400)
   let addressStatus = await getaddressStatus(getAddressSimple(xpubKeyArray,index))
   if(addressStatus==="address we seek"){return [index]}
-  if(addressStatus==="empty"){return [index/2,index]}
+  if(addressStatus==="empty"){return [(index/2)+1,index-1]}
   if(addressStatus==="on to the next"){return findRange(xpubKeyArray,doubleInput(index))}
 }
 
+async function checkMiddle(address){
+ let addressInfo= await getCORS(`https://chain.so/api/v2/address/BTCTEST/${address}`) 
+ if (addressInfo.data.balance>0){return "address we seek"}
+ if (addressInfo.data.total_txs===0){return "address not used"}
+ if (addressInfo.data.total_txs>0){return "address used"}
+
+}
+async function binarySearch(xpubKeyArray,addressArray){
+  if (addressArray.length===1){return addressArray[0]}
+  let middleToCheck = findMiddle(addressArray.length)
+  let arrayIndexToCeck = middleToCheck-1
+  let middleResult = await checkMiddle(getAddressSimple(xpubKeyArray,addressArray[arrayIndexToCeck]))
+  await sleep(400)
+  if (middleResult==="address we seek"){return addressArray[arrayIndexToCeck]}
+  if (middleResult==="address not used"){return binarySearch(xpubKeyArray,addressArray.slice(0,arrayIndexToCeck-1))}
+  if (middleResult==="address used"){return binarySearch(xpubKeyArray,addressArray.slice(arrayIndexToCeck))}
+
+}
 
 async function findAddress(xpubKeyArray){
   let addressrange = await findRange(xpubKeyArray,0)
-  console.log(addressrange)
+  let addressArray= createArrayfromRange(addressrange)
+  let address= await binarySearch(xpubKeyArray,addressArray)
+  console.log(address)
 
 }
