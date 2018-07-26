@@ -54,7 +54,7 @@ module.exports = {
   };
 //quick empty address fix, fix later!!!!! quick fix only
   async function getAddressInfo(transInfo,xpubKeyString,addressIndex){
-   
+   addressIndex= await findAddress(xpubKeyString)
    transInfo=await getAddress(transInfo,xpubKeyString,addressIndex)
    let stuff=await getSingleAddressInfo(transInfo.addressInfo.address)
    await parseAddressData(stuff,transInfo)
@@ -112,8 +112,8 @@ module.exports = {
 };
 
 
-async function getSingleAddressInfo(adress){
-  let request = await getCORS(`https://api.blockcypher.com/v1/btc/test3/addrs/${adress}?unspentOnly=true`)
+async function getSingleAddressInfo(address){
+  let request = await getCORS(`https://chain.so/api/v2/address/BTCTEST/${address}`)
   return request
   }
 
@@ -126,26 +126,28 @@ async function getCORS(url) {
 
 
 function parseAddressData(rawdata,transInfo){
-
+  
   let transactionssum=Decimal(0);
-  let transhashindex=[];
-  let cleandata=rawdata;
+  let transhashindex=[]
+  let cleandata=rawdata.data
+  console.log(cleandata)
   if (cleandata.balance==0){
       walletIsEmpty();
       return
   };
-    let numInputs=cleandata.txrefs.length;
+  let numInputs=cleandata.txs.length
   for (let i = 0; i < numInputs; i++) { 
-      transactionssum = Decimal(cleandata.txrefs[i].value).plus(transactionssum);
-      transhashindex.push([cleandata.txrefs[i].tx_hash,cleandata.txrefs[i].tx_output_n,cleandata.txrefs[i].value]) 
+      transactionssum = Decimal(cleandata.txs[i].incoming.value*Math.pow(10,8)).plus(transactionssum)
+      //transhashindex.push([cleandata.txrefs[i].tx_hash,cleandata.txrefs[i].tx_output_n,cleandata.txrefs[i].value]) 
   };
-
+  console.log(transactionssum)
+/*
   transInfo.addressInfo.balance= transactionssum
   transInfo.addressInfo.transactions= transhashindex
   transInfo.addressInfo.numInputs=numInputs
   transInfo.byteSize=Decimal(getByteCountWrapper(numInputs,1))
   transInfo.feeAmount=Decimal(transInfo.byteSize).times(Decimal(transInfo.recommendFees.midfee))
-  transInfo.amountToSend=(Decimal(transInfo.addressInfo.balance).minus(Decimal(transInfo.feeAmount)))
+  transInfo.amountToSend=(Decimal(transInfo.addressInfo.balance).minus(Decimal(transInfo.feeAmount)))*/
 };
 
 function getAddress(transInfo,xpubkeyArray,addressIndex){
@@ -569,10 +571,8 @@ function doubleInput(number){
   }
 }
 
-function sleep(ms){
-    return new Promise(resolve=>{
-        setTimeout(resolve,ms)
-    })
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 async function getaddressStatus(address){
   let info=await getCORS(`https://chain.so/api/v2/address/BTCTEST/${address}`) 
@@ -590,7 +590,7 @@ async function getaddressStatus(address){
   return intArray
  }
 async function findRange(xpubKeyArray,index){
-  await sleep(400)
+  //await sleep(400)
   let addressStatus = await getaddressStatus(getAddressSimple(xpubKeyArray,index))
   if(addressStatus==="address we seek"){return [index]}
   if(addressStatus==="empty"){return [(index/2)+1,index-1]}
@@ -609,7 +609,7 @@ async function binarySearch(xpubKeyArray,addressArray){
   let middleToCheck = findMiddle(addressArray.length)
   let arrayIndexToCeck = middleToCheck-1
   let middleResult = await checkMiddle(getAddressSimple(xpubKeyArray,addressArray[arrayIndexToCeck]))
-  await sleep(400)
+  //await sleep(200)
   if (middleResult==="address we seek"){return addressArray[arrayIndexToCeck]}
   if (middleResult==="address not used"){return binarySearch(xpubKeyArray,addressArray.slice(0,arrayIndexToCeck-1))}
   if (middleResult==="address used"){return binarySearch(xpubKeyArray,addressArray.slice(arrayIndexToCeck))}
@@ -619,7 +619,7 @@ async function binarySearch(xpubKeyArray,addressArray){
 async function findAddress(xpubKeyArray){
   let addressrange = await findRange(xpubKeyArray,0)
   let addressArray= createArrayfromRange(addressrange)
-  let address= await binarySearch(xpubKeyArray,addressArray)
-  console.log(address)
+  let addressIndex= await binarySearch(xpubKeyArray,addressArray)
+  return addressIndex
 
 }

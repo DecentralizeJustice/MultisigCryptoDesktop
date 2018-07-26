@@ -67,8 +67,7 @@ $(".submitadressinfo1").click(function() {
     $("#1pubkey").val("tpubDFGvD5Vz6TgszCygwRfd6PJRdkPQmFVrkYGBjeP1feaoyEJSoEVKZiQEYLQCgWeC2FJKRP2v3iF7yCfoAMwWvR2Vdch7Cx5NwjMrqSMqkw2")
     $("#2pubkey").val("tpubDFevuoPTgsbgEPrvZt1jEoonWVwUxgtFcyi7bK5HQdZz7pf8xSNtaoDsrg1CG2SAc47r2YZtkNCWg4bCsT3oEFJm1BY3UbVjaNtiRVdWe8Z")
     let xpubKeyArray=[$("#0pubkey").val(),$("#1pubkey").val(),$("#2pubkey").val()]
-    cust.findAddress(xpubKeyArray)
-    //cust.getAddressInfo(transInfo,xpubKeyString,parseInt($("#index").val()))
+    cust.getAddressInfo(transInfo,xpubKeyArray,parseInt($("#index").val()))
     //set change address
     $("#changeAddress").val(transInfo.changeAddress)
 });
