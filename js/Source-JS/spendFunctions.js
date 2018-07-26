@@ -130,7 +130,6 @@ function parseAddressData(rawdata,transInfo){
   let transactionssum=Decimal(0);
   let transhashindex=[]
   let cleandata=rawdata.data
-  console.log(cleandata)
   if (cleandata.balance==0){
       walletIsEmpty();
       return
@@ -138,16 +137,16 @@ function parseAddressData(rawdata,transInfo){
   let numInputs=cleandata.txs.length
   for (let i = 0; i < numInputs; i++) { 
       transactionssum = Decimal(cleandata.txs[i].incoming.value*Math.pow(10,8)).plus(transactionssum)
-      //transhashindex.push([cleandata.txrefs[i].tx_hash,cleandata.txrefs[i].tx_output_n,cleandata.txrefs[i].value]) 
+      transhashindex.push([cleandata.txs[i].txid,cleandata.txs[i].incoming.output_no,cleandata.txs[i].incoming.value*Math.pow(10,8)]) 
   };
-  console.log(transactionssum)
-/*
+ 
+
   transInfo.addressInfo.balance= transactionssum
   transInfo.addressInfo.transactions= transhashindex
   transInfo.addressInfo.numInputs=numInputs
   transInfo.byteSize=Decimal(getByteCountWrapper(numInputs,1))
   transInfo.feeAmount=Decimal(transInfo.byteSize).times(Decimal(transInfo.recommendFees.midfee))
-  transInfo.amountToSend=(Decimal(transInfo.addressInfo.balance).minus(Decimal(transInfo.feeAmount)))*/
+  transInfo.amountToSend=(Decimal(transInfo.addressInfo.balance).minus(Decimal(transInfo.feeAmount)))
 };
 
 function getAddress(transInfo,xpubkeyArray,addressIndex){
