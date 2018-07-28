@@ -54,11 +54,13 @@ module.exports = {
   };
 //quick empty address fix, fix later!!!!! quick fix only
   async function getAddressInfo(transInfo,xpubKeyString,addressIndex){
-   addressIndex= await findAddress(xpubKeyString)
+  
+   addressIndex= 13//await findAddress(xpubKeyString)
    transInfo=await getAddress(transInfo,xpubKeyString,addressIndex)
    let stuff=await getSingleAddressInfo(transInfo.addressInfo.address)
    await parseAddressData(stuff,transInfo)
    if (stuff.final_balance!==0){setuptransInfo(transInfo)} 
+
 }
 
 
@@ -74,7 +76,7 @@ module.exports = {
 	}};
 
 
- function setUpSlider(feeIntel,keyboardSlider,transInfo){
+ function setUpSlider(feeIntel,keyboardSlider){
 
 
  noUiSlider.create(keyboardSlider, {
@@ -106,7 +108,7 @@ module.exports = {
     }
   })
     keyboardSlider.noUiSlider.on('end.one', function(){
-  		sliderChangeManual(transInfo); 
+  		//sliderChangeManual(transInfo); 
 	});
 
 };
@@ -138,15 +140,12 @@ function parseAddressData(rawdata,transInfo){
   for (let i = 0; i < numInputs; i++) { 
       transactionssum = Decimal(cleandata.txs[i].incoming.value*Math.pow(10,8)).plus(transactionssum)
       transhashindex.push([cleandata.txs[i].txid,cleandata.txs[i].incoming.output_no,cleandata.txs[i].incoming.value*Math.pow(10,8)]) 
-  };
- 
-
+  }
   transInfo.addressInfo.balance= transactionssum
   transInfo.addressInfo.transactions= transhashindex
   transInfo.addressInfo.numInputs=numInputs
   transInfo.byteSize=Decimal(getByteCountWrapper(numInputs,1))
   transInfo.feeAmount=Decimal(transInfo.byteSize).times(Decimal(transInfo.recommendFees.midfee))
-  transInfo.amountToSend=(Decimal(transInfo.addressInfo.balance).minus(Decimal(transInfo.feeAmount)))
 };
 
 function getAddress(transInfo,xpubkeyArray,addressIndex){
@@ -154,7 +153,7 @@ function getAddress(transInfo,xpubkeyArray,addressIndex){
   pubkeyArray=xpubArrayToPubkeyArray(xpubkeyArray,addressIndex)
   transInfo.addressInfo.address=publicKeyArrayToAddress(pubkeyArray)
   let changePubkeyArray=xpubArrayToPubkeyArray(xpubkeyArray,addressIndex+1)
-  transInfo.changeAddress=publicKeyArrayToAddress(changePubkeyArray)
+  transInfo.outgoingTransactions[1][0]=publicKeyArrayToAddress(changePubkeyArray)
   transInfo.addressInfo.pubkeys= pubkeyArray
   return transInfo
 }
@@ -286,12 +285,14 @@ function sliderChangeManual(transInfo){
   let proposed=Object.assign({}, transInfo);
   proposed.feeAmount= Decimal(proposed.byteSize).times(Decimal(Math.round(newFeeRate)));
   if (proposed.changeAmount==0){
-    proposed.amountToSend=Decimal(proposed.addressInfo.balance).minus(Decimal(proposed.feeAmount));}
+    //proposed.amountToSend=Decimal(proposed.addressInfo.balance).minus(Decimal(proposed.feeAmount));
+  }
   else{
         if ($("#sendAmountDiv").find(".lockedButton").is(":visible")){
-          proposed.changeAmount=Decimal(proposed.addressInfo.balance).minus(Decimal(proposed.amountToSend)).minus(Decimal(proposed.feeAmount));}
+          //proposed.changeAmount=Decimal(proposed.addressInfo.balance).minus(Decimal(proposed.amountToSend)).minus(Decimal(proposed.feeAmount));
+        }
         else{
-          proposed.amountToSend=Decimal(proposed.addressInfo.balance).minus(proposed.feeAmount).minus(proposed.changeAmount);
+          //proposed.amountToSend=Decimal(proposed.addressInfo.balance).minus(proposed.feeAmount).minus(proposed.changeAmount);
       };
   };
 
@@ -445,7 +446,7 @@ function byteup(proposed,transInfo){
   $("#Singleinfo").hide();
   $("#gooffline").show();
   $("#Balance").text(satoshiToBtc(transInfo.addressInfo.balance).toString()+" BTC");
-  $("#amount").val(Decimal(transInfo.amountToSend).times(Decimal(0.00000001)));
+  //$("#amount").val(Decimal(transInfo.amountToSend).times(Decimal(0.00000001)));
   $("#linktoadress").attr("href","https://testnet.smartbit.com.au/address/"+transInfo.addressInfo.address);
 };
 
@@ -464,6 +465,7 @@ function buildTransaction(transaction,txb){
       transaction.addressInfo.pubkeys[1],
       transaction.addressInfo.pubkeys[2]
     ].map(function (hex) { return Buffer.from(hex, 'hex') })
+    
     var witnessScript = bitcoin.script.multisig.output.encode(3, pubKeys) // 3 of 3
     var redeemScript = bitcoin.script.witnessScriptHash.output.encode(bitcoin.crypto.sha256(witnessScript))
     var scriptPubKey = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(redeemScript))
@@ -472,9 +474,6 @@ function buildTransaction(transaction,txb){
     }
     
     txb.addOutput (transaction.mainReceivingAddress,Decimal(transaction.amountToSend).toNumber());
-    if (transaction.advancedOptions && transaction.changeAddress!=""){
-      txb.addOutput ("mmC4uVA4nP1EbK1eryxtXQRCkfCXNUhPWh",Decimal(transaction.changeAmount).toNumber());
-    }
     }
 function createDefaultTrans(transInfo){
   let defaultTrans=Object.assign({}, transInfo)

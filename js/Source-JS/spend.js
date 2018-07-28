@@ -15,14 +15,10 @@ $( document ).ready(function() {
 
 //transacton  global object
 var transInfo= {
-  changeAddress:"",
-  changeAmount:Decimal(0),
   recommendFees:{},
   addressInfo:{},
-  amountToSend:0,
-  feeAmount:0,
   advancedOptions:false,
-  mainReceivingAddress:""
+  outgoingTransactions:[[],[]],
 };
 
 
@@ -35,9 +31,10 @@ var keyboardSlider = document.getElementById('keyboard');
 setupFeeInfo(transInfo).then(newtrans => transInfo=newtrans)
 
 async function setupFeeInfo(trans){
+
   let transstuff =   await cust.getFeeInfo(trans)
   cust.setupTooltips(transstuff.recommendFees)
-  cust.setUpSlider(transstuff.recommendFees,keyboardSlider,transstuff)
+  cust.setUpSlider(transstuff.recommendFees,keyboardSlider)
   return transstuff
 }
 
@@ -56,6 +53,7 @@ $("#Bitcoin").click(function() {
 $("#gotoadressinfo").click(function(){
   $("#gooffline").hide();
   $("#setuptrans").show();
+  
 });
 
 
@@ -68,6 +66,7 @@ $(".submitadressinfo1").click(function() {
     $("#2pubkey").val("tpubDFevuoPTgsbgEPrvZt1jEoonWVwUxgtFcyi7bK5HQdZz7pf8xSNtaoDsrg1CG2SAc47r2YZtkNCWg4bCsT3oEFJm1BY3UbVjaNtiRVdWe8Z")
     let xpubKeyArray=[$("#0pubkey").val(),$("#1pubkey").val(),$("#2pubkey").val()]
     cust.getAddressInfo(transInfo,xpubKeyArray,parseInt($("#index").val()))
+    console.log(transInfo)
     //set change address
     $("#changeAddress").val(transInfo.changeAddress)
 });
@@ -159,13 +158,13 @@ $("#advancedoptions").change(function() {
 });
 
 $("#goToConfirmTrans").click(function(){
-  console.log(transInfo.feeAmount/transInfo.byteSize)
+
   //testmat
-  $("#adresssend").val("2MwdNvHB7gronsTXzeRZhorQ6KcVLV3C6R3")
+  //$("#adresssend").val("2MwdNvHB7gronsTXzeRZhorQ6KcVLV3C6R3")
   transInfo.mainReceivingAddress=$("#adresssend").val()
 
     if (!(transInfo.advancedOptions)){
-      
+        console.log(transInfo)
       cust.confirmTrans(cust.createDefaultTrans(transInfo))
       }else{
         cust.confirmTrans(transInfo)}
