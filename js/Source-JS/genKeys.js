@@ -1,7 +1,7 @@
 
-const $ = require("jquery");
-const domready = require("domready");
-const funcLib = require("./generateFunctions.js")
+const $ = require('jquery');
+const domready = require('domready');
+const funcLib = require('./generateFunctions.js')
 
 
 
@@ -14,48 +14,46 @@ var memonicStuff
 domready(function () {
 
 
-$( ".coinPick" ).click(function() {
-  $( "#selectCoin" ).fadeOut()
+$('.coinPick').click(function () {
+  $('#selectCoin').fadeOut()
   choiceArray.push(this.id)
-  setTimeout(function(){  $("#pdfOrMem").fadeIn() }, 500)
+  setTimeout(function (){  $('#pdfOrMem').fadeIn() }, 500)
 })
 
 
 //Hanldes the mem gen
-$("#genphrase").click(function() {
-    $( "#pdfOrMem" ).fadeOut()
-    setTimeout(function(){  $("#genJustmem").fadeIn() }, 500)
-    memonicStuff=funcLib.genMenmonic(choiceArray[0])
-    $(".memphrase").html(memonicStuff[0])
-    $(".xpub").html(memonicStuff[1])
-    funcLib.addQrCodeToPage('qrmemoniccode',memonicStuff[0])
-    funcLib.addQrCodeToPage('canvas',memonicStuff[1])
+$('#genphrase').click(function () {
+  $('#pdfOrMem').fadeOut()
+  setTimeout(function (){  $('#genJustmem').fadeIn() }, 500)
+  memonicStuff = funcLib.genMenmonic(choiceArray[0])
+  $('.memphrase').html(memonicStuff[0])
+  $('.xpub').html(memonicStuff[1])
+  funcLib.addQrCodeToPage('qrmemoniccode', memonicStuff[0])
+  funcLib.addQrCodeToPage('canvas', memonicStuff[1])
 })
 
-$("#genpPDF").click(function() {
-    $( "#pdfOrMem" ).fadeOut()
-    setTimeout(function(){  $("#generatepdf").fadeIn() }, 500)
-    thirdKeyInfo=funcLib.genMenmonic(choiceArray[0])
+$('#genpPDF').click(function () {
+  $('#pdfOrMem').fadeOut()
+  setTimeout(function (){  $('#generatepdf').fadeIn() }, 500)
+  thirdKeyInfo=funcLib.genMenmonic(choiceArray[0])
 })
 
-$("#generateMempdf").click(function() {
-    funcLib.genmemPDF(memonicStuff)
+$('#generateMempdf').click(function () {
+  funcLib.genmemPDF(memonicStuff)
 })
 
-$("#makeMultiSigPdf").click(function() {
-  $(this).attr("disabled","disabled")
-  let numberOfAdresses=$('#numOfAdresses').val()
-  let pubKeyArray=[$('#1stXpub').val(),$('#2ndXpub').val(),thirdKeyInfo[1]]
-  let multiSigAdress=funcLib.createAddressArray(pubKeyArray,numberOfAdresses,choiceArray[0])
-  funcLib.createPDF(multiSigAdress,thirdKeyInfo[0],pubKeyArray)
-  $(this).removeAttr("disabled");   
+$('#makeMultiSigPdf').click(function () {
+  $(this).attr('disabled', 'disabled')
+  let numberOfAdresses = $('#numOfAdresses').val ()
+  let pubKeyArray = [$('#1stXpub').val (), $('#2ndXpub').val (), thirdKeyInfo[1]]
+  let multiSigAdress = funcLib.createAddressArray(pubKeyArray, numberOfAdresses, choiceArray[0])
+  funcLib.createPDF(multiSigAdress, thirdKeyInfo[0], pubKeyArray)
+  $(this).removeAttr('disabled');   
 })
 
 
 
 });
-
-
 
 
 
