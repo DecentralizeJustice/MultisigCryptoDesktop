@@ -1,21 +1,8 @@
 <template>
-  <b-card no-body>
-    <b-tabs pill card vertical>
-      <b-tab title="Create" active>
-        Tab Contents 1
-      </b-tab>
-      <b-tab title="Spend">
-        Tab Contents 2
-      </b-tab>
-      <b-tab title="Sign">
-        Tab Contents 3
-      </b-tab>
-      <b-tab title="Settings">
-        Tab Contents 3
-      </b-tab>
-    </b-tabs>
-  </b-card>
-
+  <div id="app">
+    <img src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  </div>
 </template>
 
 <script>
