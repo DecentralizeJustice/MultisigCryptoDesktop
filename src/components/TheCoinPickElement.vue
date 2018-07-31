@@ -1,5 +1,5 @@
 <template>
-  <div class="pickCoin">
+  <div>
   <p class="h4" style="padding-top: 2%;"> Select Which Crypto You Want to Store:<p>
   <div  class="row text-center justify-content-center mt-5">
     <!--Btc-->
@@ -20,10 +20,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  name: 'TheCoinPickElement'
 }
 </script>
 

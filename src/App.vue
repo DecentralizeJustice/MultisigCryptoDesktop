@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <HelloWorld/>
+    <TheWallet/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TheWallet from './components/TheWallet.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    TheWallet
   }
 }
 </script>
