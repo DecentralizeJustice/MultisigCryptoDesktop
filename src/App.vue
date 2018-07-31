@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/bitcoin.svg">
-    <HelloWorld msg="Welcome to Your Bitcoin Wallet App"/>
+    <HelloWorld/>
   </div>
 </template>
 
