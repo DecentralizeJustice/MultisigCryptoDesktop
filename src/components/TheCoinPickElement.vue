@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show">
+  <div v-if="show" v-on:click="hide">
     <p class="h2" style="padding-top: 2%;"> Pick Your Crypto:<p>
     <div  class="row text-center justify-content-center mt-5">
       <!--Btc-->
@@ -21,6 +21,11 @@
 <script>
 export default {
   name: 'TheCoinPickElement',
+  methods: {
+    hide: function () {
+      this.$store.dispatch('hide')
+    }
+  },
   computed: {
     show () {
       return this.$store.state.showOpeningCoinPick
