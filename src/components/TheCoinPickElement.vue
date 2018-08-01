@@ -1,6 +1,7 @@
 <template>
-  <div>
-  <p class="h4" style="padding-top: 2%;"> Select Which Crypto You Want to Store:<p>
+  <div >
+
+  <p class="h2" style="padding-top: 2%;"> Pick Your Crypto:<p>
   <div  class="row text-center justify-content-center mt-5">
     <!--Btc-->
     <div id="Ethereum" class="col-3 mx-auto d-block">
@@ -20,7 +21,12 @@
 
 <script>
 export default {
-  name: 'TheCoinPickElement'
+  name: 'TheCoinPickElement',
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  }
 }
 </script>
 

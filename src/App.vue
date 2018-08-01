@@ -1,6 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="col-12">
     <TheWallet/>
+
   </div>
 </template>
 
