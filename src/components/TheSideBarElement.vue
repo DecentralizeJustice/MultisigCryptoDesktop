@@ -1,6 +1,5 @@
 <template>
   <div v-if="!(show)" class="">
-    <p>Whats good Nigga</p>
  </div>
 </template>
 

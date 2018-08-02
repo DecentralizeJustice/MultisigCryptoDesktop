@@ -9,13 +9,13 @@ export const store = new Vuex.Store({
     showOpeningCoinPick: true
   },
   mutations: {
-    hide (state) {
-      state.showOpeningCoinPick = false
+    hide (state, newStatus) {
+      state.showOpeningCoinPick = newStatus
     }
   },
   actions: {
     hide (context, payload) {
-      context.commit('hide')
+      context.commit('hide', payload)
     }
   }
 })
