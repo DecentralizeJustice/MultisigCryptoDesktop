@@ -1,8 +1,7 @@
 <template>
-  <div id="app" class="col-12">
-    <TheWallet/>
-
-  </div>
+  <v-app id="app" >
+     <TheWallet/>
+  </v-app>
 </template>
 
 <script>
@@ -16,19 +15,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
-  body, html
       height: 100vh;
       /* The image used */
-      background-image: url("../src/assets/background.jpg");
-
-      /* Full height */
-      height: 100vh;
-
+      background-image: url("../public/static/background.jpg");
       /* Center and scale the image nicely */
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
 }
+
 </style>

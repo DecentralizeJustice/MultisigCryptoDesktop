@@ -1,3 +1,4 @@
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 <a href="http://www.multisigcrypto.com">
   <img src="readMeArt/art/bannerlogo.png" width="100%" height="300">
 </a>

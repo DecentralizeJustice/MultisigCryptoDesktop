@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    hide (context) {
+    hide (context, payload) {
       context.commit('hide')
     }
   }
