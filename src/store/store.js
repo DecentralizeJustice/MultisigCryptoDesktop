@@ -6,16 +6,25 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    showOpeningCoinPick: true
+    firstTimeSetup: {
+      showOpeningCoinPick: true,
+      openingCoinPicked: 'Bitcoin'
+    }
   },
   mutations: {
-    hide (state, newStatus) {
-      state.showOpeningCoinPick = newStatus
+    update (state, payLoad) {
+      state[payLoad.nest1] = payLoad.status
+    },
+    update2prop (state, payLoad) {
+      state[payLoad.nest1][payLoad.nest2] = payLoad.status
     }
   },
   actions: {
-    hide (context, payload) {
-      context.commit('hide', payload)
+    update (context, payLoad) {
+      context.commit('update', payLoad)
+    },
+    update2prop (context, payLoad) {
+      context.commit('update2prop', payLoad)
     }
   }
 })

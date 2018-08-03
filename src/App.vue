@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #app {
       height: 100vh;
       /* The image used */

@@ -7,7 +7,7 @@
         </v-flex>
         <v-flex v-for="coin in TheBeginnerCoins" :key="coin.name" xs4>
           <v-card color=transparent flat >
-            <img :src="'/static/'+coin.url" :width="coin.width" v-on:click="hide(false)"/>
+            <img :src="'/static/'+coin.url" :width="coin.width" v-on:click="hide(coin.name)"/>
             <p class="h2 white--text m-3">{{coin.name}}</p>
           </v-card>
         </v-flex>
@@ -20,13 +20,16 @@
 export default {
   name: 'TheCoinPickElement',
   methods: {
-    hide: function (payload) {
-      this.$store.dispatch('hide', payload)
+    async hide (coinName) {
+      let payload = {'nest1': 'firstTimeSetup', 'nest2': 'showOpeningCoinPick', 'status': false}
+      let payload2 = {'nest1': 'firstTimeSetup', 'nest2': 'openingCoinPicked', 'status': coinName}
+      await this.$store.dispatch('update2prop', payload2)
+      this.$store.dispatch('update2prop', payload)
     }
   },
   computed: {
     shouldShow () {
-      return this.$store.state.showOpeningCoinPick
+      return this.$store.state.firstTimeSetup.showOpeningCoinPick
     }
   },
   data () {

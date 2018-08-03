@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     show () {
-      return this.$store.state.showOpeningCoinPick
+      return this.$store.state.firstTimeSetup.showOpeningCoinPick
     }
   }
 
