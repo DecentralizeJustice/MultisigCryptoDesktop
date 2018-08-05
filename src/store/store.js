@@ -8,7 +8,7 @@ export const store = new Vuex.Store({
   state: {
     firstTimeSetup: {
       showOpeningCoinPick: true,
-      openingCoinPicked: 'Bitcoin'
+      openingCoinPicked: ''
     }
   },
   mutations: {
