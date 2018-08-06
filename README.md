@@ -1,7 +1,7 @@
 
 
+![Alt Text](https://media.giphy.com/media/fHisHjpBssxi7VZOII/giphy.gif)
 
-<div style="width:100%;height:0;padding-bottom:40%;position:relative;"><iframe src="https://giphy.com/embed/fHisHjpBssxi7VZOII" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p></p></div>
 
 # [Sponsors](https://github.com/DecentralizeJustice/MultiSigCrypto#sponsors-1)             
 
