@@ -1,6 +1,6 @@
-<a href="http://www.multisigcrypto.com">
-  <img src="readMeArt/art/bannerlogo.png" width="100%" height="300">
-</a>
+
+  <video src="readMeArt/art/rotate2.mp4" width="100%" height="100%" preload autoplay loop></video>
+
 
 
 # [Sponsors](https://github.com/DecentralizeJustice/MultiSigCrypto#sponsors-1)             
