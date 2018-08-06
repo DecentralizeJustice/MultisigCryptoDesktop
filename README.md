@@ -1,7 +1,7 @@
 
 
 <div style="text-align: center;">
-<img src="readMeArt/art/multisig.png" width="100%" height="auto">
+<img src="readMeArt/art/banner.png" width="100%" height="auto">
 </div>
 
 
