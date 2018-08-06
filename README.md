@@ -1,6 +1,5 @@
 
-  <video src="readMeArt/art/rotate2.mp4" width="100%" height="100%" preload autoplay loop></video>
-![Alt Text]("readMeArt/art/rotate2.gif")
+![Banner Logo](https://github.com/DecentralizeJustice/MultiSigCrypto/blob/Development/readMeArt/art/rotate2_1.gif)
 
 # [Sponsors](https://github.com/DecentralizeJustice/MultiSigCrypto#sponsors-1)             
 
