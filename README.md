@@ -1,6 +1,8 @@
 
 
-![Alt Text](https://media.giphy.com/media/fHisHjpBssxi7VZOII/giphy.gif)
+<div style="text-align: center;">
+<img src="readMeArt/art/multisig.png" width="100%" height="auto">
+</div>
 
 
 # [Sponsors](https://github.com/DecentralizeJustice/MultiSigCrypto#sponsors-1)             
