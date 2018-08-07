@@ -1,27 +1,22 @@
 <template>
-  <v-content>
-      <v-flex align-center fill-height xs12 >
-        <TheCoinPickElement v-if="show" xs12/>
-      </v-flex>
-
-      <v-flex xs2>
-       <TheSideBarElement v-if="!show" />
-     </v-flex>
+  <v-content align-center xs12>
+    <TheSetupElement  v-if="show"/>
+    <TheSideBarElement v-if="!show"/>
  </v-content>
 </template>
 
 <script>
-import TheCoinPickElement from './TheCoinPickElement.vue'
+import TheSetupElement from './TheSetupElement.vue'
 import TheSideBarElement from './TheSideBarElement.vue'
 export default {
   name: 'TheWallet',
   components: {
-    TheCoinPickElement,
+    TheSetupElement,
     TheSideBarElement
   },
   computed: {
     show () {
-      return this.$store.state.firstTimeSetup.showOpeningCoinPick
+      return this.$store.state.firstTimeSetup.showOpeningSetup
     }
   }
 

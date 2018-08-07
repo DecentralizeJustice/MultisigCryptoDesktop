@@ -7,7 +7,7 @@ export const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
     firstTimeSetup: {
-      showOpeningCoinPick: true,
+      showOpeningSetup: true,
       openingCoinPicked: ''
     }
   },
