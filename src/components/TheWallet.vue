@@ -1,13 +1,13 @@
 <template>
-  <v-content align-center xs12>
-    <TheSetupElement  v-if="show"/>
-    <TheSideBarElement v-if="!show"/>
+  <v-content align-center xs12 >
+    <TheSetupElement  v-if="show"></TheSetupElement>
+    <TheSideBarElement v-if="!show"></TheSideBarElement>
  </v-content>
 </template>
 
 <script>
-import TheSetupElement from './TheSetupElement.vue'
-import TheSideBarElement from './TheSideBarElement.vue'
+import TheSetupElement from './TheSetupElement/TheSetupElement.vue'
+import TheSideBarElement from './TheSideBar/TheSideBarElement.vue'
 export default {
   name: 'TheWallet',
   components: {
