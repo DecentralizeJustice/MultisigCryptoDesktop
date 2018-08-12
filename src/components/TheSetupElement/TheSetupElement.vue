@@ -1,11 +1,11 @@
 <template>
-  <v-container  fill-height fluid>
-    <!-- <TheCoinPickElement  v-on:pickCoin='pickCoin($event)'
-    v-if="false">
-    </TheCoinPickElement> -->
+  <v-container justify-center fill-height fluid>
+    <TheCoinPickElement  v-on:pickCoin='pickCoin($event,0)'
+    v-if="shouldShow (0)">
+    </TheCoinPickElement>
 
-    <TheMethodPicker v-on:pickMethod='pickGoal($event)'
-    v-if="true">
+    <TheMethodPicker v-on:pickMethod='pickGoal($event,1)'
+    v-if="shouldShow (1)">
     </TheMethodPicker>
   </v-container>
 </template>
@@ -20,12 +20,20 @@ export default {
     TheMethodPicker
   },
   methods: {
-    pickCoin (coinName) {
-      this.choices.chosingCoin = coinName
-      this.choices.chosingGoal = true
+    pickCoin (coinName, index) {
+      this.choices.coin = coinName
+      this.nextStep(index)
     },
-    pickGoal (method) {
-      this.choices.choosingGoal = method
+    pickGoal (method, index) {
+      this.choices.goal = method
+      this.nextStep(index)
+    },
+    shouldShow (index) {
+      if (this.choiceArray[index] === 1) { return true }
+    },
+    nextStep (index) {
+      this.choiceArray.splice(index, 1, 0)
+      this.choiceArray.splice(index + 1, 1, 1)
     }
   },
   computed: {
@@ -33,9 +41,10 @@ export default {
   data () {
     return {
       choices: {
-        chosingCoin: false,
-        choosingGoal: false
-      }
+        coin: false,
+        goal: false
+      },
+      choiceArray: [1, 0, 0, 0, 0, 0]
     }
   }
 }

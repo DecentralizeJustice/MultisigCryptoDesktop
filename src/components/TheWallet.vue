@@ -1,5 +1,5 @@
 <template>
-  <v-content align-center xs12 >
+  <v-content align-center justify-center xs12 >
     <TheSetupElement  v-if="show"></TheSetupElement>
     <TheSideBarElement v-if="!show"></TheSideBarElement>
  </v-content>
