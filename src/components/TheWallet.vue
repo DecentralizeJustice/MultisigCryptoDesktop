@@ -8,6 +8,7 @@
 <script>
 import TheSetupElement from './TheSetupElement/TheSetupElement.vue'
 import TheSideBarElement from './TheSideBar/TheSideBarElement.vue'
+
 export default {
   name: 'TheWallet',
   components: {

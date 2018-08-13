@@ -13,6 +13,7 @@
 <script>
 import TheCoinPickElement from './CoinPick.vue'
 import TheMethodPicker from './TheMethodPicker.vue'
+const Gen = require('./../../javascript/generateMenmonic.js')
 export default {
   name: 'TheSetupElement',
   components: {
@@ -27,6 +28,7 @@ export default {
     pickGoal (method, index) {
       this.choices.goal = method
       this.nextStep(index)
+      console.log(Gen.genMenmonic())
     },
     shouldShow (index) {
       if (this.choiceArray[index] === 1) { return true }

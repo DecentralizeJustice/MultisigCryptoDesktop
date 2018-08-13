@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       Themethods: [
-        {name: 'genkey', title: 'Make Keys', url: 'genkey.svg', width: '75%'},
+        {name: 'setupwallet', title: 'Setup Wallet', url: 'genkey.svg', width: '75%'},
         {name: 'signTrans', title: 'Sign Transaction', url: 'password.svg', width: '75%'}
       ]
     }
