@@ -1,7 +1,6 @@
 <template>
   <transition name="fade">
     <v-container  grid-list-md text-xs-center xs12  flex fill-height  >
-      <v-card  class="card" flat xs12 >
         <v-layout row xs12>
           <v-flex xs12>
               <p class="h1 white--text m-2"> Pick Your Crypto:</p>
@@ -13,7 +12,6 @@
             </v-card>
           </v-flex>
         </v-layout>
-      </v-card>
     </v-container>
   </transition>
 </template>
@@ -31,8 +29,8 @@ export default {
   data () {
     return {
       TheBeginnerCoins: [
-        {name: 'Monero', url: 'bitcoin.svg', width: '72%'},
-        {name: 'Bitcoin', url: 'contract.png', width: '100%'},
+        {name: 'Monero', url: 'monero.png', width: '75%'},
+        {name: 'Bitcoin', url: 'bitcoin.svg', width: '75%'},
         {name: 'Ethereum', url: 'eth.svg', width: '44%'}
       ]
     }
@@ -45,7 +43,7 @@ export default {
    background-color: rgba(22, 48, 91, 0.7);
 }
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity 1.0s;
 }
 .fade-enter, .fade-leave-to  {
   opacity: 0;
