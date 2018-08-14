@@ -22,8 +22,10 @@ export default {
   },
   methods: {
     pickCoin (coinName, index) {
-      this.choices.coin = coinName
-      this.nextStep(index)
+      if (coinName === 'Bitcoin') {
+        this.choices.coin = coinName
+        this.nextStep(index)
+      }
     },
     pickGoal (method, index) {
       this.choices.goal = method

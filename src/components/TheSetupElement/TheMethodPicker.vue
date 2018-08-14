@@ -1,13 +1,13 @@
 <template>
   <transition name="fade">
-    <v-container text-xs-center xs10  flex row  justify-space-around align-center>
-          <v-layout d-flex v-for="method in Themethods" :key="method.name" xs12 md2 column align-center>
-            <v-card class="card" align-center>
-              <v-layout flex align-center justify-center row>
-                <img :src="'/static/'+method.url" :width="method.width" v-on:click="pickMethod(method.name)" />
-                <p class="h2 white--text m-3">{{method.title}}</p>
-              </v-layout>
+    <v-container  grid-list-md text-xs-center xs12  flex  >
+        <v-layout row wrap card>
+          <v-flex v-for="coin in TheBeginnerCoins" :key="coin.name" xs12 md4>
+            <v-card color=transparent flat >
+              <img :src="'/static/'+coin.url" :width="coin.width" v-on:click="pickCoin(coin.name)"/>
+              <p class="h2 white--text m-3">{{coin.name}}</p>
             </v-card>
+          </v-flex>
         </v-layout>
     </v-container>
   </transition>
@@ -15,19 +15,20 @@
 
 <script>
 export default {
-  name: 'TheMethodPicker',
+  name: 'TheCoinPickElement',
   methods: {
-    pickMethod (method) {
-      this.$emit('pickMethod', method)
+    pickCoin (coinName) {
+      this.$emit('pickCoin', coinName)
     }
   },
   computed: {
   },
   data () {
     return {
-      Themethods: [
-        {name: 'setupwallet', title: 'Setup Wallet', url: 'genkey.svg', width: '75%'},
-        {name: 'signTrans', title: 'Sign Transaction', url: 'password.svg', width: '75%'}
+      TheBeginnerCoins: [
+        {name: 'Bitcoin', url: 'password.svg', width: '75%'},
+        {name: 'Ethereum', url: 'genkey.svg', width: '75%'},
+        {name: 'Monero', url: 'contract.png', width: '72%'}
       ]
     }
   }

@@ -2,7 +2,7 @@
   <transition name="fade">
     <v-container  grid-list-md text-xs-center xs12  flex fill-height  >
       <v-card  class="card" flat xs12 >
-        <v-layout row wrap>
+        <v-layout row xs12>
           <v-flex xs12>
               <p class="h1 white--text m-2"> Pick Your Crypto:</p>
           </v-flex>
@@ -31,8 +31,8 @@ export default {
   data () {
     return {
       TheBeginnerCoins: [
-        {name: 'Monero', url: 'monero.png', width: '72%'},
-        {name: 'Bitcoin', url: 'bitcoin.svg', width: '72%'},
+        {name: 'Monero', url: 'bitcoin.svg', width: '72%'},
+        {name: 'Bitcoin', url: 'contract.png', width: '100%'},
         {name: 'Ethereum', url: 'eth.svg', width: '44%'}
       ]
     }
