@@ -1,17 +1,15 @@
 <template>
   <transition name="fade">
-    <v-container  grid-list-md text-xs-center xs12  flex fill-height  >
-        <v-layout row xs12>
-          <v-flex xs12>
-              <p class="h1 white--text m-2"> Pick Your Crypto:</p>
-          </v-flex>
-          <v-flex v-for="coin in TheBeginnerCoins" :key="coin.name" xs12 md4>
-            <v-card color=transparent flat >
+    <v-container text-xs-center xs12  flex fill-height  >
+        <v-content row xs12 justify-center fill-height>
+          <p class="h1 white--text m-5"> Pick Your Crypto:</p>
+          <v-layout v-for="coin in TheBeginnerCoins" :key="coin.name" xs12 md4 text-xs-center justify-center align-content-center align-center>
+            <v-flex color=transparent flat text-xs-center justify-center md4>
               <img :src="'/static/'+coin.url" :width="coin.width" v-on:click="pickCoin(coin.name)"/>
               <p class="h2 white--text m-3">{{coin.name}}</p>
-            </v-card>
-          </v-flex>
-        </v-layout>
+            </v-flex>
+          </v-layout>
+        </v-content>
     </v-container>
   </transition>
 </template>
@@ -29,9 +27,9 @@ export default {
   data () {
     return {
       TheBeginnerCoins: [
-        {name: 'Monero', url: 'monero.png', width: '75%'},
-        {name: 'Bitcoin', url: 'bitcoin.svg', width: '75%'},
-        {name: 'Ethereum', url: 'eth.svg', width: '44%'}
+        // {name: 'Monero', url: 'monero.png', width: '75%'},
+        {name: 'Bitcoin', url: 'bitcoin.svg', width: '75%'}
+        // {name: 'Ethereum', url: 'eth.svg', width: '44%'}
       ]
     }
   }
