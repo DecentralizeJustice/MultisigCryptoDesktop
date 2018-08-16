@@ -28,7 +28,7 @@ export default {
       Methods: [
         {name: 'Get PaperWallet', url: 'genkey.svg', width: '60%'},
         {name: 'Setup Web Wallet', url: 'password.svg', width: '60%'},
-        {name: 'Send Crypto', url: 'contract.png', width: '60%'}
+        {name: 'Send Crypto', url: 'send-money.svg', width: '60%'}
       ]
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app" >
+  <v-app id="app" fluid xs12  flex >
      <TheWallet/>
   </v-app>
 </template>

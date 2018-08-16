@@ -1,10 +1,10 @@
 <template>
   <v-container justify-center fill-height fluid>
     <TheCoinPickElement  v-on:pickCoin='choose($event,0)'
-    v-if="shouldShow (0)">
+    v-if="shouldThisShow ([])">
     </TheCoinPickElement>
     <TheMethodPicker v-on:pickMethod='choose($event,1)'
-    v-if="shouldShow (1)">
+    v-if="shouldThisShow ([''])">
     </TheMethodPicker>
   </v-container>
 </template>
@@ -21,18 +21,22 @@ export default {
   },
   methods: {
     choose (choice, index) {
-      this.choiceArray.splice(index, 1, 0)
-      this.choiceArray.splice(index + 1, 1, 'show')
+      this.choiceArray.splice(index, 1, choice)
     },
-    shouldShow (index) {
-      if (this.choiceArray[index] === 'show') { return true }
+    shouldThisShow (index) {
+      if (index.length !== this.choiceArray.length) { return false }
+      for (let i = 0; i < index.lenght; i++) {
+        if (index[i] === ['']) { continue }
+        if (index[i] !== this.choiceArray[i]) { return false }
+      }
+      return true
     }
   },
   computed: {
   },
   data () {
     return {
-      choiceArray: ['show', 0, 0, 0, 0]
+      choiceArray: []
     }
   }
 }
