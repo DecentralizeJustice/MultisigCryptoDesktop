@@ -1,15 +1,19 @@
 <template>
   <transition name="fade">
-    <v-container text-xs-center xs12  flex fill-height  >
-        <v-content row xs12 justify-center fill-height>
-          <p class="h1 white--text m-5"> Pick Your Crypto:</p>
-          <v-layout v-for="coin in TheBeginnerCoins" :key="coin.name" xs12 md4 text-xs-center justify-center align-content-center align-center>
-            <v-flex color=transparent flat text-xs-center justify-center md4>
+    <v-container  fluid  >
+        <v-layout wrap align-center justify-center>
+          <v-flex md6 xs11 align-center justify-center box>
+          <p class="h1 white--text text-xs-center ma-3" > Pick Your Crypto:</p>
+          <v-flex v-for="coin in TheBeginnerCoins" :key="coin.name" xs12 md9 style="margin: auto;">
+            <v-card color=transparent width=auto flat class="text-md-center">
+              <v-layout align-center justify-center column fill-height >
               <img :src="'/static/'+coin.url" :width="coin.width" v-on:click="pickCoin(coin.name)"/>
-              <p class="h2 white--text m-3">{{coin.name}}</p>
-            </v-flex>
-          </v-layout>
-        </v-content>
+              <p class="h1 white--text m-3">{{coin.name}}</p>
+              </v-layout>
+            </v-card>
+          </v-flex>
+        </v-flex>
+        </v-layout>
     </v-container>
   </transition>
 </template>
@@ -37,8 +41,9 @@ export default {
 </script>
 
 <style scoped>
-.card{
-   background-color: rgba(22, 48, 91, 0.7);
+.box{
+   background-color: rgba(22, 48, 91, 0.9);
+   border-radius:8%;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1.0s;

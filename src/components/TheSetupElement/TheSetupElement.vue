@@ -6,18 +6,23 @@
     <TheMethodPicker v-on:pickMethod='choose($event,1)'
     v-if="shouldThisShow ([''])">
     </TheMethodPicker>
+    <ThePaperWalletMethod v-on:pickPaperWallettype='choose($event,4)'
+    v-if="shouldThisShow (['','Get PaperWallet'])">
+    </ThePaperWalletMethod>
   </v-container>
 </template>
 
 <script>
 import TheCoinPickElement from './CoinPick.vue'
 import TheMethodPicker from './TheMethodPicker.vue'
+import ThePaperWalletMethod from './Paperwallet.vue'
 // const Gen = require('./../../javascript/generateMenmonic.js')
 export default {
   name: 'TheSetupElement',
   components: {
     TheCoinPickElement,
-    TheMethodPicker
+    TheMethodPicker,
+    ThePaperWalletMethod
   },
   methods: {
     choose (choice, index) {
@@ -25,8 +30,9 @@ export default {
     },
     shouldThisShow (index) {
       if (index.length !== this.choiceArray.length) { return false }
-      for (let i = 0; i < index.lenght; i++) {
-        if (index[i] === ['']) { continue }
+
+      for (let i = 0; i < index.length; i++) {
+        if (index[i] === '') { continue }
         if (index[i] !== this.choiceArray[i]) { return false }
       }
       return true
