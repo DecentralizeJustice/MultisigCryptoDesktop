@@ -18,11 +18,14 @@
     "@nuxtjs/axios": "^5.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
     "cross-env": "^5.0.1",
-    "babel-eslint": "^8.2.1",
-    "eslint": "^5.0.1",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-vue": "^4.0.0",
+    "eslint": "^5.5.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-vue": "^4.7.1",
+    "prettier": "^1.14.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1"
   }
