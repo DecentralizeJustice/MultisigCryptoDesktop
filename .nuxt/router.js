@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _f079b180 = () => import('../pages/index0.vue' /* webpackChunkName: "pages/index0" */).then(m => m.default || m)
 const _07c191c0 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -64,11 +63,6 @@ export function createRouter () {
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,
     routes: [
-		{
-			path: "/index0",
-			component: _f079b180,
-			name: "index0"
-		},
 		{
 			path: "/",
 			component: _07c191c0,

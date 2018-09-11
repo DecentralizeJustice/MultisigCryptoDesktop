@@ -4,10 +4,11 @@
        <v-layout align-center justify-center wrap>
 
          <v-flex xs12 md4>
-           <v-card hover>
+           <v-card hover @click.native="pickOption('Setup')">
              <v-img
-               src="/setup.jpeg" aspect-ratio="2"></v-img>
-             <v-card-title primary-title class="justify-center">
+               src="/setup.jpeg" aspect-ratio="2"
+              ></v-img>
+             <v-card-title primary-title class="justify-center" >
                <div>
                  <h3 class="headline pb-3" >Setup Device</h3>
                </div>
@@ -16,8 +17,8 @@
         </v-flex>
 
         <v-flex xs12 md4 offset-md1 >
-          <v-card hover>
-            <v-img src="/tools.jpeg"  aspect-ratio="2"></v-img>
+          <v-card hover @click.native="pickOption('Quicktools')">
+            <v-img src="/tools.jpeg"  aspect-ratio="2" ></v-img>
             <v-card-title primary-title class="justify-center">
               <div>
                 <h3 class="headline pb-3" >Quick Tools</h3>
@@ -34,6 +35,11 @@
 <script>
 export default {
   name: 'TheSetupDeviceIntro',
+  methods: {
+    pickOption (option) {
+      this.$emit('pickOption', option)
+    }
+  },
 
 }
 </script>

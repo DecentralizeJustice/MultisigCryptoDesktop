@@ -6,8 +6,6 @@ import '../node_modules/vuetify/src/stylus/main.styl'
 
 let layouts = {
 
-  "_dark": () => import('../layouts/dark.vue'  /* webpackChunkName: "layouts/dark" */).then(m => m.default || m),
-
   "_default": () => import('../layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m)
 
 }
