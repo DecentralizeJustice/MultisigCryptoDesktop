@@ -21,6 +21,7 @@ export default {
     methods: {
       choose (choice, index) {
         this.choiceArray.splice(index, 1, choice)
+        alert(this.choiceArray)
       },
       shouldThisShow (index) {
         if (index.length !== this.choiceArray.length) { return false }

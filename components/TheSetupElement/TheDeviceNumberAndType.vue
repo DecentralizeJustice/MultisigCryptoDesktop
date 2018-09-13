@@ -2,44 +2,16 @@
 <v-content>
    <v-container  fluid fill-height>
       <v-layout>
-        <v-flex xs12 sm6 offset-sm3>
+        <v-flex xs12 sm10 offset-sm1>
           <v-card>
             <v-img
               src="/deviceoptions.jpg"
-              aspect-ratio="2.75"
+              aspect-ratio="3"
             ></v-img>
-
-            <v-card-title primary-title class="justify-center" >
-              <div>
-                <h3 class="headline pb-3" >Device Type:</h3>
-              </div>
-            </v-card-title>
-            <v-layout align-center justify-space-around row fill-height>
-              <v-flex xs6 sm4>
-                <v-card  hover color='info'>
-                    <img class="pt-3" src="/trezor.jpg" alt="avatar" style="height: 50%; width: 50%;
-                    display: block;margin-left: auto;margin-right: auto;" >
-                  <v-card-title primary-title class="justify-center" >
-                    <div>
-                      <h3 class="headline" >Trezor</h3>
-                    </div>
-                  </v-card-title>
-                </v-card>
-              </v-flex>
-              <v-flex xs6 sm4>
-                <v-card hover color='info'>
-                    <img src="/labtopcell.png" alt="avatar" style="height: 50%; width: 50%;
-                    display: block;margin-left: auto;margin-right: auto;">
-
-                  <v-card-title primary-title class="justify-center" >
-                    <div>
-                      <h3 class="headline" >Other</h3>
-                    </div>
-                  </v-card-title>
-                </v-card>
-              </v-flex>
-            </v-layout>
-
+            <TheDeviceNumber v-on:pickOption='choose($event)'
+            v-if="shouldThisShow (0)"></TheDeviceNumber>
+            <TheDeviceType v-on:pickOption='choose($event)'
+            v-if="shouldThisShow (1)"></TheDeviceType>
           </v-card>
         </v-flex>
       </v-layout>
@@ -48,13 +20,37 @@
 </template>
 
 <script>
+import TheDeviceNumber from '~/components/TheSetupElement/DeviceInfo/TheDeviceType.vue'
+import TheDeviceType   from '~/components/TheSetupElement/DeviceInfo/TheDeviceNumber.vue'
 export default {
   name: 'TheDeviceNumberandType',
+  components: {
+    TheDeviceNumber,
+    TheDeviceType
+    },
   methods: {
     pickOption (option) {
       this.$emit('pickOption', option)
+    },
+    shouldThisShow (index) {
+      if (index !== this.choiceArray.length) { return false }
+      return true
+    },
+    choose(option){
+      this.choiceArray.push(option)
+      this.finalChoice(option)
+    },
+    finalChoice(option){
+      if(option === '1' || option === '2'){
+      this.pickOption(this.choiceArray)
+      }
     }
   },
+  data () {
+    return {
+      choiceArray: []
+    }
+  }
 
 }
 </script>
