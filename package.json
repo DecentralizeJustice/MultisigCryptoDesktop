@@ -13,9 +13,10 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.0.0",
+    "file-system": "^2.2.2",
     "nuxt": "^1.0.0",
-    "vuetify": "^1.0.19",
-    "@nuxtjs/axios": "^5.0.0"
+    "vuetify": "^1.0.19"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
