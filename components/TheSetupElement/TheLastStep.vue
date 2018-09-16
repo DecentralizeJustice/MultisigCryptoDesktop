@@ -8,10 +8,7 @@
               src="/deviceoptions.jpg"
               aspect-ratio="3"
             ></v-img>
-            <TheDeviceNumber v-on:pickOption='choose($event)'
-            v-if="shouldThisShow (0)"></TheDeviceNumber>
-            <TheDeviceType v-on:pickOption='choose($event)'
-            v-if="shouldThisShow (1)"></TheDeviceType>
+
           </v-card>
         </v-flex>
       </v-layout>
@@ -20,13 +17,11 @@
 </template>
 
 <script>
-import TheDeviceNumber from '~/components/TheSetupElement/DeviceInfo/TheDeviceType.vue'
-import TheDeviceType   from '~/components/TheSetupElement/DeviceInfo/TheDeviceNumber.vue'
+
 export default {
-  name: 'TheDeviceNumberandType',
+  name: 'TheLastStep',
   components: {
-    TheDeviceNumber,
-    TheDeviceType
+
     },
   methods: {
     pickOption (option) {
