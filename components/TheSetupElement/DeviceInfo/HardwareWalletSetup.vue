@@ -58,7 +58,7 @@
          <v-toolbar>
            <v-layout row wrap align-center>
              <v-flex headline class="text-xs-center">
-               Setup Wallet
+               Sync Wallet
              </v-flex>
            </v-layout>
          </v-toolbar>
@@ -81,12 +81,16 @@ export default {
   methods: {
     choose(option){
       this.choiceArray.push(option)
-      alert(this.choiceArray)
+      if(option==='Get xpubs'){this.finalChoice()}
     },
     shouldThisShow (index) {
       if(index!==this.choiceArray.length){return false}
       return true
+    },
+    finalChoice(){
+      this.$emit('pickOption', this.choiceArray)
     }
+
   },
   computed: {
   numberstuff: function () {

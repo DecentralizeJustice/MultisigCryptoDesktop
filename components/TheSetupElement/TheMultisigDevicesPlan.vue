@@ -3,10 +3,13 @@
    <v-container  fluid fill-height>
       <v-layout>
         <v-flex xs12 sm10 offset-sm1>
+
             <TheHardwareNumber v-on:pickOption='choose($event)'
             v-if="shouldThisShow (0)"></TheHardwareNumber>
+
             <HardwareWalletSetup v-bind:number='3' v-on:pickOption='choose($event)'
             v-if="shouldThisShow (1)"></HardwareWalletSetup>
+
         </v-flex>
       </v-layout>
    </v-container>
@@ -14,6 +17,7 @@
 </template>
 
 <script>
+
 import TheHardwareNumber from '~/components/TheSetupElement/DeviceInfo/TheHardwareNumber.vue'
 import HardwareWalletSetup from '~/components/TheSetupElement/DeviceInfo/HardwareWalletSetup.vue'
 
@@ -34,6 +38,7 @@ export default {
     },
     choose(option){
       this.choiceArray.push(option)
+      alert(this.choiceArray)
       this.finalChoice(this.choiceArray)
     },
     finalChoice(choiceArray){
