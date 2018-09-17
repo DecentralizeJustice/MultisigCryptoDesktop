@@ -16,13 +16,13 @@
             </v-card-title>
             <v-layout align-center justify-space-around row fill-height>
 
-                <v-btn large flat round color='secondary' @click.native="choose('HardwareWallets:1')">
+                <v-btn large flat round color='secondary' @click.native="choose('Hardware:1')">
                   <h3 class="headline" >1</h3>
                 </v-btn>
-                <v-btn large flat round color='secondary' @click.native="choose('HardwareWallets:2')">
+                <v-btn large flat round color='secondary' @click.native="choose('Hardware:2')">
                   <h3 class="headline" >2</h3>
                 </v-btn>
-                <v-btn large flat round color='secondary' @click.native="choose('HardwareWallets:3')">
+                <v-btn large flat round color='secondary' @click.native="choose('Hardware:3')">
                   <h3 class="headline" >3</h3>
                 </v-btn>
 

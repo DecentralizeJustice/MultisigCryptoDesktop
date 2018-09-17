@@ -40,19 +40,25 @@ export default {
     },
     choose(option){
       this.choiceArray.push(option)
-      alert(this.choiceArray)
+      if(option.slice(0,9)==='Hardware:'){this.setnumArray(option)}
       this.finalChoice(this.choiceArray)
     },
     finalChoice(choiceArray){
       if(choiceArray.length>3){
       this.pickOption(choiceArray)
       }
+    },
+    setnumArray(numofwallets){
+      let num=numofwallets[9]
+      for (let i = 0; i < num; i++) {
+          this.numbers.splice(i, 1, i+1)
+      }
     }
   },
   data () {
     return {
       choiceArray: [],
-      numbers: [1,2,3]
+      numbers: []
     }
   }
 
