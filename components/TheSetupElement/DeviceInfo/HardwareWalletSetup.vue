@@ -84,8 +84,8 @@ export default {
       if(option==='Get xpubs'){this.finalChoice()}
     },
     shouldThisShow (index) {
-      if(index!==this.choiceArray.length){return false}
-      return true
+      if(index===this.choiceArray.length){return true}
+      return false
     },
     finalChoice(){
       this.$emit('pickOption', this.choiceArray)

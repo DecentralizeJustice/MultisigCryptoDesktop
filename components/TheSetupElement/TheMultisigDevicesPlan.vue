@@ -7,8 +7,10 @@
             <TheHardwareNumber v-on:pickOption='choose($event)'
             v-if="shouldThisShow (0)"></TheHardwareNumber>
 
-            <HardwareWalletSetup v-bind:number='3' v-on:pickOption='choose($event)'
-            v-if="shouldThisShow (1)"></HardwareWalletSetup>
+            <div v-for="nums in numbers"  v-bind:key="nums">
+              <HardwareWalletSetup v-bind:number=nums v-on:pickOption='choose($event)'
+              v-if="shouldThisShow (nums)"></HardwareWalletSetup>
+            </div>
 
         </v-flex>
       </v-layout>
@@ -42,14 +44,15 @@ export default {
       this.finalChoice(this.choiceArray)
     },
     finalChoice(choiceArray){
-      if(choiceArray.length>1){
+      if(choiceArray.length>3){
       this.pickOption(choiceArray)
       }
     }
   },
   data () {
     return {
-      choiceArray: []
+      choiceArray: [],
+      numbers: [1,2,3]
     }
   }
 
