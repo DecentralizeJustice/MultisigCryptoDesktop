@@ -1,0 +1,91 @@
+<template>
+<v-content>
+   <v-container  fluid fill-height>
+      <v-layout>
+        <v-flex xs12 fluid>
+          <v-card flat >
+            <v-img
+              src="/setup.jpeg"
+              aspect-ratio="3"
+            ></v-img>
+            <div v-if="isThereAChoice ()">
+            <v-card-title primary-title class="justify-center" >
+              <div>
+                <h3 class="headline pb-3" >Number of Phone Devices:</h3>
+              </div>
+            </v-card-title>
+            <v-container grid-list-md text-xs-center>
+              <v-layout row wrap align-center justify-space-around>
+                <v-flex v-for="nums in correctNumberofButtons" v-bind:key="nums" xs2>
+                  <v-btn large flat round color='secondary' @click.native="choose(nums)">
+                    <h3 class="headline" >{{nums}}</h3>
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </div>
+          <div v-if="!(isThereAChoice ())" layout  class="text-xs-center">
+          <v-card-title primary-title class="justify-center" >
+            <div>
+              <h3 class="headline pb-3" >These options have no options</h3>
+            </div>
+          </v-card-title>
+          <v-btn color="info" @click.native="choose(phonenum)" large
+            class="justify-center">Continue</v-btn>
+          </div>
+
+          </v-card>
+        </v-flex>
+      </v-layout>
+   </v-container>
+</v-content>
+</template>
+
+<script>
+export default {
+  name: 'ThePhoneNumber',
+  props: ['choiceArray'],
+  methods: {
+    choose (option) {
+      this.$emit('pickOption', option)
+    },
+    isThereAChoice () {
+      if (this.choiceArray[0]===3) {
+        this.phonenum=0
+        return false
+      }
+      if (this.choiceArray[1]===3 ) {
+        this.phonenum=0
+        return false
+      }
+      if (this.choiceArray[0]===0 && this.choiceArray[1]===0) {
+        this.phonenum=3
+        return false
+      }
+      if (this.choiceArray[0]===0 && ((this.choiceArray[1]===1)||this.choiceArray[1]===2)) {
+        this.phonenum=3-this.choiceArray[1]
+        return false
+      }
+      return true
+    },
+  },
+  computed: {
+    correctNumberofButtons: function () {
+      if (this.choiceArray[0]===0){return [0,1,2,3]}
+      if (this.choiceArray[1]===2){return [0,1]}
+      if (this.choiceArray[0]===2){return [0,1]}
+      else { return [1,2,3]}
+    }
+  },
+  data: function () {
+    return {
+      phonenum: 0
+      }
+    }
+
+}
+</script>
+
+<style scoped>
+
+</style>

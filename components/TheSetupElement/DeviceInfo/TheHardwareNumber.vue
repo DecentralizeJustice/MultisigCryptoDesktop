@@ -5,7 +5,7 @@
         <v-flex xs12 fluid>
           <v-card flat>
             <v-img
-              src="/deviceoptions.jpg"
+              src="deviceoptions.jpg"
               aspect-ratio="3"
             ></v-img>
 
@@ -15,14 +15,16 @@
               </div>
             </v-card-title>
             <v-layout align-center justify-space-around row fill-height>
-
-                <v-btn large flat round color='secondary' @click.native="choose('Hardware:1')">
+              <v-btn large flat round color='secondary' @click.native="choose(0)">
+                <h3 class="headline" >0</h3>
+              </v-btn>
+                <v-btn large flat round color='secondary' @click.native="choose(1)">
                   <h3 class="headline" >1</h3>
                 </v-btn>
-                <v-btn large flat round color='secondary' @click.native="choose('Hardware:2')">
+                <v-btn large flat round color='secondary' @click.native="choose(2)">
                   <h3 class="headline" >2</h3>
                 </v-btn>
-                <v-btn large flat round color='secondary' @click.native="choose('Hardware:3')">
+                <v-btn large flat round color='secondary' @click.native="choose(3)">
                   <h3 class="headline" >3</h3>
                 </v-btn>
 
@@ -40,9 +42,11 @@ export default {
   name: 'TheHardwareNumber',
   methods: {
     choose (option) {
-      this.$emit('pickOption', option)
+
+      this.$emit('pickOption',option)
     }
-  }
+  },
+
 
 }
 </script>

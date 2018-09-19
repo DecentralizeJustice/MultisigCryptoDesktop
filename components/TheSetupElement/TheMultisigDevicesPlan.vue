@@ -4,61 +4,68 @@
       <v-layout>
         <v-flex xs12 sm10 offset-sm1>
 
-            <TheHardwareNumber v-on:pickOption='choose($event)'
-            v-if="shouldThisShow (0)"></TheHardwareNumber>
+        <TheHardwareNumber v-on:pickOption='choose($event)'
+        v-if="shouldThisShow (0)"></TheHardwareNumber>
 
-            <div v-for="nums in numbers"  v-bind:key="nums">
-              <HardwareWalletSetup v-bind:number=nums v-on:pickOption='choose($event)'
-              v-if="shouldThisShow (nums)"></HardwareWalletSetup>
-            </div>
+        <TheComputerNumber v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
+        v-if="shouldThisShow (1)"></TheComputerNumber>
+
+        <ThePhoneNumber v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
+        v-if="shouldThisShow (2)"></ThePhoneNumber>
+
+        <FinalPlan v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
+        v-if="shouldThisShow (3)"></FinalPlan>
 
         </v-flex>
       </v-layout>
    </v-container>
+
 </v-content>
 </template>
 
 <script>
-
+import ThePhoneNumber from '~/components/TheSetupElement/DeviceInfo/ThePhoneNumber.vue'
 import TheHardwareNumber from '~/components/TheSetupElement/DeviceInfo/TheHardwareNumber.vue'
-import HardwareWalletSetup from '~/components/TheSetupElement/DeviceInfo/HardwareWalletSetup.vue'
-
+import TheComputerNumber from '~/components/TheSetupElement/DeviceInfo/TheComputerNumber.vue'
+import FinalPlan from '~/components/TheSetupElement/DeviceInfo/FinalPlan.vue'
 
 export default {
   name: 'TheMultisigDevicesPlan',
+  computed: {
+   showMenmonicIndex: function() {
+     if (this.hardwarenumbers.length===0){return -1}
+     else {
+       return this.hardwarenumbers.length+2}
+   }
+ },
   components: {
     TheHardwareNumber,
-    HardwareWalletSetup
+    ThePhoneNumber,
+    TheComputerNumber,
+    FinalPlan
     },
   methods: {
     pickOption (option) {
       this.$emit('pickOption', option)
     },
     shouldThisShow (index) {
-      if (index !== this.choiceArray.length) { return false }
-      return true
+      if (index === this.choiceArray.length) { return true }
+      return false
+    },
+    finalplanindex(){
+      if(this.shouldPhoneShow()===-1){return 2}
+      else{return 3}
     },
     choose(option){
       this.choiceArray.push(option)
-      if(option.slice(0,9)==='Hardware:'){this.setnumArray(option)}
-      this.finalChoice(this.choiceArray)
+
+      // this.finalChoice(this.choiceArray)
     },
-    finalChoice(choiceArray){
-      if(choiceArray.length>3){
-      this.pickOption(choiceArray)
-      }
-    },
-    setnumArray(numofwallets){
-      let num=numofwallets[9]
-      for (let i = 0; i < num; i++) {
-          this.numbers.splice(i, 1, i+1)
-      }
-    }
   },
   data () {
     return {
       choiceArray: [],
-      numbers: []
+
     }
   }
 
