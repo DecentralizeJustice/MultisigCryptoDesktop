@@ -15,9 +15,26 @@
                 <h1 class=" pb-3" >Confirm Final Plan</h1>
               </div>
             </v-card-title>
+            <v-flex xs5>
+              <v-card>
+                <v-toolbar color="black" >
+                  <v-toolbar-title>Labtop 1</v-toolbar-title>
+                </v-toolbar>
+                  <v-img
+                    src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+                    aspect-ratio="2.75"
+                  ></v-img>
 
-          </v-card>
-        </v-flex>
+
+
+                  <v-card-actions>
+                    <v-btn flat color="orange">Share</v-btn>
+                    <v-btn flat color="orange">Explore</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              </v-card>
+            </v-flex>
       </v-layout>
    </v-container>
 </v-content>

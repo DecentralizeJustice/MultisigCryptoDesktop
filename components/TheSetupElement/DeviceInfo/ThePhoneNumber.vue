@@ -8,6 +8,7 @@
               src="/setup.jpeg"
               aspect-ratio="3"
             ></v-img>
+
             <div v-if="isThereAChoice ()">
             <v-card-title primary-title class="justify-center" >
               <div>
@@ -24,10 +25,11 @@
               </v-layout>
             </v-container>
           </div>
+
           <div v-if="!(isThereAChoice ())" layout  class="text-xs-center">
           <v-card-title primary-title class="justify-center" >
             <div>
-              <h3 class="headline pb-3" >These options have no options</h3>
+              <h3 class="headline pb-3" >{{getCorrectString}}</h3>
             </div>
           </v-card-title>
           <v-btn color="info" @click.native="choose(phonenum)" large
@@ -75,11 +77,21 @@ export default {
       if (this.choiceArray[1]===2){return [0,1]}
       if (this.choiceArray[0]===2){return [0,1]}
       else { return [1,2,3]}
+    },
+    getCorrectString: function(){
+      if(this.phonenum===3){
+        return this.require3
+      }
+      else {
+        return this.nophones
+      }
     }
   },
   data: function () {
     return {
-      phonenum: 0
+      phonenum: 0,
+      require3: 'Your plan requires the use of 3 phones.',
+      nophones: 'Your plan do not allow for the use of phones.',
       }
     }
 
