@@ -25,7 +25,11 @@
                   </v-layout>
                 </v-toolbar>
 
-
+                <v-card-title>
+                   <div>
+                     <h3>Number of Hardware Wallets:</h3>
+                   </div>
+                 </v-card-title>
                 </v-card>
               </v-flex>
               </v-card>
@@ -43,20 +47,30 @@ export default {
     choose (option) {
       this.$emit('pickOption',option)
     },
-    show (){
-      alert(this.choiceArray)
+    createobjects (choiceArray){
+
+      if(choiceArray[1]!==0){
+        for (let i = 0; i < choiceArray[1]; i++) {
+          this.laptops['lap'+'i'] =[]
+        }
+      }
+      if(choiceArray[1]!==0){
+        for (let i = 0; i < choiceArray[2]; i++) {
+          this.cellphones['cell'+'i'] =[]
+        }
+      }
     }
   },
   data: function () {
     return {
-      items: [
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Click Me 2' }
-    ]
+      laptops: {},
+      cellphones: {},
+
       }
-    }
+    },
+    beforeMount(){
+      this.createobjects(this.choiceArray)
+   },
 
 
 }

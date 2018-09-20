@@ -16,6 +16,7 @@
     "@nuxtjs/axios": "^5.0.0",
     "file-system": "^2.2.2",
     "nuxt": "^1.0.0",
+    "serve": "^10.0.1",
     "vuetify": "^1.0.19"
   },
   "devDependencies": {
