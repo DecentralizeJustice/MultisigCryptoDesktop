@@ -12,25 +12,20 @@
 
             <v-card-title primary-title class="justify-center" >
               <div>
-                <h1 class=" pb-3" >Confirm Final Plan</h1>
+                <h1 >Confirm Final Plan</h1>
               </div>
             </v-card-title>
-            <v-flex xs5>
+            <v-flex xs4>
               <v-card>
                 <v-toolbar color="black" >
-                  <v-toolbar-title>Labtop 1</v-toolbar-title>
+                  <v-layout row wrap align-center>
+                    <v-flex class="text-xs-center">
+                      <v-toolbar-title>Laptop 1</v-toolbar-title>
+                    </v-flex>
+                  </v-layout>
                 </v-toolbar>
-                  <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                    aspect-ratio="2.75"
-                  ></v-img>
 
 
-
-                  <v-card-actions>
-                    <v-btn flat color="orange">Share</v-btn>
-                    <v-btn flat color="orange">Explore</v-btn>
-                  </v-card-actions>
                 </v-card>
               </v-flex>
               </v-card>
@@ -47,8 +42,21 @@ export default {
   methods: {
     choose (option) {
       this.$emit('pickOption',option)
+    },
+    show (){
+      alert(this.choiceArray)
     }
   },
+  data: function () {
+    return {
+      items: [
+      { title: 'Click Me' },
+      { title: 'Click Me' },
+      { title: 'Click Me' },
+      { title: 'Click Me 2' }
+    ]
+      }
+    }
 
 
 }
