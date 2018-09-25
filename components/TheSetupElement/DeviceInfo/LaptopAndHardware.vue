@@ -95,15 +95,25 @@ export default {
     },
     testchoice (n,index){
      let currentNum=this.getNum(this.choiceArray)
-     
+     alert(currentNum)
+
     },
     getNum(choiceArray){
       let count=0
       count += choiceArray[2]
-      count += choiceArray[0]
+      //sum all keys to ensure that they arent over 3, under by uncounted laptops are ok
       for (let i = 0; i < Object.keys(this.laptops).length; i++) {
-        alert(JSON.stringify(this.laptops))
+        let num =0
+        for (let x = 0; x < choiceArray[0]; x++) {
+          if(this.laptops['lap'+i][x] ===true){
+            num +=1
+          }
+        }
+        if(num===0){count+=1}
+        else { count+=num}
       }
+
+
       return count
     }
 
