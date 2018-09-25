@@ -91,7 +91,7 @@ export default {
     return {
       phonenum: 0,
       require3: 'Your plan requires the use of 3 phones.',
-      nophones: 'Your plan dose not allow for the use of phones.',
+      nophones: 'Your plan does not allow for the use of phones.',
       }
     }
 
