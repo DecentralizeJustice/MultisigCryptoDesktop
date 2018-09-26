@@ -76,6 +76,7 @@ export default {
       if (this.choiceArray[0]===0){return [0,1,2,3]}
       if (this.choiceArray[1]===2){return [0,1]}
       if (this.choiceArray[0]===2){return [0,1]}
+      if (this.choiceArray[0]===1&&this.choiceArray[1]===1){return [0,1,2]}
       else { return [1,2,3]}
     },
     getCorrectString: function(){

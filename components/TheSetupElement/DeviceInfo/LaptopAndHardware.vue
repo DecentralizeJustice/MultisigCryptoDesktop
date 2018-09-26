@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="padding-bottom: 2%;">
   <v-layout xs12  wrap justify-space-around row fill-height>
 
   <v-flex xs12 sm3 v-for="(item,index) in this.laptops" :key="index">
@@ -16,11 +16,11 @@
            <h3 style="color: black;">Number of Hardware Wallets:</h3>
          </div>
        </v-card-title>
-       <v-layout row wrap class="text-xs-center" mb-5>
+       <v-layout row wrap class="text-xs-center" >
          <v-flex>
-           <v-btn large  round v-for="n in item.length+1" :key="n"
-           :color=getButtonStatus(n,sumHardwareWallets(item))
-            @click.native="testchoice(n,index)">
+           <v-btn large  color='success' round v-for="n in item.length+1" :key="n"
+           v-if=getButtonStatus(n,sumHardwareWallets(item))
+            >
              <h3 class="headline" >{{n-1}}</h3>
            </v-btn>
          </v-flex>
@@ -28,7 +28,7 @@
       </v-card>
     </v-flex>
 
-    <v-flex xs12 sm3 pb-5 v-for="index in this.choiceArray[2]" :key="index">
+    <v-flex xs12 sm3 v-for="index in this.choiceArray[2]" :key="index">
       <v-card  >
          <v-toolbar>
            <v-layout row wrap align-center>
@@ -40,8 +40,11 @@
          <v-img src="/cell.jpg" aspect-ratio="1.6"></v-img>
       </v-card>
     </v-flex>
-
   </v-layout>
+  <div class="text-xs-center" style="margin-top:1%;">
+    <v-btn color="info" @click.native="submit()" large >Confirm</v-btn>
+  </div>
+
 </div>
 </template>
 
@@ -53,6 +56,21 @@ export default {
     choose (option) {
       this.$emit('pickOption',option)
     },
+    submit(){
+
+      for (let i = 0; i < this.choiceArray[2]; i++) {
+        this.finalDevicePlan['device'+i] ={type:'cell'}
+      }
+      for (let i = 0; i < this.choiceArray[1]; i++) {
+        this.finalDevicePlan['device'+i] ={type:'lap',
+        hardwarewallets:this.sumHardwareWallets(this.laptops['lap'+i])}
+      }
+
+
+      //alert(this.getNum(this.choiceArray))
+      //alert(JSON.stringify(this.laptops))
+      alert(JSON.stringify(this.finalDevicePlan))
+    },
     sumHardwareWallets (labtop) {
       let numofTrues=0
       for (let i = 0; i < labtop.length; i++) {
@@ -62,9 +80,9 @@ export default {
     },
     getButtonStatus (num,correctNum) {
       num= num-1
-      if(num===correctNum){return 'success'}
+      if(num===correctNum){return true}
       else {
-        return '0'
+        return false
       }
     },
 
@@ -123,6 +141,7 @@ export default {
 
     return {
       laptops: {},
+      finalDevicePlan:{}
       }
     },
     beforeMount(){
