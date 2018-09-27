@@ -59,16 +59,23 @@ export default {
     submit(){
 
       for (let i = 0; i < this.choiceArray[2]; i++) {
-        this.finalDevicePlan['device'+i] ={type:'cell'}
+        this.finalDevicePlan['device'+i] ={type:'cell',privatekey:1}
       }
+
       for (let i = 0; i < this.choiceArray[1]; i++) {
-        this.finalDevicePlan['device'+i] ={type:'lap',
-        hardwarewallets:this.sumHardwareWallets(this.laptops['lap'+i])}
+        let offset= i+this.choiceArray[2]
+        this.finalDevicePlan['device'+offset] ={type:'lap',
+        hardwarewallets:this.sumHardwareWallets(this.laptops['lap'+i]),privatekey:0}
+        if(this.sumHardwareWallets(this.laptops['lap'+i])===0){
+          this.finalDevicePlan['device'+offset].privatekey=1        }
+      }
+      if(this.getNum(this.choiceArray)<3){
+        let index =this.choiceArray[2]
+        this.finalDevicePlan['device'+index].privatekey+=1
       }
 
 
-      //alert(this.getNum(this.choiceArray))
-      //alert(JSON.stringify(this.laptops))
+
       alert(JSON.stringify(this.finalDevicePlan))
     },
     sumHardwareWallets (labtop) {
