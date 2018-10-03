@@ -1,22 +1,15 @@
 export default {
-  addTodo ({ commit }, text) {
-    commit('addTodo', {
-      text,
-      done: false
-    })
+
+  updateDevicePlan ({ commit }, deviceplan) {
+    commit('updateDevicePlan', deviceplan)
+  },
+  hideDevicePlan ({ commit }) {
+    commit('hideDevicePlan')
   },
 
-  removeTodo ({ commit }, todo) {
-    commit('removeTodo', todo)
-  },
 
-  toggleTodo ({ commit }, todo) {
-    commit('editTodo', { todo, done: !todo.done })
-  },
 
-  editTodo ({ commit }, { todo, value }) {
-    commit('editTodo', { todo, text: value })
-  },
+
 
   toggleAll ({ state, commit }, done) {
     state.todos.forEach((todo) => {

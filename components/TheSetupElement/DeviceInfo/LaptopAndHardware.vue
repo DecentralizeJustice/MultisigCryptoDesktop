@@ -73,10 +73,8 @@ export default {
         let index =this.choiceArray[2]
         this.finalDevicePlan['device'+index].privatekey+=1
       }
-
-
-
-      alert(this.$store.state.count)
+      this.$store.dispatch('updateDevicePlan', this.finalDevicePlan)
+      this.$store.dispatch('hideDevicePlan')
     },
     sumHardwareWallets (labtop) {
       let numofTrues=0

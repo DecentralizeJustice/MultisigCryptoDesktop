@@ -1,6 +1,6 @@
 <template>
     <v-app  dark>
-      <TheSetupView></TheSetupView>
+      <TheSetupView v-if ="this.$store.state.setupInfo.showDevicePlan"></TheSetupView>
     </v-app>
 </template>
 

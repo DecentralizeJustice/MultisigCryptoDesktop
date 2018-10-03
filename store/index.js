@@ -5,7 +5,11 @@ import actions from './actions'
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      count: 0
+      setupInfo: {
+        finalDevicePlan: {},
+        showDevicePlan:true,
+      }
+
     },
     actions,
     mutations
