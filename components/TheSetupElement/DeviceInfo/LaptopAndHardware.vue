@@ -33,7 +33,7 @@
          <v-toolbar>
            <v-layout row wrap align-center>
              <v-flex headline class="text-xs-center">
-               Cellphone {{index}}
+              {{getOrdinal(index-1)}} Cellphone
              </v-flex>
            </v-layout>
          </v-toolbar>
@@ -76,7 +76,7 @@ export default {
 
 
 
-      alert(JSON.stringify(this.finalDevicePlan))
+      alert(this.$store.state.count)
     },
     sumHardwareWallets (labtop) {
       let numofTrues=0

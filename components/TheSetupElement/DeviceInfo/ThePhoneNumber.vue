@@ -72,16 +72,12 @@ export default {
   },
   computed: {
     correctNumberofButtons: function () {
-      //0 hardware
-      if (this.choiceArray[0]===0){return [0,1,2,3]}
-      //1 hardware & 1 labtop
-      if (this.choiceArray[0]===1&&this.choiceArray[1]===1){return [1,2,3]}
       //2 hardware
-      if (this.choiceArray[1]===2){return [0,1]}
-      //2 laptops
       if (this.choiceArray[0]===2){return [0,1]}
-      //1 hardware and 1 laptop
-      if (this.choiceArray[0]===1&&this.choiceArray[1]===1){return [1,2]}
+      //2 laptops
+      if (this.choiceArray[1]===2){return [0,1]}
+      //1 laptop
+      if (this.choiceArray[1]===1){return [1,2]}
       else { return [1,2,3]}
     },
     getCorrectString: function(){
