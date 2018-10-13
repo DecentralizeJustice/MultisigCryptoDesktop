@@ -8,7 +8,10 @@ const createStore = () => {
       setupInfo: {
         finalDevicePlan: {},
         showDevicePlan:true,
-      }
+        showDeviceSetup:false,
+        takendevices:[]
+      },
+      thisdeviceInfo: {}
 
     },
     actions,

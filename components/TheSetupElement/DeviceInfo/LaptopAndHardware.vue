@@ -75,6 +75,7 @@ export default {
       }
       this.$store.dispatch('updateDevicePlan', this.finalDevicePlan)
       this.$store.dispatch('hideDevicePlan')
+      this.$store.dispatch('showDeviceSetup')
     },
     sumHardwareWallets (labtop) {
       let numofTrues=0

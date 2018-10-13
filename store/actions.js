@@ -6,6 +6,9 @@ export default {
   hideDevicePlan ({ commit }) {
     commit('hideDevicePlan')
   },
+  showDeviceSetup ({ commit }) {
+    commit('showDeviceSetup')
+  },
 
 
 

@@ -8,6 +8,9 @@ export default {
   hideDevicePlan (state, deviceplan) {
     state.setupInfo.showDevicePlan= false
   },
+  showDeviceSetup (state, deviceplan) {
+    state.setupInfo.showDeviceSetup= true
+  },
 
 
 }
