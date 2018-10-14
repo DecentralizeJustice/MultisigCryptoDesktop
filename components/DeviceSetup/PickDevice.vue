@@ -28,18 +28,23 @@
                           </v-flex>
                         </v-layout>
                       </v-toolbar>
+
                       <v-card-title>
-                         <div>
-                           <h3 style="color: black;">Number of Hardware Wallets:</h3>
-                         </div>
+                        <div style="color: black;">
+                          <h2 >Type: {{deviceType(item)}}</h2>
+                          <div v-if="iteminfo(item).type=='lap'">
+                            <h3 >Number of Hardware Wallets: {{iteminfo(item).hardwarewallets}}</h3>
+                          </div>
+                        </div>
                        </v-card-title>
-                       <v-layout row wrap class="text-xs-center" >
-                         <v-flex>
-                           <v-btn large  color='success' round>
+
+
+                           <v-btn large  class="text-xs-center" color='success' round
+                           @click.native="choose(item)">
                                Select
                            </v-btn>
-                         </v-flex>
-                       </v-layout>
+
+
                       </v-card>
                     </v-flex>
               </v-layout>
@@ -61,22 +66,25 @@ export default {
 
     },
     methods: {
-      choose (choice, index) {
-        this.choiceArray.splice(index, 1, choice)
+      choose (option) {
+      this.$emit('pickOption',option)
       },
-      shouldThisShow (index) {
-        if (index.length !== this.choiceArray.length) { return false }
-        for (let i = 0; i < index.length; i++) {
-          if (index[i] === '') { continue }
-          if (index[i] !== this.choiceArray[i]) { return false }
+      deviceType (num) {
+        let device =this.devices["device"+num]
+        if (device.type==='cell'){
+          return "Cellphone"
+        }else {
+          return "Labtop"
         }
-        return true
       },
       getOrdinal (num) {
         num =parseInt(num, 10);
         if(num===0){return '1st'}
         if(num===1){return '2nd'}
         if(num===2){return '3rd'}
+      },
+      iteminfo (num) {
+        return this.devices["device"+num]
       },
     },
     computed: {

@@ -117,11 +117,6 @@ export default {
           }
       }
     },
-    testchoice (n,index){
-     let currentNum=this.getNum(this.choiceArray)
-     alert(currentNum)
-
-    },
     getNum(choiceArray){
       let count=0
       count += choiceArray[2]
@@ -152,9 +147,7 @@ export default {
     },
     beforeMount(){
       this.createobjects(this.choiceArray)
-      //alert(JSON.stringify(this.laptops))
       this.fillLabtopButoons(this.choiceArray)
-      //alert(JSON.stringify(this.laptops))
    },
 
 

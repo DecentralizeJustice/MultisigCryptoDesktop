@@ -2,8 +2,10 @@
   <v-container justify-center fill-height fluid>
 
     <PickDevice v-on:pickOption='choose($event,0)'
-    v-if="true">
+    v-if="shouldThisShow ([])">
     </PickDevice>
+    <!-- <LaptopAndHardware v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'>
+    </LaptopAndHardware> -->
 
 
   </v-container>
