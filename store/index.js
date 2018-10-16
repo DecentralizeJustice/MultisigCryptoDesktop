@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import  mutations from './mutations'
+import mutations from './mutations'
 import actions from './actions'
 
 const createStore = () => {
@@ -7,9 +7,9 @@ const createStore = () => {
     state: {
       setupInfo: {
         finalDevicePlan: {},
-        showDevicePlan:true,
-        showDeviceSetup:false,
-        takendevices:[]
+        showDevicePlan: true,
+        showDeviceSetup: false,
+        takendevices: []
       },
       thisdeviceInfo: {}
 

@@ -1,14 +1,13 @@
 <template>
   <v-container justify-center fill-height>
-
+    
     <PickDevice  v-on:pickOption='choose($event,0)'
     v-if="shouldThisShow ([])">
     </PickDevice>
     <TheMenmonic  v-on:pickOption='choose($event,0)'
     v-if="shouldThisShow ([''])">
     </TheMenmonic>
-    <!-- <LaptopAndHardware v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'>
-    </LaptopAndHardware> -->
+
 
 
   </v-container>
