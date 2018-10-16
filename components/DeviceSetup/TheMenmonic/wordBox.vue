@@ -10,7 +10,11 @@
 </template>
 
 <script>
+import { doSomething } from '~/assets/getWord.js'
 export default {
+  data () {
+    return { word: '' }
+  },
   name: 'wordBox',
   props: ['number'],
   computed: {
@@ -20,7 +24,7 @@ export default {
       this.$emit('pickOption', option)
     },
     checkText (word) {
-      if (word.length >= 4) {}
+      if (word.length >= 4) { console.log(doSomething(word)) }
     },
     getRightPhrase (i) {
       let j = i % 10
