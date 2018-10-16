@@ -10,5 +10,4 @@ export default {
   showDeviceSetup (state, deviceplan) {
     state.setupInfo.showDeviceSetup = true
   }
-
 }

@@ -21,12 +21,12 @@ export default {
   name: 'TheMenmonic',
   components: {
     wordBox
-    },
+  },
   computed: {
-   count: function() {
-     return 'The count is '
-   }
- },
+    count: function () {
+      return 'The count is '
+    }
+  },
   methods: {
     choose (option) {
       this.$emit('pickOption', option)
