@@ -1,6 +1,6 @@
 const pkg = require('./package')
 
-const nodeExternals = require('webpack-node-externals')
+//  const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   mode: 'universal',
@@ -9,7 +9,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: "Multisig Crypto",
+    title: 'Multisig Crypto',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -62,7 +62,5 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-
-
   }
 }
