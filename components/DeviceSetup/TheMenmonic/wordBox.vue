@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { getWord } from '~/assets/getWord.js'
+import { getWord } from '~/assets/WordList/getWord.js'
 export default {
   data () {
     return {
