@@ -2,7 +2,7 @@
 
   <v-flex xs12 sm6 md3>
     <v-text-field
-      :label='getRightPhrase(number)'
+      :label='number'
       :outline='true' v-model="word" v-on:keyup="checkText (word)"
     >
     <v-fade-transition slot="append">
