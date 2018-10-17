@@ -2,9 +2,15 @@
 
   <v-flex xs12 sm6 md3>
     <v-text-field
-      :label='getRightPhrase(number)+" Word"'
+      :label='getRightPhrase(number)'
       :outline='true' v-model="word" v-on:keyup="checkText (word)"
-    ></v-text-field>
+    >
+    <v-fade-transition slot="append">
+      <v-icon v-if="done">check_circle</v-icon>
+      <v-icon v-else>error</v-icon>
+    </v-fade-transition>
+
+    </v-text-field>
   </v-flex>
 
 </template>
@@ -13,7 +19,10 @@
 import { getWord } from '~/assets/getWord.js'
 export default {
   data () {
-    return { word: '' }
+    return {
+      word: '',
+      done: false
+    }
   },
   name: 'wordBox',
   props: ['number'],
@@ -24,7 +33,19 @@ export default {
       this.$emit('pickOption', option)
     },
     checkText (word) {
-      if (word.length >= 4) { console.log(getWord(word)) }
+      if (word.length === 4) {
+        if (word[3] === '') {
+          word = word.splice(0, 3)
+          word += '-'
+        }
+        let wordInfo = getWord(word)
+        if (wordInfo.exist === true) {
+          this.word = wordInfo.value
+          this.done = true
+        }
+      } else {
+        this.done = false
+      }
     },
     getRightPhrase (i) {
       let j = i % 10
