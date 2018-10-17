@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { doSomething } from '~/assets/getWord.js'
+import { getWord } from '~/assets/getWord.js'
 export default {
   data () {
     return { word: '' }
@@ -24,7 +24,7 @@ export default {
       this.$emit('pickOption', option)
     },
     checkText (word) {
-      if (word.length >= 4) { console.log(doSomething(word)) }
+      if (word.length >= 4) { console.log(getWord(word)) }
     },
     getRightPhrase (i) {
       let j = i % 10

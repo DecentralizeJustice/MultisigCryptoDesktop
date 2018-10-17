@@ -1,7 +1,9 @@
-function doSomething (word) {
-  return word
-}
+import { wordList } from '~/assets/WordList/englishWordlist.js'
 
-module.exports = {
-  doSomething
+export function getWord (word) {
+  if (wordList.hasOwnProperty(word)) {
+    return { exist: true, value: wordList[word] }
+  } else {
+    return { exist: false }
+  }
 }
