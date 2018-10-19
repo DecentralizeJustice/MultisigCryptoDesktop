@@ -12,10 +12,10 @@
             <v-container xs12 >
               <v-layout  xs12 row wrap >
 
-                <wordBox v-bind:number="item" v-for="item in front" :key="item" v-if='showFront'>
+                <wordBox v-on:updateWord='updateWord($event)' v-bind:number="item" v-for="item in front" :key="item" v-if='showFront'>
                 </wordBox>
 
-                <wordBox v-bind:number="item" v-for="item in back" :key="item" v-if='!showFront'>
+                <wordBox v-on:updateWord='updateWord($event)' v-bind:number="item" v-for="item in back" :key="item" v-if='!showFront'>
                 </wordBox>
               </v-layout>
             </v-container>
@@ -44,7 +44,8 @@ export default {
   data () {
     return {
       showFront: true,
-      toggle_exclusive: 0
+      toggle_exclusive: 0,
+      words: {}
     }
   },
   computed: {
@@ -59,13 +60,21 @@ export default {
     choose (option) {
       this.$emit('pickOption', option)
     },
+    updateWord (option) {
+      this.words[option.number] = option.whichWord
+      console.log(this.words)
+    },
     flipCard (front) {
-      if (front === true ) {
+      if (front === true) {
         this.showFront = true
-      }
-      else {
+      } else {
         this.showFront = false
       }
+    }
+  },
+  created () {
+    for (let i = 1; i < 13; i++) {
+      this.words[i] = ''
     }
   }
 

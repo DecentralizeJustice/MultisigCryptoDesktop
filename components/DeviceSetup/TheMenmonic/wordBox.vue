@@ -29,8 +29,8 @@ export default {
   computed: {
   },
   methods: {
-    choose (option) {
-      this.$emit('pickOption', option)
+    updateWord (option) {
+      this.$emit('updateWord', option)
     },
     checkText (word) {
       if (word.length === 4) {
@@ -42,9 +42,15 @@ export default {
         if (wordInfo.exist === true) {
           this.word = wordInfo.value
           this.done = true
+          this.updateWord(
+            { number: this.number,
+              whichWord: wordInfo.value })
         }
       } else {
         this.done = false
+        this.updateWord(
+          { number: this.number,
+            whichWord: '' })
       }
     },
     getRightPhrase (i) {
