@@ -3,10 +3,10 @@
   <v-flex xs12 sm6 md3>
     <v-text-field
       :label='number'
-      :outline='true' v-model="word" v-on:keyup="checkText (word)"
+      :outline='true' v-model="thisWord" v-on:keyup="checkText (thisWord)"
     >
     <v-fade-transition slot="append">
-      <v-icon v-if="done">check_circle</v-icon>
+      <v-icon v-if="checkDone">check_circle</v-icon>
       <v-icon v-else>error</v-icon>
     </v-fade-transition>
 
@@ -20,19 +20,28 @@ import { getWord } from '~/assets/WordList/getWord.js'
 export default {
   data () {
     return {
-      word: '',
-      done: false
+      thisWord: this.word,
+      tempDone: false
     }
   },
   name: 'wordBox',
-  props: ['number'],
+  props: ['number', 'word', 'done'],
   computed: {
+    checkDone: function () {
+      if ((this.done || this.tempDone) === true) {
+        return true
+      } else {
+        return false
+      }
+    }
   },
+
   methods: {
     updateWord (option) {
       this.$emit('updateWord', option)
     },
-    checkText (word) {
+    checkText (thing) {
+      let word = thing
       if (word.length === 4) {
         if (word[3] === '') {
           word = word.splice(0, 3)
@@ -40,32 +49,17 @@ export default {
         }
         let wordInfo = getWord(word)
         if (wordInfo.exist === true) {
-          this.word = wordInfo.value
-          this.done = true
+          this.tempDone = true
           this.updateWord(
             { number: this.number,
               whichWord: wordInfo.value })
         }
       } else {
-        this.done = false
+        this.tempDone = false
         this.updateWord(
           { number: this.number,
             whichWord: '' })
       }
-    },
-    getRightPhrase (i) {
-      let j = i % 10
-      let k = i % 100
-      if (j === 1 && k !== 11) {
-        return i + 'st'
-      }
-      if (j === 2 && k !== 12) {
-        return i + 'nd'
-      }
-      if (j === 3 && k !== 13) {
-        return i + 'rd'
-      }
-      return i + 'th'
     }
   }
 

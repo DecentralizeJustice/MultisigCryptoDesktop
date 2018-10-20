@@ -12,11 +12,13 @@
             <v-container xs12 >
               <v-layout  xs12 row wrap >
 
-                <wordBox v-on:updateWord='updateWord($event)' v-bind:number="item" v-for="item in front" :key="item" v-if='showFront'>
+                <wordBox v-on:updateWord='updateWord($event)' v-bind:number="key" v-bind:done='isDone(key)'
+                  v-for="(value,key) in words" :key="key" v-if='whichSide(key)' v-bind:word='value'>
                 </wordBox>
 
-                <wordBox v-on:updateWord='updateWord($event)' v-bind:number="item" v-for="item in back" :key="item" v-if='!showFront'>
-                </wordBox>
+                <!-- <wordBox v-on:updateWord='updateWord($event)' v-bind:number="item"
+                  v-for="item in back" :key="item" v-if='!showFront' v-bind:word='words.item'>
+                </wordBox> -->
               </v-layout>
             </v-container>
           </v-form>
@@ -28,7 +30,7 @@
                </v-btn-toggle>
             </v-layout>
           </v-flex>
-          <v-btn round :large='true' color='success' v-on:click=""><h3>Submit</h3></v-btn>
+          <v-btn round :large='true' color='success' v-on:click="" v-if='completeWordlist'><h3>Submit</h3></v-btn>
           </v-layout>
         </v-card>
 
@@ -45,24 +47,45 @@ export default {
     return {
       showFront: true,
       toggle_exclusive: 0,
-      words: {}
+      completeWordlist: false
     }
   },
   computed: {
-    front: function () {
-      return ['1', '2', '3', '4', '5', '6']
-    },
-    back: function () {
-      return ['7', '8', '9', '10', '11', '12']
+    words: {
+      // getter
+      get: function () {
+        let words = {}
+        for (let i = 1; i < 13; i++) {
+          words[i] = ''
+        }
+        return words
+      },
+      // setter
+      set: function (newValue) {
+        this.words[newValue.number] = newValue.whichWord
+      }
     }
   },
   methods: {
+    whichSide (index) {
+      if (index < 7 && this.showFront === true) {
+        return true
+      } else if (index > 7 && this.showFront === false) {
+        return true
+      }
+    },
     choose (option) {
       this.$emit('pickOption', option)
     },
     updateWord (option) {
-      this.words[option.number] = option.whichWord
-      console.log(this.words)
+      this.words = option
+    },
+    isDone (index) {
+      if (this.words[index] === '') {
+        return false
+      } else {
+        return true
+      }
     },
     flipCard (front) {
       if (front === true) {
@@ -70,11 +93,6 @@ export default {
       } else {
         this.showFront = false
       }
-    }
-  },
-  created () {
-    for (let i = 1; i < 13; i++) {
-      this.words[i] = ''
     }
   }
 
