@@ -16,9 +16,6 @@
                   v-for="(value,key) in words" :key="key" v-if='whichSide(key)' v-bind:word='value'>
                 </wordBox>
 
-                <!-- <wordBox v-on:updateWord='updateWord($event)' v-bind:number="item"
-                  v-for="item in back" :key="item" v-if='!showFront' v-bind:word='words.item'>
-                </wordBox> -->
               </v-layout>
             </v-container>
           </v-form>
