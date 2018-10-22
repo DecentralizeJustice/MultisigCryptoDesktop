@@ -19,7 +19,7 @@
               </v-layout>
             </v-container>
           </v-form>
-          <v-flex xs6>
+          <v-flex xs6 ma-2>
             <v-layout align-center justify-space-around row>
               <v-btn-toggle v-model="toggle_exclusive" mandatory>
                 <v-btn round :large='true' flat v-on:click="flipCard(true)"><h2>1-6</h2></v-btn>
@@ -27,7 +27,11 @@
                </v-btn-toggle>
             </v-layout>
           </v-flex>
-          <v-btn round :large='true' color='success' v-on:click="" v-if='completeWordlist'><h3>Submit</h3></v-btn>
+          <v-flex xs12 ma-2>
+            <v-layout align-center justify-space-around row>
+              <v-btn round :large='true' color='success' v-on:click="submitList" v-if='completeWordlist'><h3>Submit</h3></v-btn>
+            </v-layout>
+        </v-flex>
           </v-layout>
         </v-card>
 
@@ -45,11 +49,11 @@ export default {
       showFront: true,
       toggle_exclusive: 0,
       completeWordlist: false
+
     }
   },
   computed: {
     words: {
-      // getter
       get: function () {
         let words = {}
         for (let i = 1; i < 13; i++) {
@@ -57,17 +61,19 @@ export default {
         }
         return words
       },
-      // setter
       set: function (newValue) {
         this.words[newValue.number] = newValue.whichWord
+        this.checkforComplete()
       }
     }
+  },
+  watch: {
   },
   methods: {
     whichSide (index) {
       if (index < 7 && this.showFront === true) {
         return true
-      } else if (index > 7 && this.showFront === false) {
+      } else if (index >= 7 && this.showFront === false) {
         return true
       }
     },
@@ -90,6 +96,18 @@ export default {
       } else {
         this.showFront = false
       }
+    },
+    checkforComplete () {
+      for (let i = 1; i < 13; i++) {
+        if (this.words[i] === '') {
+          this.completeWordlist = false
+          return
+        }
+      }
+      this.completeWordlist = true
+    },
+    submitList () {
+      console.log(this.words)
     }
   }
 
