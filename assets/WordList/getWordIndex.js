@@ -17,7 +17,8 @@ function indexTheWordList (wordList) {
 function convertToBase2 (wordList) {
   let base2 = Object.assign({}, wordList)
   for (let i = 1; i < 13; i++) {
-    base2[i] = convertFromBaseToBase(base2[i], 10, 2)
+    let binary = convertFromBaseToBase(base2[i], 10, 2)
+    base2[i] = paddIfNeed(binary)
   }
   return base2
 }
@@ -25,4 +26,14 @@ function convertToBase2 (wordList) {
 function convertFromBaseToBase (str, fromBase, toBase) {
   let num = parseInt(str, fromBase)
   return num.toString(toBase)
+}
+
+function paddIfNeed (num) {
+  if (num.length < 11) {
+    let numToPad = 11 - num.length
+    for (let i = 0; i < numToPad; i++) {
+      num = '0' + num
+    }
+  }
+  return num
 }
