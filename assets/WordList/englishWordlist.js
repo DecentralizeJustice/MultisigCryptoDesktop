@@ -1,5 +1,5 @@
 
-let wordList = {
+const wordList = {
   'aban': 'abandon',
   'abil': 'ability',
   'able': 'able',

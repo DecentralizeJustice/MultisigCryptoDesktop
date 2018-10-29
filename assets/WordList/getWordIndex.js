@@ -1,6 +1,6 @@
 import { indexWordList } from '~/assets/WordList/englishWordlistIndex.js'
 
-export function combine2passphrases (wordList) {
+export function makeBinaryWordList (wordList) {
   let wordList1 = indexTheWordList(wordList)
   let wordList2 = convertToBase2(wordList1)
   return wordList2

@@ -3,19 +3,29 @@
 <Entermenmonic v-on:submitwordList='submitwordList($event)' v-if="shouldShow (0)">
 </Entermenmonic>
 
+<Confirm v-on:confirm='confirm($event)' v-else-if="shouldShow (1)">
+</Confirm>
+
 </template>
 
 <script>
 import Entermenmonic from '~/components/DeviceSetup/TheMenmonic/Entermenmonic.vue'
-import { combine2passphrases } from '~/assets/WordList/getWordIndex.js'
+import Confirm from '~/components/DeviceSetup/TheMenmonic/Confirm.vue'
+import { makeBinaryWordList } from '~/assets/WordList/getWordIndex.js'
+import { createWebWordlist } from '~/assets/WordList/createWebWordlist.js'
+import { createFinalMenmonic } from '~/assets/WordList/createFinalMenmonic.js'
 export default {
   name: 'TheMenmonic',
   components: {
-    Entermenmonic
+    Entermenmonic,
+    Confirm
   },
   data () {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      wordList: {},
+      webWordList: {},
+      finalMenmonic: ''
     }
   },
   computed: {
@@ -25,8 +35,14 @@ export default {
   },
   methods: {
     submitwordList (wordList) {
-      // this.currentIndex += 1
-      console.log(combine2passphrases(wordList))
+      this.currentIndex += 1
+      let binaryWordList = makeBinaryWordList(wordList)
+      let webWordList = createWebWordlist()
+      let webBinaryWordList = makeBinaryWordList((webWordList))
+      let finalMenmonic = createFinalMenmonic(webBinaryWordList, binaryWordList)
+      this.wordList = wordList
+      this.webWordList = webWordList
+      this.finalMenmonic = finalMenmonic
     },
     shouldShow (index) {
       if (this.currentIndex === index) {
@@ -34,6 +50,9 @@ export default {
       } else {
         return false
       }
+    },
+    confirm () {
+      console.log('ran')
     }
   }
 }

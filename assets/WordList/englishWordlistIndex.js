@@ -1,5 +1,5 @@
 
-let indexWordList = {
+const indexWordList = {
   'abandon': '0',
   'ability': '1',
   'able': '2',
