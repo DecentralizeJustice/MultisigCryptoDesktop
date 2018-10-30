@@ -39,7 +39,7 @@ export default {
     pickOption (option) {
       this.$emit('pickOption', option)
     }
-  },
+  }
 
 }
 </script>

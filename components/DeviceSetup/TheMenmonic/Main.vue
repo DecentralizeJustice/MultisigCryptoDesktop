@@ -4,6 +4,8 @@
 </Entermenmonic>
 
 <Confirm v-on:confirm='confirm($event)' v-else-if="shouldShow (1)">
+  <div slot='web'>{{finalMenmonic}}</div>
+  <div slot='metal'>{{convertWordListToString(wordList)}}</div>
 </Confirm>
 
 </template>
@@ -52,7 +54,16 @@ export default {
       }
     },
     confirm () {
-      console.log('ran')
+      this.currentIndex += 1
+      let option = {}
+      this.$emit('submitwordList', option)
+    },
+    convertWordListToString (WordList) {
+      let string = ''
+      for (let i = 1; i < 13; i++) {
+        string += WordList[i] + ' '
+      }
+      return string
     }
   }
 }

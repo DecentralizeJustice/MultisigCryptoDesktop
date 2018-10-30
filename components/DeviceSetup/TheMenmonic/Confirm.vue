@@ -1,23 +1,30 @@
 <template>
-  <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
+  <v-layout align-center >
+    <v-flex xs12 sm10 offset-sm1>
       <v-card>
         <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-          aspect-ratio="2.75"
-        ></v-img>
+         src='https://cdn-images-1.medium.com/max/1600/1*51Kjfq6fe0mFTd8P8_Bz_A.jpeg'
+         aspect-ratio="5"
+       ></v-img>
 
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-            <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-          </div>
-        </v-card-title>
+       <v-layout align-center >
+       <v-flex xs12 sm10 offset-sm1>
+       <v-flex class="text-xs-center" ma-2>
+         <h3 class="headline" >Metal Memnonic:</h3>
+         <h4><slot name="metal"></slot></h4>
+       </v-flex>
+       <v-flex class="text-xs-center"ma-2>
+         <h3 class="headline" >Web Memnonic:</h3>
+         <h4><slot name="web"></slot></h4>
+       </v-flex>
+       </v-flex>
+       </v-layout>
 
-        <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
-        </v-card-actions>
+        <v-flex xs12 pb-2>
+          <v-layout align-center justify-space-around row>
+            <v-btn flat color="success" v-on:click="submit">Confirm</v-btn>
+          </v-layout>
+      </v-flex>
       </v-card>
     </v-flex>
   </v-layout>
@@ -37,7 +44,9 @@ export default {
   watch: {
   },
   methods: {
-
+    submit () {
+      this.$emit('confirm')
+    }
   }
 
 }
