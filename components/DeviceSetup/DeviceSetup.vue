@@ -8,7 +8,7 @@
     <TheHardwareWallet  v-on:pickOption='choose($event,0)'
     v-if="shouldThisShow ([])">
     </TheHardwareWallet>
-    
+
     <!-- <TheMenmonic  v-on:pickOption='choose($event,0)'
     v-if="shouldThisShow ([''])">
     </TheMenmonic> -->
@@ -26,7 +26,8 @@ export default {
   name: 'DeviceSetup',
   components: {
     PickDevice,
-    TheMenmonic
+    TheMenmonic,
+    TheHardwareWallet
   },
   methods: {
     choose (choice, index) {

@@ -3,18 +3,13 @@ import NuxtLoading from './components/nuxt-loading.vue'
 
 import '../node_modules/vuetify/src/stylus/main.styl'
 
+import _6f6c098b from '../layouts/default.vue'
 
-let layouts = {
-
-  "_default": () => import('../layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m)
-
-}
-
-let resolvedLayouts = {}
+const layouts = { '_default': _6f6c098b }
 
 export default {
-  head: {"title":"Multisig Crypto","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"Multisig Crypto","content":"The Most Secure Way To Store Crypto"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:300,400,500,700|Material+Icons"}],"style":[],"script":[]},
-  render(h, props) {
+  head: { 'title': 'Multisig Crypto', 'meta': [{ 'charset': 'utf-8' }, { 'name': 'viewport', 'content': 'width=device-width, initial-scale=1' }, { 'hid': 'description', 'name': 'Multisig Crypto', 'content': 'The Most Secure Way To Store Crypto' }], 'link': [{ 'rel': 'icon', 'type': 'image\u002Fx-icon', 'href': '\u002Ffavicon.ico' }, { 'rel': 'stylesheet', 'href': 'https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:300,400,500,700|Material+Icons' }], 'style': [], 'script': [] },
+  render (h, props) {
     const loadingEl = h('nuxt-loading', { ref: 'loading' })
     const layoutEl = h(this.layout || 'nuxt')
     const templateEl = h('div', {
@@ -31,7 +26,7 @@ export default {
       }
     }, [ templateEl ])
 
-    return h('div',{
+    return h('div', {
       domProps: {
         id: '__nuxt'
       }
@@ -57,51 +52,40 @@ export default {
     // Add $nuxt.error()
     this.error = this.nuxt.error
   },
-  
+
   mounted () {
     this.$loading = this.$refs.loading
   },
   watch: {
     'nuxt.err': 'errorChanged'
   },
-  
+
   methods: {
-    
+
     errorChanged () {
       if (this.nuxt.err && this.$loading) {
         if (this.$loading.fail) this.$loading.fail()
         if (this.$loading.finish) this.$loading.finish()
       }
     },
-    
+
     setLayout (layout) {
-      if (!layout || !resolvedLayouts['_' + layout]) layout = 'default'
+      if (!layout || !layouts['_' + layout]) {
+        layout = 'default'
+      }
       this.layoutName = layout
-      let _layout = '_' + layout
-      this.layout = resolvedLayouts[_layout]
+      this.layout = layouts['_' + layout]
       return this.layout
     },
     loadLayout (layout) {
-      if (!layout || !(layouts['_' + layout] || resolvedLayouts['_' + layout])) layout = 'default'
-      let _layout = '_' + layout
-      if (resolvedLayouts[_layout]) {
-        return Promise.resolve(resolvedLayouts[_layout])
+      if (!layout || !layouts['_' + layout]) {
+        layout = 'default'
       }
-      return layouts[_layout]()
-      .then((Component) => {
-        resolvedLayouts[_layout] = Component
-        delete layouts[_layout]
-        return resolvedLayouts[_layout]
-      })
-      .catch((e) => {
-        if (this.$nuxt) {
-          return this.$nuxt.error({ statusCode: 500, message: e.message })
-        }
-      })
+      return Promise.resolve(layouts['_' + layout])
     }
+
   },
   components: {
     NuxtLoading
   }
 }
-

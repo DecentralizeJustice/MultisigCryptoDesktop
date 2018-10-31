@@ -3,7 +3,7 @@ const pkg = require('./package')
 //  const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
 
   /*
   ** Headers of the page
@@ -62,9 +62,8 @@ module.exports = {
     /*
     ** You can extend webpack config here
    */
-    extend (config, ctx) {
-    // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
+    extend (config, { isDev, isClient }) {
+      if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js)$/,

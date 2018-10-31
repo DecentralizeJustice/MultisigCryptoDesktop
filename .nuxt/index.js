@@ -1,4 +1,3 @@
-import 'es6-promise/auto'
 import Vue from 'vue'
 import Meta from 'vue-meta'
 import { createRouter } from './router.js'
@@ -14,7 +13,6 @@ import { createStore } from './store.js'
 /* Plugins */
 import nuxt_plugin_axios_20e72f04 from 'nuxt_plugin_axios_20e72f04' // Source: ./axios.js
 import nuxt_plugin_vuetify_e5914fcc from 'nuxt_plugin_vuetify_e5914fcc' // Source: ../plugins/vuetify
-
 
 // Component: <no-ssr>
 Vue.component(NoSSR.name, NoSSR)
@@ -36,16 +34,14 @@ Vue.use(Meta, {
   tagIDKeyName: 'hid' // the property name that vue-meta uses to determine whether to overwrite or append a tag
 })
 
-const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
+const defaultTransition = { 'name': 'page', 'mode': 'out-in', 'appear': true, 'appearClass': 'appear', 'appearActiveClass': 'appear-active', 'appearToClass': 'appear-to' }
 
 async function createApp (ssrContext) {
-  const router = createRouter(ssrContext)
+  const router = await createRouter(ssrContext)
 
-  
   const store = createStore(ssrContext)
   // Add this.$router into store actions/mutations
   store.$router = router
-  
 
   // Create Root instance
   // here we inject the router and store to all child components,
@@ -89,10 +85,10 @@ async function createApp (ssrContext) {
     },
     ...App
   }
-  
+
   // Make app available into store via this.app
   store.app = app
-  
+
   const next = ssrContext ? ssrContext.next : location => app.router.push(location)
   // Resolve route
   let route
@@ -121,10 +117,10 @@ async function createApp (ssrContext) {
     key = '$' + key
     // Add into app
     app[key] = value
-    
+
     // Add into store
     store[key] = app[key]
-    
+
     // Check if plugin not already installed
     const installKey = '__nuxt_' + key + '_installed__'
     if (Vue[installKey]) return
@@ -141,20 +137,17 @@ async function createApp (ssrContext) {
     })
   }
 
-  
-  if (process.browser) {
+  if (process.client) {
     // Replace store state before plugins execution
     if (window.__NUXT__ && window.__NUXT__.state) {
       store.replaceState(window.__NUXT__.state)
     }
   }
-  
 
   // Plugin execution
-  
+
   if (typeof nuxt_plugin_axios_20e72f04 === 'function') await nuxt_plugin_axios_20e72f04(app.context, inject)
   if (typeof nuxt_plugin_vuetify_e5914fcc === 'function') await nuxt_plugin_vuetify_e5914fcc(app.context, inject)
-  
 
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {

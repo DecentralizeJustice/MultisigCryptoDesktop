@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import NuxtChild from './nuxt-child'
+
 import NuxtError from './nuxt-error.vue'
+
 import { compile } from '../utils'
 
 export default {
   name: 'nuxt',
   props: ['nuxtChildKey', 'keepAlive'],
-  render(h) {
+  render (h) {
     // If there is some error
     if (this.nuxt.err) {
       return h('nuxt-error', {
