@@ -5,18 +5,16 @@
   "author": "Donely Gunn",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "node server.js",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "NODE_ENV=production node server.js",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "eslint --ext .js, --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
     "@ledgerhq/hw-app-btc": "^4.27.0",
-    "@ledgerhq/hw-transport": "^4.24.0",
-    "@ledgerhq/hw-transport-node-hid": "^4.24.0",
     "@ledgerhq/hw-transport-u2f": "^4.28.0",
     "@nuxtjs/axios": "^5.3.3",
     "aws-sdk": "^2.345.0",

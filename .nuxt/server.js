@@ -60,9 +60,10 @@ export default async (ssrContext) => {
   const beforeRender = async () => {
     // Call beforeNuxtRender() methods
     await Promise.all(ssrContext.beforeRenderFns.map((fn) => promisify(fn, { Components, nuxtState: ssrContext.nuxt })))
-
+    
     // Add the state from the vuex store
     ssrContext.nuxt.state = store.state
+    
   }
   const renderErrorPage = async () => {
     // Load layout for error page
@@ -83,6 +84,7 @@ export default async (ssrContext) => {
   // Components are already resolved by setContext -> getRouteData (app/utils.js)
   const Components = getMatchedComponents(router.match(ssrContext.url))
 
+  
   /*
   ** Dispatch store nuxtServerInit
   */
@@ -97,6 +99,7 @@ export default async (ssrContext) => {
   // ...If there is a redirect or an error, stop the process
   if (ssrContext.redirected) return noopApp()
   if (ssrContext.nuxt.error) return renderErrorPage()
+  
 
   /*
   ** Call global middleware (nuxt.config.js)
@@ -202,7 +205,8 @@ export default async (ssrContext) => {
     // Call fetch(context)
     if (Component.options.fetch) {
       promises.push(Component.options.fetch(app.context))
-    } else {
+    }
+    else {
       promises.push(null)
     }
 

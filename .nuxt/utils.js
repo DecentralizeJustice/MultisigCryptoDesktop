@@ -11,15 +11,15 @@ if (process.client) {
   }
 }
 
-export function empty () {}
+export function empty() {}
 
-export function globalHandleError (error) {
+export function globalHandleError(error) {
   if (Vue.config.errorHandler) {
     Vue.config.errorHandler(error)
   }
 }
 
-export function applyAsyncData (Component, asyncData) {
+export function applyAsyncData(Component, asyncData) {
   const ComponentData = Component.options.data || noopData
   // Prevent calling this method for each request on SSR context
   if (!asyncData && Component.options.hasAsyncData) {
@@ -27,7 +27,7 @@ export function applyAsyncData (Component, asyncData) {
   }
   Component.options.hasAsyncData = true
   Component.options.data = function () {
-    const data = ComponentData.call(this)
+    const data =  ComponentData.call(this)
     if (this.$ssrContext) {
       asyncData = this.$ssrContext.asyncData[Component.cid]
     }
@@ -38,7 +38,7 @@ export function applyAsyncData (Component, asyncData) {
   }
 }
 
-export function sanitizeComponent (Component) {
+export function sanitizeComponent(Component) {
   // If Component already sanitized
   if (Component.options && Component._Ctor === Component) {
     return Component
@@ -57,7 +57,7 @@ export function sanitizeComponent (Component) {
   return Component
 }
 
-export function getMatchedComponents (route, matches = false) {
+export function getMatchedComponents(route, matches = false) {
   return Array.prototype.concat.apply([], route.matched.map((m, index) => {
     return Object.keys(m.components).map((key) => {
       matches && matches.push(index)
@@ -66,7 +66,7 @@ export function getMatchedComponents (route, matches = false) {
   }))
 }
 
-export function getMatchedComponentsInstances (route, matches = false) {
+export function getMatchedComponentsInstances(route, matches = false) {
   return Array.prototype.concat.apply([], route.matched.map((m, index) => {
     return Object.keys(m.instances).map((key) => {
       matches && matches.push(index)
@@ -75,7 +75,7 @@ export function getMatchedComponentsInstances (route, matches = false) {
   }))
 }
 
-export function flatMapComponents (route, fn) {
+export function flatMapComponents(route, fn) {
   return Array.prototype.concat.apply([], route.matched.map((m, index) => {
     return Object.keys(m.components).reduce((promises, key) => {
       if (m.components[key]) {
@@ -88,7 +88,7 @@ export function flatMapComponents (route, fn) {
   }))
 }
 
-export function resolveRouteComponents (route) {
+export function resolveRouteComponents(route) {
   return Promise.all(
     flatMapComponents(route, async (Component, _, match, key) => {
       // If component is a function, resolve it
@@ -100,7 +100,7 @@ export function resolveRouteComponents (route) {
   )
 }
 
-export async function getRouteData (route) {
+export async function getRouteData(route) {
   // Make sure the components are resolved (code-splitting)
   await resolveRouteComponents(route)
   // Send back a copy of route with meta based on Component definition
@@ -112,7 +112,7 @@ export async function getRouteData (route) {
   }
 }
 
-export async function setContext (app, context) {
+export async function setContext(app, context) {
   const route = (context.to ? context.to : context.route)
   // If context not defined, create it
   if (!app.context) {
@@ -192,17 +192,17 @@ export async function setContext (app, context) {
   }
 }
 
-export function middlewareSeries (promises, appContext) {
+export function middlewareSeries(promises, appContext) {
   if (!promises.length || appContext._redirected || appContext._errored) {
     return Promise.resolve()
   }
   return promisify(promises[0], appContext)
-    .then(() => {
-      return middlewareSeries(promises.slice(1), appContext)
-    })
+  .then(() => {
+    return middlewareSeries(promises.slice(1), appContext)
+  })
 }
 
-export function promisify (fn, context) {
+export function promisify(fn, context) {
   let promise
   if (fn.length === 2) {
     // fn(context, callback)
@@ -225,7 +225,7 @@ export function promisify (fn, context) {
 }
 
 // Imported from vue-router
-export function getLocation (base, mode) {
+export function getLocation(base, mode) {
   var path = window.location.pathname
   if (mode === 'hash') {
     return window.location.hash.replace(/^#\//, '')
@@ -236,7 +236,7 @@ export function getLocation (base, mode) {
   return (path || '/') + window.location.search + window.location.hash
 }
 
-export function urlJoin () {
+export function urlJoin() {
   return Array.prototype.slice.call(arguments).join('/').replace(/\/+/g, '/')
 }
 
@@ -249,11 +249,11 @@ export function urlJoin () {
  * @param  {Object=}            options
  * @return {!function(Object=, Object=)}
  */
-export function compile (str, options) {
+export function compile(str, options) {
   return tokensToFunction(parse(str, options))
 }
 
-export function getQueryDiff (toQuery, fromQuery) {
+export function getQueryDiff(toQuery, fromQuery) {
   const diff = {}
   const queries = { ...toQuery, ...fromQuery }
   for (const k in queries) {
@@ -289,7 +289,7 @@ const PATH_REGEXP = new RegExp([
  * @param  {Object=} options
  * @return {!Array}
  */
-function parse (str, options) {
+function parse(str, options) {
   var tokens = []
   var key = 0
   var index = 0
@@ -361,7 +361,7 @@ function parse (str, options) {
  * @param  {string}
  * @return {string}
  */
-function encodeURIComponentPretty (str) {
+function encodeURIComponentPretty(str) {
   return encodeURI(str).replace(/[\/?#]/g, (c) => {
     return '%' + c.charCodeAt(0).toString(16).toUpperCase()
   })
@@ -373,7 +373,7 @@ function encodeURIComponentPretty (str) {
  * @param  {string}
  * @return {string}
  */
-function encodeAsterisk (str) {
+function encodeAsterisk(str) {
   return encodeURI(str).replace(/[?#]/g, (c) => {
     return '%' + c.charCodeAt(0).toString(16).toUpperCase()
   })
@@ -382,7 +382,7 @@ function encodeAsterisk (str) {
 /**
  * Expose a method for transforming tokens into the path function.
  */
-function tokensToFunction (tokens) {
+function tokensToFunction(tokens) {
   // Compile all the tokens into regexps.
   var matches = new Array(tokens.length)
 
@@ -393,7 +393,7 @@ function tokensToFunction (tokens) {
     }
   }
 
-  return function (obj, opts) {
+  return function(obj, opts) {
     var path = ''
     var data = obj || {}
     var options = opts || {}
@@ -469,7 +469,7 @@ function tokensToFunction (tokens) {
  * @param  {string} str
  * @return {string}
  */
-function escapeString (str) {
+function escapeString(str) {
   return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1')
 }
 
@@ -479,7 +479,7 @@ function escapeString (str) {
  * @param  {string} group
  * @return {string}
  */
-function escapeGroup (group) {
+function escapeGroup(group) {
   return group.replace(/([=!:$\/()])/g, '\\$1')
 }
 

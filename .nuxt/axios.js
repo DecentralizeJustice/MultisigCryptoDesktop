@@ -1,11 +1,12 @@
 import Axios from 'axios'
 
+
 // Axios.prototype cannot be modified
 const axiosExtra = {
   setHeader (name, value, scopes = 'common') {
     for (let scope of Array.isArray(scopes) ? scopes : [ scopes ]) {
       if (!value) {
-        delete this.defaults.headers[scope][name]
+        delete this.defaults.headers[scope][name];
         return
       }
       this.defaults.headers[scope][name] = value
@@ -15,19 +16,19 @@ const axiosExtra = {
     const value = !token ? null : (type ? type + ' ' : '') + token
     this.setHeader('Authorization', value, scopes)
   },
-  onRequest (fn) {
+  onRequest(fn) {
     this.interceptors.request.use(config => fn(config) || config)
   },
-  onResponse (fn) {
+  onResponse(fn) {
     this.interceptors.response.use(response => fn(response) || response)
   },
-  onRequestError (fn) {
+  onRequestError(fn) {
     this.interceptors.request.use(undefined, error => fn(error) || Promise.reject(error))
   },
-  onResponseError (fn) {
+  onResponseError(fn) {
     this.interceptors.response.use(undefined, error => fn(error) || Promise.reject(error))
   },
-  onError (fn) {
+  onError(fn) {
     this.onRequestError(fn)
     this.onResponseError(fn)
   }
@@ -43,6 +44,11 @@ const extendAxiosInstance = axios => {
     axios[key] = axiosExtra[key].bind(axios)
   }
 }
+
+
+
+
+
 
 const setupProgress = (axios, ctx) => {
   if (process.server) {
@@ -106,7 +112,7 @@ const setupProgress = (axios, ctx) => {
 export default (ctx, inject) => {
   const axiosOptions = {
     // baseURL
-    baseURL: process.browser
+    baseURL : process.browser
       ? 'http://localhost:3000/'
       : (process.env._AXIOS_BASE_URL_ || 'http://localhost:3000/'),
 
@@ -114,7 +120,7 @@ export default (ctx, inject) => {
     // Axios creates only one which is shared across SSR requests!
     // https://github.com/mzabriskie/axios/blob/master/lib/defaults.js
     headers: {
-      common: {
+      common : {
         'Accept': 'application/json, text/plain, */*'
       },
       delete: {},
@@ -126,10 +132,12 @@ export default (ctx, inject) => {
     }
   }
 
+  
   // Proxy SSR request headers headers
   axiosOptions.headers.common = (ctx.req && ctx.req.headers) ? Object.assign({}, ctx.req.headers) : {}
   delete axiosOptions.headers.common['accept']
   delete axiosOptions.headers.common['host']
+  
 
   // Create new axios instance
   const axios = Axios.create(axiosOptions)
@@ -138,8 +146,10 @@ export default (ctx, inject) => {
   extendAxiosInstance(axios)
 
   // Setup interceptors
-
-  setupProgress(axios, ctx)
+  
+  
+  setupProgress(axios, ctx) 
+  
 
   // Inject axios to the context as $axios
   ctx.$axios = axios

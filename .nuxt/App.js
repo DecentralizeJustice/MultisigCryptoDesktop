@@ -3,13 +3,16 @@ import NuxtLoading from './components/nuxt-loading.vue'
 
 import '../node_modules/vuetify/src/stylus/main.styl'
 
+
 import _6f6c098b from '../layouts/default.vue'
 
-const layouts = { '_default': _6f6c098b }
+const layouts = { "_default": _6f6c098b }
+
+
 
 export default {
-  head: { 'title': 'Multisig Crypto', 'meta': [{ 'charset': 'utf-8' }, { 'name': 'viewport', 'content': 'width=device-width, initial-scale=1' }, { 'hid': 'description', 'name': 'Multisig Crypto', 'content': 'The Most Secure Way To Store Crypto' }], 'link': [{ 'rel': 'icon', 'type': 'image\u002Fx-icon', 'href': '\u002Ffavicon.ico' }, { 'rel': 'stylesheet', 'href': 'https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:300,400,500,700|Material+Icons' }], 'style': [], 'script': [] },
-  render (h, props) {
+  head: {"title":"Multisig Crypto","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"Multisig Crypto","content":"The Most Secure Way To Store Crypto"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:300,400,500,700|Material+Icons"}],"style":[],"script":[]},
+  render(h, props) {
     const loadingEl = h('nuxt-loading', { ref: 'loading' })
     const layoutEl = h(this.layout || 'nuxt')
     const templateEl = h('div', {
@@ -26,7 +29,7 @@ export default {
       }
     }, [ templateEl ])
 
-    return h('div', {
+    return h('div',{
       domProps: {
         id: '__nuxt'
       }
@@ -48,28 +51,30 @@ export default {
     // add to window so we can listen when ready
     if (typeof window !== 'undefined') {
       window.$nuxt = this
+      
     }
     // Add $nuxt.error()
     this.error = this.nuxt.error
   },
-
+  
   mounted () {
     this.$loading = this.$refs.loading
   },
   watch: {
     'nuxt.err': 'errorChanged'
   },
-
+  
   methods: {
-
+    
     errorChanged () {
       if (this.nuxt.err && this.$loading) {
         if (this.$loading.fail) this.$loading.fail()
         if (this.$loading.finish) this.$loading.finish()
       }
     },
-
-    setLayout (layout) {
+    
+    
+    setLayout(layout) {
       if (!layout || !layouts['_' + layout]) {
         layout = 'default'
       }
@@ -77,13 +82,13 @@ export default {
       this.layout = layouts['_' + layout]
       return this.layout
     },
-    loadLayout (layout) {
+    loadLayout(layout) {
       if (!layout || !layouts['_' + layout]) {
         layout = 'default'
       }
       return Promise.resolve(layouts['_' + layout])
     }
-
+    
   },
   components: {
     NuxtLoading

@@ -15,3 +15,4 @@ for (const filename of filenames) {
 }
 
 export default middleware
+
