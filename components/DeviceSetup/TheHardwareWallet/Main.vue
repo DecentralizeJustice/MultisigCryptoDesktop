@@ -59,7 +59,7 @@
           <v-toolbar>
             <v-layout row wrap align-center>
               <v-flex headline class="text-xs-center">
-                Sync Wallet
+                {{getBoxTitle()}}
               </v-flex>
             </v-layout>
           </v-toolbar>
@@ -94,20 +94,17 @@ export default {
       this.$emit('pickOption', this.choiceArray)
     },
     setupTrez () {
-      var promise1 = Promise.resolve(getPublicKey())
-
-      promise1.then(function (value) {
-        console.log(value)
-      })
-
-      // getPublicKey()
+      getPublicKey()
     },
     setupLedgar () {
-      var promise1 = Promise.resolve(getPublicKeyLegar())
-
-      promise1.then(function (value) {
-        console.log(value)
-      })
+      getPublicKeyLegar()
+    },
+    getBoxTitle () {
+      if (this.choiceArray[0] === 'Ledger') {
+        return 'Open Bitcoin App'
+      } else if (this.choiceArray[0] === 'Trezor') {
+        return 'Sync Trezor'
+      }
     },
     selectWallet () {
       if (this.choiceArray[0] === 'Ledger') {
