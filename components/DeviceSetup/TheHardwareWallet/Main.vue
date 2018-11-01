@@ -93,8 +93,9 @@ export default {
     finalChoice () {
       this.$emit('pickOption', this.choiceArray)
     },
-    setupTrez () {
-      getPublicKey()
+    setupTrez: async function () {
+      let keys = await getPublicKey()
+      console.log(keys)
     },
     setupLedgar: async function () {
       let keys = await getPublicKeyLegar()
