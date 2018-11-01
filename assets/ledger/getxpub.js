@@ -1,11 +1,17 @@
 import { crypto } from 'bitcoinjs-lib'
 import * as bippath from 'bip32-path'
 import * as BIP32 from 'bip32'
-export { getxpub }
+import Transport from '@ledgerhq/hw-transport-u2f'
+import AppBtc from '@ledgerhq/hw-app-btc'
+export { getXpub }
 
-async function getxpub (main, child, parentledge) {
-  let xpub = await getXPUB(main, child, parentledge)
-  console.log('created XPUB: ', xpub)
+async function getXpub (path) {
+  const transport = await Transport.create()
+  const btc = new AppBtc(transport)
+  let parentPath = await getParentPath(path)
+  let child = await btc.getWalletPublicKey(path)
+  let parent = await btc.getWalletPublicKey(parentPath)
+  return createXPUB(path, child, parent)
 }
 
 const compressPublicKey = publicKey => {
@@ -31,13 +37,9 @@ const createXPUB = (path, child, parent) => {
   return hdnode.toBase58()
 }
 
-const getXPUB = async (main, child, parentledge) => {
-  return createXPUB(main, child, parentledge)
+async function getParentPath (path) {
+  path = await bippath.fromString(path).toPathArray()
+  path.pop()
+  let array = bippath.fromPathArray(path).toString()
+  return array
 }
-
-// async function getParentPath (path) {
-//   path = await bippath.fromString(path).toPathArray()
-//   path.pop()
-//   let array = bippath.fromPathArray(path).toString()
-//   return array
-// }

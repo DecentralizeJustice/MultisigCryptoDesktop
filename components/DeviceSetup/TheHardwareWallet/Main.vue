@@ -96,8 +96,9 @@ export default {
     setupTrez () {
       getPublicKey()
     },
-    setupLedgar () {
-      getPublicKeyLegar()
+    setupLedgar: async function () {
+      let keys = await getPublicKeyLegar()
+      console.log(keys)
     },
     getBoxTitle () {
       if (this.choiceArray[0] === 'Ledger') {

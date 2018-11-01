@@ -1,15 +1,10 @@
-import Transport from '@ledgerhq/hw-transport-u2f'
-import AppBtc from '@ledgerhq/hw-app-btc'
-import { getxpub } from '~/assets/ledger/getxpub.js'
+import { getXpub } from '~/assets/ledger/getxpub.js'
+let BTCpath = "44'/0'/0'/0"
+let ETCpath = "44'/60'/0'/0"
 const getPublicKeyLegar = async () => {
-  const transport = await Transport.create()
-  const btc = new AppBtc(transport)
-  let main = "44'/0'/0'"
-  let parent = "44'/0'/"
-  const child = await btc.getWalletPublicKey(main)
-  const parentledge = await btc.getWalletPublicKey(parent)
-  const BTCxpubub = await getxpub(main, child, parentledge)
-  return BTCxpubub
+  const BTCxpub = await getXpub(BTCpath)
+  const ETCxpub = await getXpub(ETCpath)
+  return { eth: ETCxpub, btc: BTCxpub }
 }
 
 export { getPublicKeyLegar }
