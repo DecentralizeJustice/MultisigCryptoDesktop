@@ -1,18 +1,14 @@
 import TrezorConnect from 'trezor-connect'
-let BTCpath = "m/44'/0'/0'/0"
-let ETCpath = "m/44'/60'/0'/0"
-// let coins = ['Btc','Eth']
+import { supportedCoins as coins } from '~/assets/supportedCoins.js'
+
 export { getPublicKey }
 async function getPublicKey () {
-  let test = { btc: '', eth: '' }
-  test['btc'] = await TrezorConnect.getPublicKey({
-    path: BTCpath,
-    coin: 'btc'
-  })
-  test['eth'] = await TrezorConnect.getPublicKey({
-    path: ETCpath,
-    coin: 'eth'
-  })
-
-  return test
+  let xpub = {}
+  for (var prop in coins) {
+    xpub[prop] = await TrezorConnect.getPublicKey({
+      path: coins[prop].currentPath,
+      coin: prop
+    })
+  }
+  return xpub
 }

@@ -1,10 +1,16 @@
 import { getXpub } from '~/assets/ledger/getxpub.js'
-let BTCpath = "44'/0'/0'/0"
-let ETCpath = "44'/60'/0'/0"
-const getPublicKeyLegar = async () => {
-  const BTCxpub = await getXpub(BTCpath)
-  const ETCxpub = await getXpub(ETCpath)
-  return { eth: ETCxpub, btc: BTCxpub }
-}
+import { supportedCoins as coins } from '~/assets/supportedCoins.js'
 
+async function getPublicKeyLegar () {
+  let xpub = {}
+  for (var prop in coins) {
+    let goodPath = removeM(coins[prop].currentPath)
+    xpub[prop] = await getXpub(goodPath)
+  }
+  return xpub
+}
+function removeM (path) {
+  path = path.substring(2)
+  return path
+}
 export { getPublicKeyLegar }
