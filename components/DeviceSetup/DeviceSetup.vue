@@ -5,9 +5,9 @@
     v-if="shouldThisShow ([])">
     </PickDevice> -->
 
-    <TheHardwareWallet  v-on:pickOption='choose($event,0)'
+    <GenPass  v-on:pickOption='choose($event,0)'
     v-if="shouldThisShow ([])">
-    </TheHardwareWallet>
+  </GenPass>
 
     <!-- <TheMenmonic  v-on:pickOption='choose($event,0)'
     v-if="shouldThisShow ([''])">
@@ -22,12 +22,14 @@
 import PickDevice from '~/components/DeviceSetup/PickDevice.vue'
 import TheMenmonic from '~/components/DeviceSetup/TheMenmonic/Main.vue'
 import TheHardwareWallet from '~/components/DeviceSetup/TheHardwareWallet/Main.vue'
+import GenPass from '~/components/TheSetupElement/GeneratePasswords.vue'
 export default {
   name: 'DeviceSetup',
   components: {
     PickDevice,
     TheMenmonic,
-    TheHardwareWallet
+    TheHardwareWallet,
+    GenPass
   },
   methods: {
     choose (choice, index) {
