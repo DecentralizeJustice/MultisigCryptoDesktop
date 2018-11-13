@@ -38,12 +38,10 @@
                         </div>
                        </v-card-title>
 
-
                            <v-btn large  class="text-xs-center" color='success' round
                            @click.native="choose(item)">
                                Select
                            </v-btn>
-
 
                       </v-card>
                     </v-flex>
@@ -58,55 +56,52 @@
 </template>
 
 <script>
-//import TheSetupDeviceIntro from '~/components/TheSetupElement/TheDeviceorTools.vue'
-
 export default {
   name: 'PickDevice',
   components: {
 
+  },
+  methods: {
+    choose (option) {
+      this.$emit('pickOption', option)
     },
-    methods: {
-      choose (option) {
-      this.$emit('pickOption',option)
-      },
-      deviceType (num) {
-        let device =this.devices["device"+num]
-        if (device.type==='cell'){
-          return "Cellphone"
-        }else {
-          return "Labtop"
-        }
-      },
-      getOrdinal (num) {
-        num =parseInt(num, 10);
-        if(num===0){return '1st'}
-        if(num===1){return '2nd'}
-        if(num===2){return '3rd'}
-      },
-      iteminfo (num) {
-        return this.devices["device"+num]
-      },
-    },
-    computed: {
-        avaibleOptions  () {
-          let taken = this.$store.state.setupInfo.takendevices
-          let avaibleChoices = Object.keys(this.$store.state.setupInfo.finalDevicePlan).length
-          var avaiArray = [];
-          for (let i = 0; i <= avaibleChoices-1; i++) {
-            if (!taken.includes(i)){
-             avaiArray.push(i)
-            }
-          }
-          return avaiArray
-      },
-
-    },
-    data () {
-      return {
-        devices : this.$store.state.setupInfo.finalDevicePlan
+    deviceType (num) {
+      let device = this.devices['device' + num]
+      if (device.type === 'cell') {
+        return 'Cellphone'
+      } else {
+        return 'Labtop'
       }
+    },
+    getOrdinal (num) {
+      num = parseInt(num, 10)
+      if (num === 0) { return '1st' }
+      if (num === 1) { return '2nd' }
+      if (num === 2) { return '3rd' }
+    },
+    iteminfo (num) {
+      return this.devices['device' + num]
+    }
+  },
+  computed: {
+    avaibleOptions  () {
+      // let taken = this.$store.state.setupInfo.takendevices
+      let avaibleChoices = Object.keys(this.$store.state.setupInfo.devicePlan).length
+      var avaiArray = []
+      for (let i = 0; i <= avaibleChoices - 1; i++) {
+        avaiArray.push(i)
+        // if (true) { // !taken.includes(i)
+        // }
+      }
+      return avaiArray
     }
 
+  },
+  data () {
+    return {
+      devices: this.$store.state.setupInfo.devicePlan
+    }
+  }
 
 }
 

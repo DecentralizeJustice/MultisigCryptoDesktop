@@ -13,9 +13,6 @@
     v-if="shouldThisShow (['Setup','1stStepSetup'])">
     </TheMultisigDevicesPlan>
 
-    <TheLastStep v-on:pickOption='choose($event,2)'
-    v-if="shouldThisShow (['Setup','h'])">
-    </TheLastStep>
 
   </v-container>
 </template>
@@ -24,37 +21,36 @@
 import TheSetupDeviceIntro from '~/components/TheSetupElement/TheDeviceorTools.vue'
 import TheCodeorSetup from '~/components/TheSetupElement/TheCodeorSetup.vue'
 import TheMultisigDevicesPlan from '~/components/TheSetupElement/TheMultisigDevicesPlan.vue'
-import TheLastStep from '~/components/TheSetupElement/TheLastStep.vue'
 export default {
   name: 'TheSetupView',
   components: {
-      TheSetupDeviceIntro,
-      TheCodeorSetup,
-      TheMultisigDevicesPlan,
-      TheLastStep
-    },
-    methods: {
-      choose (choice, index) {
-        this.choiceArray.splice(index, 1, choice)
-      },
-      shouldThisShow (index) {
-        if (index.length !== this.choiceArray.length) { return false }
-        for (let i = 0; i < index.length; i++) {
-          if (index[i] === '') { continue }
-          if (index[i] !== this.choiceArray[i]) { return false }
-        }
-        return true
+    TheSetupDeviceIntro,
+    TheCodeorSetup,
+    TheMultisigDevicesPlan
+  },
+  methods: {
+    choose (choice, index) {
+      this.choiceArray.splice(index, 1, choice)
+      if (index === 2) {
+        this.$emit('setDevicePlan', choice)
       }
     },
-    computed: {
-    },
-    data () {
-      return {
-        choiceArray: []
+    shouldThisShow (index) {
+      if (index.length !== this.choiceArray.length) { return false }
+      for (let i = 0; i < index.length; i++) {
+        if (index[i] === '') { continue }
+        if (index[i] !== this.choiceArray[i]) { return false }
       }
+      return true
     }
-
-
+  },
+  computed: {
+  },
+  data () {
+    return {
+      choiceArray: []
+    }
+  }
 }
 
 

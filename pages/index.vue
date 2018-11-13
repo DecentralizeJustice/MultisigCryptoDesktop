@@ -1,7 +1,7 @@
 <template>
-    <v-app  xs12 dark v-bind:style="styleObject"> >
-      <TheSetupView v-if ="this.$store.state.setupInfo.showDevicePlan"></TheSetupView>
-      <DeviceSetup v-if ="this.$store.state.setupInfo.showDeviceSetup"></DeviceSetup>
+    <v-app  xs12 dark v-bind:style="styleObject" class='fullbackground'>
+      <TheSetupView v-if ="showSetupView" v-on:setDevicePlan='setDevicePlan($event)'></TheSetupView>
+      <DeviceSetup v-if ="showDeviceSetup"></DeviceSetup>
     </v-app>
 </template>
 
@@ -16,14 +16,39 @@ export default {
   data () {
     return {
       styleObject: {
-        'background-image': "url('https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?cs=srgb&dl=abstract-astro-astronomy-956999.jpg&fm=jpg')",
-        'height': '100%',
-        'background-position': 'center',
-        'background-repeat': 'no-repeat',
-        'background-size': 'cover'
+        'background-image': 'url("https://images.pexels.com/photos/733475/pexels-photo-733475.jpeg?cs=srgb&dl=astronomy-cosmos-dark-733475.jpg&fm=jpg")'
       }
+    }
+  },
+  computed: {
+    showSetupView  () {
+      if (this.$store.state.setupInfo.devicePlan === '') {
+        return true
+      } else {
+        return false
+      }
+    },
+    showDeviceSetup  () {
+      if (!(this.showSetupView) && this.$store.state.setupInfo.thisdeviceInfo === '') {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  methods: {
+    setDevicePlan (plan) {
+      this.$store.dispatch('updateDevicePlan', plan)
     }
   }
 }
 
 </script>
+
+<style scoped>
+.fullbackground {
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+</style>

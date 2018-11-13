@@ -54,102 +54,100 @@ export default {
   props: ['choiceArray'],
   methods: {
     choose (option) {
-      this.$emit('pickOption',option)
+      this.$emit('pickOption', option)
     },
-    submit(){
-
+    submit () {
       for (let i = 0; i < this.choiceArray[2]; i++) {
-        this.finalDevicePlan['device'+i] ={type:'cell',privatekey:1}
+        this.finalDevicePlan['device' + i] = { type: 'cell', privatekey: 1 }
       }
 
       for (let i = 0; i < this.choiceArray[1]; i++) {
-        let offset= i+this.choiceArray[2]
-        this.finalDevicePlan['device'+offset] ={type:'lap',
-        hardwarewallets:this.sumHardwareWallets(this.laptops['lap'+i]),privatekey:0}
-        if(this.sumHardwareWallets(this.laptops['lap'+i])===0){
-          this.finalDevicePlan['device'+offset].privatekey=1        }
+        let offset = i + this.choiceArray[2]
+        this.finalDevicePlan['device' + offset] = { type: 'lap',
+          hardwarewallets: this.sumHardwareWallets(this.laptops['lap' + i]),
+          privatekey: 0 }
+        if (this.sumHardwareWallets(this.laptops['lap' + i]) === 0) {
+          this.finalDevicePlan['device' + offset].privatekey = 1
+        }
       }
-      if(this.getNum(this.choiceArray)<3){
-        let index =this.choiceArray[2]
-        this.finalDevicePlan['device'+index].privatekey+=1
+      if (this.getNum(this.choiceArray) < 3) {
+        let index = this.choiceArray[2]
+        this.finalDevicePlan['device' + index].privatekey += 1
       }
-      this.$store.dispatch('updateDevicePlan', this.finalDevicePlan)
-      this.$store.dispatch('hideDevicePlan')
-      this.$store.dispatch('showDeviceSetup')
+      // this.$store.dispatch('updateDevicePlan', this.finalDevicePlan)
+      this.choose(this.finalDevicePlan)
     },
     sumHardwareWallets (labtop) {
-      let numofTrues=0
+      let numofTrues = 0
       for (let i = 0; i < labtop.length; i++) {
-        if(labtop[i]===true){++numofTrues}
+        if (labtop[i] === true) { ++numofTrues }
       }
       return numofTrues
     },
-    getButtonStatus (num,correctNum) {
-      num= num-1
-      if(num===correctNum){return true}
-      else {
+    getButtonStatus (num, correctNum) {
+      num = num - 1
+      if (num === correctNum) {
+        return true
+      } else {
         return false
       }
     },
 
     getOrdinal (num) {
-      num =parseInt(num, 10);
-      if(num===0){return '1st'}
-      if(num===1){return '2nd'}
-      if(num===2){return '3rd'}
+      num = parseInt(num, 10)
+      if (num === 0) { return '1st' }
+      if (num === 1) { return '2nd' }
+      if (num === 2) { return '3rd' }
     },
-    createobjects (choiceArray){
-      if(choiceArray[1]!==0){
+    createobjects (choiceArray) {
+      if (choiceArray[1] !== 0) {
         for (let i = 0; i < choiceArray[1]; i++) {
-          this.laptops['lap'+i] =[]
+          this.laptops['lap' + i] = []
           for (let x = 0; x < choiceArray[0]; x++) {
-              this.laptops['lap'+i].push(false)
+            this.laptops['lap' + i].push(false)
           }
         }
-      }
-      },
-
-    fillLabtopButoons (choiceArray){
-      if(choiceArray[0]!==0){
-          for (let i = 0; i < choiceArray[0]; i++) {
-            let assign = i % Object.keys(this.laptops).length
-            this.laptops['lap'+assign][i] =true
-          }
       }
     },
-    getNum(choiceArray){
-      let count=0
+
+    fillLabtopButoons (choiceArray) {
+      if (choiceArray[0] !== 0) {
+        for (let i = 0; i < choiceArray[0]; i++) {
+          let assign = i % Object.keys(this.laptops).length
+          this.laptops['lap' + assign][i] = true
+        }
+      }
+    },
+    getNum (choiceArray) {
+      let count = 0
       count += choiceArray[2]
-      //sum all keys to ensure that they arent over 3, under by uncounted laptops are ok
+      // sum all keys to ensure that they arent over 3, under by uncounted laptops are ok
       for (let i = 0; i < Object.keys(this.laptops).length; i++) {
-        let num =0
+        let num = 0
         for (let x = 0; x < choiceArray[0]; x++) {
-          if(this.laptops['lap'+i][x] ===true){
-            num +=1
+          if (this.laptops['lap' + i][x] === true) {
+            num += 1
           }
         }
-        if(num===0){count+=1}
-        else { count+=num}
+        if (num === 0) {
+          count += 1
+        } else { count += num }
       }
-
 
       return count
     }
 
-
   },
   data: function () {
-
     return {
       laptops: {},
-      finalDevicePlan:{}
-      }
-    },
-    beforeMount(){
-      this.createobjects(this.choiceArray)
-      this.fillLabtopButoons(this.choiceArray)
-   },
-
+      finalDevicePlan: {}
+    }
+  },
+  beforeMount () {
+    this.createobjects(this.choiceArray)
+    this.fillLabtopButoons(this.choiceArray)
+  }
 
 }
 </script>

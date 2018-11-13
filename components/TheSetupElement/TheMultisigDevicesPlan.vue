@@ -32,18 +32,20 @@ import FinalPlan from '~/components/TheSetupElement/DeviceInfo/FinalPlan.vue'
 export default {
   name: 'TheMultisigDevicesPlan',
   computed: {
-   showMenmonicIndex: function() {
-     if (this.hardwarenumbers.length===0){return -1}
-     else {
-       return this.hardwarenumbers.length+2}
-   }
- },
+    showMenmonicIndex: function () {
+      if (this.hardwarenumbers.length === 0) {
+        return -1
+      } else {
+        return this.hardwarenumbers.length + 2
+      }
+    }
+  },
   components: {
     TheHardwareNumber,
     ThePhoneNumber,
     TheComputerNumber,
     FinalPlan
-    },
+  },
   methods: {
     pickOption (option) {
       this.$emit('pickOption', option)
@@ -52,20 +54,24 @@ export default {
       if (index === this.choiceArray.length) { return true }
       return false
     },
-    finalplanindex(){
-      if(this.shouldPhoneShow()===-1){return 2}
-      else{return 3}
+    finalplanindex () {
+      if (this.shouldPhoneShow() === -1) {
+        return 2
+      } else {
+        return 3
+      }
     },
-    choose(option){
+    choose (option) {
       this.choiceArray.push(option)
-
+      if (this.choiceArray.length > 3) {
+        this.pickOption(option)
+      }
       // this.finalChoice(this.choiceArray)
-    },
+    }
   },
   data () {
     return {
-      choiceArray: [],
-
+      choiceArray: []
     }
   }
 

@@ -21,7 +21,7 @@
             <v-img src="/passwordenter.jpeg"  aspect-ratio="2" ></v-img>
             <v-card-title primary-title class="justify-center">
               <div>
-                <h3 class="headline pb-3" >Enter Code</h3>
+                <h3 class="headline pb-3" >Use QR Code</h3>
               </div>
             </v-card-title>
           </v-card>

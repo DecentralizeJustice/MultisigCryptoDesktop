@@ -6,12 +6,9 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       setupInfo: {
-        finalDevicePlan: {},
-        showDevicePlan: true,
-        showDeviceSetup: false,
-        takendevices: []
-      },
-      thisdeviceInfo: {}
+        devicePlan: '',
+        thisdeviceInfo: ''
+      }
 
     },
     actions,

@@ -32,23 +32,19 @@ export default {
   name: 'FinalPlan',
   components: {
     LaptopAndHardware
-    },
+  },
   props: ['choiceArray'],
   methods: {
     choose (option) {
-      this.$emit('pickOption',option)
-    },
-
-
+      this.$emit('pickOption', option)
+    }
 
   },
   data: function () {
     return {
-      laptops: {},
-      }
-    },
-
-
+      laptops: {}
+    }
+  }
 
 }
 </script>

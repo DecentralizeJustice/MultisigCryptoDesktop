@@ -17,12 +17,11 @@
 </template>
 
 <script>
-
 export default {
   name: 'TheLastStep',
   components: {
 
-    },
+  },
   methods: {
     pickOption (option) {
       this.$emit('pickOption', option)
@@ -31,13 +30,13 @@ export default {
       if (index !== this.choiceArray.length) { return false }
       return true
     },
-    choose(option){
+    choose (option) {
       this.choiceArray.push(option)
       this.finalChoice(option)
     },
-    finalChoice(option){
-      if(option === '1' || option === '2'){
-      this.pickOption(this.choiceArray)
+    finalChoice (option) {
+      if (option === '1' || option === '2') {
+        this.pickOption(this.choiceArray)
       }
     }
   },

@@ -14,7 +14,7 @@
                 <h3 class="headline pb-3" >Number of Hardware Wallets:</h3>
               </div>
             </v-card-title>
-            <v-layout align-center justify-space-around row fill-height>
+            <v-layout align-center justify-space-around row fill-height pb-3>
               <v-btn large flat round color='secondary' @click.native="choose(0)">
                 <h3 class="headline" >0</h3>
               </v-btn>
@@ -42,11 +42,9 @@ export default {
   name: 'TheHardwareNumber',
   methods: {
     choose (option) {
-
-      this.$emit('pickOption',option)
+      this.$emit('pickOption', option)
     }
-  },
-
+  }
 
 }
 </script>

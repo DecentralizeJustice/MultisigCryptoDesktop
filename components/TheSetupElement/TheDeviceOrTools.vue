@@ -17,7 +17,8 @@
         </v-flex>
 
         <v-flex xs12 md4 offset-md1 >
-          <v-card hover @click.native="pickOption('Quicktools')">
+          <!-- @click.native="pickOption('Quicktools')" -->
+          <v-card hover >
             <v-img src="/tools.jpeg"  aspect-ratio="2" ></v-img>
             <v-card-title primary-title class="justify-center">
               <div>
@@ -39,7 +40,7 @@ export default {
     pickOption (option) {
       this.$emit('pickOption', option)
     }
-  },
+  }
 
 }
 </script>
