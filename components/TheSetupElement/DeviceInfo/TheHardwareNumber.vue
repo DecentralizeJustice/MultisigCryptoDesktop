@@ -15,9 +15,6 @@
               </div>
             </v-card-title>
             <v-layout align-center justify-space-around row fill-height pb-3>
-              <v-btn large flat round color='secondary' @click.native="choose(0)">
-                <h3 class="headline" >0</h3>
-              </v-btn>
                 <v-btn large flat round color='secondary' @click.native="choose(1)">
                   <h3 class="headline" >1</h3>
                 </v-btn>

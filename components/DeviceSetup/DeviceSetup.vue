@@ -1,27 +1,28 @@
 <template>
-  <v-container justify-center fill-height>
+  <v-container  fill-height>
+    <v-layout row wrap align-center>
 
-    <PickDevice  v-on:pickOption='pickDevice($event,0)'
+    <PickDevice  v-on:pickOption='pickDevice($event)'
     v-if="shouldThisShow (0)">
     </PickDevice>
 
-    <div v-for="index in menmonics" :key="index">
-    <TheMenmonic  v-on:pickOption='pickDevice($event,0)'
-    v-if="shouldThisShow (index)">
+    <v-flex xs12 v-for="menmonic in menmonics" :key='menmonic.id'>
+    <TheMenmonic  v-on:submitwordList='addToWord($event,menmonic)'
+    v-if="shouldThisShow (menmonic)">
     </TheMenmonic>
-    </div>
+    </v-flex>
 
-    <div v-for="index in menmonics" :key="index">
-    <TheHardwareWallet  v-on:pickOption='choose($event,0)'
-    v-if="shouldThisShow (index+menmonics)">
-    </TheHardwareWallet>
-    </div>
+    <v-flex xs12 v-for="index in hardware" :key='hardware.id'>
+      <TheHardwareWallet  v-on:pickOption='setXpubs($event,index)'
+      v-if="shouldThisShow (index+menmonics)">
+      </TheHardwareWallet>
+    </v-flex>
 
     <GenPass  v-on:pickOption='choose($event,0)'
     v-if="shouldThisShow (showGenPhrase)">
     </GenPass>
 
-
+    </v-layout>
   </v-container>
 </template>
 
@@ -39,10 +40,18 @@ export default {
     GenPass
   },
   methods: {
-    pickDevice (choice, index) {
-      this.choiceArray.splice(index, 1, choice)
+    addToWord (memInfo, index) {
+      this.currentView += 1
+      this.choiceObject.menmonics['menmonic' + index] = memInfo
+    },
+    setXpubs (xpubs, index) {
+      this.currentView += 1
+      this.choiceObject.xpubs['xpub' + index] = xpubs
+    },
+    pickDevice (choice) {
       this.currentView += 1
       this.setMenandHardware(choice)
+      this.choiceObject['deviceNumber'] = choice
     },
     shouldThisShow (index) {
       if (index === this.currentView) {
@@ -64,20 +73,24 @@ export default {
   computed: {
     showGenPhrase () {
       if (this.currentView === 0) {
-        return -1
+        return 10
       } else {
-        return Number(2)
+        return Number(this.menmonics + this.hardware + 1)
       }
     }
   },
   data () {
     return {
-      choiceArray: [],
+      choiceObject: {},
       currentView: 0,
       menmonics: 0,
       hardware: 0,
       devicePlan: this.$store.state.setupInfo.devicePlan
     }
+  },
+  created () {
+    this.choiceObject.menmonics = {}
+    this.choiceObject.xpubs = {}
   }
 
 }

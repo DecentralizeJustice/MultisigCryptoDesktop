@@ -1,13 +1,9 @@
 <template>
 
-  <v-layout align-center >
-    <v-container  fluid fill-height>
-       <v-layout>
-         <v-flex xs12 fluid>
-           <v-card>
+  <v-card>
              <v-toolbar>
          <v-spacer></v-spacer>
-         <v-toolbar-title>Setup {{numberstuff}} Hardware Wallet</v-toolbar-title>
+         <v-toolbar-title>Setup Hardware Wallet</v-toolbar-title>
          <v-spacer></v-spacer>
        </v-toolbar>
       <v-img
@@ -17,12 +13,12 @@
       <div v-if="shouldThisShow (0)">
       <v-card-title primary-title class="justify-center" >
         <div>
-          <h3 class="headline pb-3" >Hardware Wallet Type:</h3>
+          <h3  >Hardware Wallet Type:</h3>
         </div>
       </v-card-title>
       <v-layout align-center justify-space-around row fill-height pb-5 wrap>
         <v-flex xs12 sm3 >
-          <v-card  hover color='clear' @click.native="choose('Ledger')">
+          <v-card  hover color='clear' @click.native="chooseWalletType('Ledger')">
             <v-toolbar>
               <v-layout row wrap align-center>
                 <v-flex headline class="text-xs-center">
@@ -34,7 +30,7 @@
           </v-card>
         </v-flex>
         <v-flex xs12 sm3 >
-          <v-card  hover color='clear' @click.native="choose('Trezor')">
+          <v-card  hover color='clear' @click.native="chooseWalletType('Trezor')">
              <v-toolbar>
                <v-layout row wrap align-center>
                  <v-flex headline class="text-xs-center">
@@ -53,9 +49,9 @@
         <h3 class="headline pb-3" >Plug In Wallet to Setup</h3>
       </div>
     </v-card-title>
-    <v-layout align-center justify-space-around row fill-height pb-5 wrap>
-      <v-flex xs12 sm3 >
-        <v-card  hover color='clear' @click.native="selectWallet ()">
+    <v-layout align-center justify-space-around row fill-height wrap>
+      <v-flex xs12 sm3 class="text-xs-center">
+        <v-card color='clear' >
           <v-toolbar>
             <v-layout row wrap align-center>
               <v-flex headline class="text-xs-center">
@@ -65,14 +61,14 @@
           </v-toolbar>
            <v-img :src="imagestuff" aspect-ratio="1.5"></v-img>
         </v-card>
+        <v-btn :disabled='buttonLocked' round :large='true' color='success' v-on:click="selectWallet ()"
+        v-if='true'><h3>Continue</h3></v-btn>
       </v-flex>
     </v-layout>
   </div>
     </v-card>
-         </v-flex>
-       </v-layout>
-    </v-container>
-  </v-layout>
+
+
 
 </template>
 
@@ -83,35 +79,39 @@ export default {
   name: 'HardwareWalletSetup',
   props: ['number'],
   methods: {
-    choose (option) {
-      this.choiceArray.push(option)
+    chooseWalletType (option) {
+      this.choiceObject['walletType'] = option
+      this.choiceIndex += 1
     },
     shouldThisShow (index) {
-      if (index === this.choiceArray.length) { return true }
+      if (index === this.choiceIndex) { return true }
       return false
     },
     finalChoice () {
-      this.$emit('pickOption', this.choiceArray)
+      this.$emit('pickOption', this.choiceObject)
     },
     setupTrez: async function () {
       let keys = await getPublicKey()
-      console.log(keys)
+      this.choiceObject['xPubs'] = keys
+      this.finalChoice()
     },
     setupLedgar: async function () {
       let keys = await getPublicKeyLegar()
-      console.log(keys)
+      this.choiceObject['xPubs'] = keys
+      this.finalChoice()
     },
     getBoxTitle () {
-      if (this.choiceArray[0] === 'Ledger') {
+      if (this.choiceObject['walletType'] === 'Ledger') {
         return 'Open Bitcoin App'
-      } else if (this.choiceArray[0] === 'Trezor') {
+      } else if (this.choiceObject['walletType'] === 'Trezor') {
         return 'Sync Trezor'
       }
     },
     selectWallet () {
-      if (this.choiceArray[0] === 'Ledger') {
+      this.buttonLocked = true
+      if (this.choiceObject['walletType'] === 'Ledger') {
         this.setupLedgar()
-      } else if (this.choiceArray[0] === 'Trezor') {
+      } else if (this.choiceObject['walletType'] === 'Trezor') {
         this.setupTrez()
       }
     }
@@ -124,13 +124,15 @@ export default {
       if (this.number === 3) { return '3rd' }
     },
     imagestuff: function () {
-      if (this.choiceArray[0] === 'Trezor') { return './trezor.jpg' }
-      if (this.choiceArray[0] === 'Ledger') { return './ledgar.jpg' }
+      if (this.choiceObject['walletType'] === 'Trezor') { return './trezor.jpg' }
+      if (this.choiceObject['walletType'] === 'Ledger') { return './ledgar.jpg' }
     }
   },
   data () {
     return {
-      choiceArray: []
+      choiceIndex: 0,
+      choiceObject: {},
+      buttonLocked: false
     }
   }
 }

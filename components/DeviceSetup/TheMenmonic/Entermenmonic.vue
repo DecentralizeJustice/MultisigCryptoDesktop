@@ -58,7 +58,7 @@ export default {
       get: function () {
         let words = {}
         for (let i = 1; i < 13; i++) {
-          words[i] = 'cliff'
+          words[i] = 'test'
         }
         return words
       },

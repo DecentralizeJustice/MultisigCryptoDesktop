@@ -55,8 +55,7 @@ export default {
     },
     confirm () {
       this.currentIndex += 1
-      let option = {}
-      this.$emit('submitwordList', option)
+      this.$emit('submitwordList', this.finalMenmonic)
     },
     convertWordListToString (WordList) {
       let string = ''
