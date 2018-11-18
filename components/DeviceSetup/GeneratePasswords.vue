@@ -3,7 +3,7 @@
     <v-container  fluid fill-height>
        <v-layout align-center>
          <v-flex xs12 fluid>
-           <v-card>
+           <v-card class="text-xs-center">
              <v-toolbar round>
          <v-spacer></v-spacer>
          <v-toolbar-title>Sync Accounts</v-toolbar-title>
@@ -50,7 +50,7 @@
           </v-card>
         </v-flex>
       </v-layout>
-
+      <v-btn flat color="success" v-on:click="submit">Continue Sync</v-btn>
     </v-card>
          </v-flex>
        </v-layout>
@@ -68,21 +68,23 @@ export default {
   },
   data () {
     return {
-      size: 220
+      size: 220,
+      codedObject: {}
     }
   },
   methods: {
-    pickOption (option) {
-      this.$emit('pickOption', option)
+    submit () {
+      this.$emit('subCodes', this.codedObject)
     }
   },
   computed: {
     qrobject: function () {
-      let object = {}
+      let codestuff = {}
       let jsonString = ''
-      object['aes-gcmPass'] = entropy(32)
-      object['serverIdentity'] = entropy(16)
-      jsonString = JSON.stringify(object)
+      codestuff['aes-gcmPass'] = entropy(32)
+      codestuff['serverIdentity'] = entropy(16)
+      jsonString = JSON.stringify(codestuff)
+      this.codedObject = codestuff
       return jsonString
     }
   }

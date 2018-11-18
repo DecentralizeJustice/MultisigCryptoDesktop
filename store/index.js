@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import mutations from './mutations'
 import actions from './actions'
+import VuexPersistence from 'vuex-persist'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -12,7 +13,8 @@ const createStore = () => {
 
     },
     actions,
-    mutations
+    mutations,
+    plugins: [new VuexPersistence().plugin]
   })
 }
 

@@ -18,7 +18,7 @@
       </TheHardwareWallet>
     </v-flex>
 
-    <GenPass  v-on:pickOption='choose($event,0)'
+    <GenPass  v-on:subCodes='subCodes($event)'
     v-if="shouldThisShow (showGenPhrase)">
     </GenPass>
 
@@ -68,6 +68,10 @@ export default {
         this.menmonics += device['privatekey']
         this.hardware += device['hardwarewallets']
       }
+    },
+    subCodes (codestuff) {
+      this.currentView += 1
+      this.choiceObject.codeInfo = codestuff
     }
   },
   computed: {
@@ -91,6 +95,7 @@ export default {
   created () {
     this.choiceObject.menmonics = {}
     this.choiceObject.xpubs = {}
+    this.choiceObject.codeInfo = {}
   }
 
 }
