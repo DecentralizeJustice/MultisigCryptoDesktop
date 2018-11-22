@@ -13,7 +13,7 @@
     </v-flex>
 
     <v-flex xs12 v-for="index in hardware" :key='hardware.id'>
-      <TheHardwareWallet v-bind:number="index" v-on:pickOption='setXpubs($event,index)'
+      <TheHardwareWallet v-bind:number="index" v-on:pickOption='setXpubsandType($event,index)'
       v-if="shouldThisShow (index+menmonics)">
       </TheHardwareWallet>
     </v-flex>
@@ -45,14 +45,15 @@ export default {
       this.currentView += 1
       this.choiceObject.menmonics['menmonic' + index] = memInfo
     },
-    setXpubs (xpubs, index) {
+    setXpubsandType (data, index) {
+      this.choiceObject.xpubs['xpub' + index] = data.xPubs
+      this.choiceObject.typesofHardware['hardwareWallet' + index] = data.walletType
       this.currentView += 1
-      this.choiceObject.xpubs['xpub' + index] = xpubs
     },
     pickDevice (choice) {
-      this.currentView += 1
       this.setMenandHardware(choice)
       this.choiceObject['deviceNumber'] = choice
+      this.currentView += 1
     },
     shouldThisShow (index) {
       if (index === this.currentView) {
@@ -62,7 +63,7 @@ export default {
       }
     },
     setMenandHardware (choice) {
-      let device = this.devicePlan['device' + choice]
+      const device = this.devicePlan['device' + choice]
       if (device['type'] === 'cell') {
         this.menmonics += device['privatekey']
       } else if (device['type'] === 'lap') {
@@ -78,21 +79,28 @@ export default {
     proccessFinal () {
       let publicInfo = {}
       let privateInfo = {}
+      let finalObject = {}
       const xpubset = getXpub(this.choiceObject.menmonics)
 
       publicInfo['serverIdentity'] = this.choiceObject.codeInfo.serverIdentity
-      publicInfo['xpubset'] = xpubset
+      publicInfo['xpubsetMetal'] = xpubset
+      publicInfo['xpubsethardware'] = this.choiceObject.xpubs
 
       privateInfo['aes-gcmPass'] = this.choiceObject.codeInfo['aes-gcmPass']
       privateInfo['menmonics'] = this.choiceObject.menmonics
       privateInfo['deviceNumber'] = this.choiceObject.deviceNumber
-      console.log(this.choiceObject)
+      privateInfo['typesofHardware'] = this.choiceObject.typesofHardware
+
+      finalObject['publicInfo'] = publicInfo
+      finalObject['privateInfo'] = privateInfo
+
+      this.$store.dispatch('updateThisDeviceInfo', finalObject)
     }
   },
   computed: {
     showGenPhrase () {
       if (this.currentView === 0) {
-        return 10
+        return -1
       } else {
         return Number(this.menmonics + this.hardware + 1)
       }
@@ -111,6 +119,7 @@ export default {
     this.choiceObject.menmonics = {}
     this.choiceObject.xpubs = {}
     this.choiceObject.codeInfo = {}
+    this.choiceObject.typesofHardware = {}
   }
 
 }
