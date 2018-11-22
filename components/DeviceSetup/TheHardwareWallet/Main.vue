@@ -3,7 +3,7 @@
   <v-card>
              <v-toolbar>
          <v-spacer></v-spacer>
-         <v-toolbar-title>Setup Hardware Wallet</v-toolbar-title>
+         <v-toolbar-title>Setup {{numberstuff}} Hardware Wallet</v-toolbar-title>
          <v-spacer></v-spacer>
        </v-toolbar>
       <v-img

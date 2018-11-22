@@ -13,7 +13,7 @@
     </v-flex>
 
     <v-flex xs12 v-for="index in hardware" :key='hardware.id'>
-      <TheHardwareWallet  v-on:pickOption='setXpubs($event,index)'
+      <TheHardwareWallet v-bind:number="index" v-on:pickOption='setXpubs($event,index)'
       v-if="shouldThisShow (index+menmonics)">
       </TheHardwareWallet>
     </v-flex>
@@ -31,6 +31,7 @@ import PickDevice from '~/components/DeviceSetup/PickDevice.vue'
 import TheMenmonic from '~/components/DeviceSetup/TheMenmonic/Main.vue'
 import TheHardwareWallet from '~/components/DeviceSetup/TheHardwareWallet/Main.vue'
 import GenPass from '~/components/DeviceSetup/GeneratePasswords.vue'
+import { getXpub } from '~/assets/Misc/deviceSetup.js'
 export default {
   name: 'DeviceSetup',
   components: {
@@ -72,6 +73,20 @@ export default {
     subCodes (codestuff) {
       this.currentView += 1
       this.choiceObject.codeInfo = codestuff
+      this.proccessFinal()
+    },
+    proccessFinal () {
+      let publicInfo = {}
+      let privateInfo = {}
+      const xpubset = getXpub(this.choiceObject.menmonics)
+
+      publicInfo['serverIdentity'] = this.choiceObject.codeInfo.serverIdentity
+      publicInfo['xpubset'] = xpubset
+
+      privateInfo['aes-gcmPass'] = this.choiceObject.codeInfo['aes-gcmPass']
+      privateInfo['menmonics'] = this.choiceObject.menmonics
+      privateInfo['deviceNumber'] = this.choiceObject.deviceNumber
+      console.log(this.choiceObject)
     }
   },
   computed: {

@@ -88,7 +88,7 @@ export default {
       // let taken = this.$store.state.setupInfo.takendevices
       let avaibleChoices = Object.keys(this.$store.state.setupInfo.devicePlan).length
       var avaiArray = []
-      for (let i = 0; i <= avaibleChoices - 1; i++) {
+      for (let i = 0; i < avaibleChoices; i++) {
         avaiArray.push(i)
         // if (true) { // !taken.includes(i)
         // }
