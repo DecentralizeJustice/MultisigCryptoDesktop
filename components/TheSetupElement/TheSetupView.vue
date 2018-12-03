@@ -6,10 +6,12 @@
     </TheSetupDeviceIntro>
 
     <TheCodeorSetup v-on:pickOption='choose($event,1)'
+    v-on:back='back([])'
     v-if="shouldThisShow (['Setup'])">
     </TheCodeorSetup>
 
     <TheMultisigDevicesPlan v-on:pickOption='choose($event,2)'
+    v-on:back='back(["Setup"])'
     v-if="shouldThisShow (['Setup','1stStepSetup'])">
     </TheMultisigDevicesPlan>
 
@@ -34,6 +36,9 @@ export default {
       if (index === 2) {
         this.$emit('setDevicePlan', choice)
       }
+    },
+    back (index) {
+      this.choiceArray = index
     },
     shouldThisShow (index) {
       if (index.length !== this.choiceArray.length) { return false }

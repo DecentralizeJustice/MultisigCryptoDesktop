@@ -14,7 +14,7 @@
                 <h3 class="headline pb-3" >Number of Computer Devices:</h3>
               </div>
             </v-card-title>
-            <v-container grid-list-md text-xs-center xs12>
+
               <v-layout row wrap align-center justify-space-around>
                 <v-flex v-for="num in correctNumberofButtons" v-bind:key="num" xs2>
                   <v-btn large flat round color='secondary' @click.native="choose(num)">
@@ -22,7 +22,13 @@
                   </v-btn>
                 </v-flex>
               </v-layout>
-            </v-container>
+
+            <v-flex  text-xs-center xs1 align-center pb-1>
+            <v-layout justify-space-around>
+            <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+            <v-icon large color='secondary'>help</v-icon>
+            </v-layout>
+            </v-flex>
 
           </v-card>
         </v-flex>
@@ -38,14 +44,18 @@ export default {
   methods: {
     choose (option) {
       this.$emit('pickOption', option)
+    },
+    back () {
+      this.$emit('back')
     }
   },
   computed: {
     correctNumberofButtons: function () {
-
-      if (this.choiceArray[0]===0){return [0,1,2,3]}
-      else { return [1,2,3]}
-
+      if (this.choiceArray[0] === 0) {
+        return [0, 1, 2, 3]
+      } else {
+        return [1, 2, 3]
+      }
     }
   }
 

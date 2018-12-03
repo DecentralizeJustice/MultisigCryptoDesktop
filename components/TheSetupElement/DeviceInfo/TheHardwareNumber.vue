@@ -14,7 +14,10 @@
                 <h3 class="headline pb-3" >Number of Hardware Wallets:</h3>
               </div>
             </v-card-title>
-            <v-layout align-center justify-space-around row fill-height pb-3>
+            <v-layout align-center justify-space-around row fill-height>
+              <!-- <v-btn  flat round color='secondary' @click.native="choose(1)">
+                <h3 class="headline" >Back</h3>
+              </v-btn> -->
                 <v-btn large flat round color='secondary' @click.native="choose(1)">
                   <h3 class="headline" >1</h3>
                 </v-btn>
@@ -26,7 +29,12 @@
                 </v-btn>
 
             </v-layout>
-
+            <v-flex  text-xs-center xs1 align-center pb-2>
+            <v-layout justify-space-around>
+            <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+            <v-icon large color='secondary'>help</v-icon>
+            </v-layout>
+            </v-flex>
           </v-card>
         </v-flex>
       </v-layout>
@@ -40,6 +48,9 @@ export default {
   methods: {
     choose (option) {
       this.$emit('pickOption', option)
+    },
+    back () {
+      this.$emit('back')
     }
   }
 

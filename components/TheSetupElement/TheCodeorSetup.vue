@@ -20,15 +20,25 @@
           <v-card hover @click.native="pickOption('SyncefromCode')">
             <v-img src="/passwordenter.jpeg"  aspect-ratio="2" ></v-img>
             <v-card-title primary-title class="justify-center">
-              <div>
+
                 <h3 class="headline pb-3" >Use QR Code</h3>
-              </div>
+
             </v-card-title>
           </v-card>
        </v-flex>
 
        </v-layout>
+
      </v-container>
+     <v-flex  text-xs-center xs1 align-center>
+     <v-layout justify-space-around>
+       <v-toolbar color='dark'>
+             <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+             <v-spacer></v-spacer>
+             <v-icon large color='secondary'>help</v-icon>
+        </v-toolbar>
+     </v-layout>
+     </v-flex>
    </v-content>
 </template>
 
@@ -38,6 +48,9 @@ export default {
   methods: {
     pickOption (option) {
       this.$emit('pickOption', option)
+    },
+    back () {
+      this.$emit('back')
     }
   }
 

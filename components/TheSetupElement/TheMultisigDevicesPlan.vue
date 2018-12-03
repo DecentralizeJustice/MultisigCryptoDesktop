@@ -5,15 +5,19 @@
         <v-flex xs12 sm10 offset-sm1>
 
         <TheHardwareNumber v-on:pickOption='choose($event)'
+        v-on:back='back(-1)'
         v-if="shouldThisShow (0)"></TheHardwareNumber>
 
         <TheComputerNumber v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
+        v-on:back='back(0)'
         v-if="shouldThisShow (1)"></TheComputerNumber>
 
         <ThePhoneNumber v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
+        v-on:back='back(1)'
         v-if="shouldThisShow (2)"></ThePhoneNumber>
 
         <FinalPlan v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
+        v-on:back='back(2)'
         v-if="shouldThisShow (3)"></FinalPlan>
 
         </v-flex>
@@ -67,6 +71,18 @@ export default {
         this.pickOption(option)
       }
       // this.finalChoice(this.choiceArray)
+    },
+    back (option) {
+      if (option === -1) {
+        this.$emit('back')
+        return
+      }
+      let newArray = []
+      for (let i = 0; i < option; i++) {
+        newArray[i] = this.choiceArray[i]
+      }
+      this.choiceArray = newArray
+      console.log(this.choiceArray)
     }
   },
   data () {

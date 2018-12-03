@@ -18,10 +18,6 @@
       </TheHardwareWallet>
     </v-flex>
 
-    <GenPass  v-on:subCodes='subCodes($event)'
-    v-if="shouldThisShow (showGenPhrase)">
-    </GenPass>
-
     </v-layout>
   </v-container>
 </template>
@@ -30,25 +26,28 @@
 import PickDevice from '~/components/DeviceSetup/PickDevice.vue'
 import TheMenmonic from '~/components/DeviceSetup/TheMenmonic/Main.vue'
 import TheHardwareWallet from '~/components/DeviceSetup/TheHardwareWallet/Main.vue'
-import GenPass from '~/components/DeviceSetup/GeneratePasswords.vue'
 import { getXpub } from '~/assets/Misc/deviceSetup.js'
+import { entropy } from '~/assets/crypto/genEntropy.js'
 export default {
   name: 'DeviceSetup',
   components: {
     PickDevice,
     TheMenmonic,
-    TheHardwareWallet,
-    GenPass
+    TheHardwareWallet
   },
   methods: {
     addToWord (memInfo, index) {
       this.currentView += 1
       this.choiceObject.menmonics['menmonic' + index] = memInfo
     },
-    setXpubsandType (data, index) {
+    async setXpubsandType (data, index) {
       this.choiceObject.xpubs['xpub' + index] = data.xPubs
       this.choiceObject.typesofHardware['hardwareWallet' + index] = data.walletType
       this.currentView += 1
+      if (this.done) {
+        await this.genPasswords()
+        await this.proccessFinal()
+      }
     },
     pickDevice (choice) {
       this.setMenandHardware(choice)
@@ -95,14 +94,21 @@ export default {
       finalObject['privateInfo'] = privateInfo
 
       this.$store.dispatch('updateThisDeviceInfo', finalObject)
+    },
+    genPasswords () {
+      let codestuff = {}
+      codestuff['aes-gcmPass'] = entropy(32)
+      codestuff['serverIdentity'] = entropy(16)
+      this.choiceObject.codeInfo = codestuff
     }
   },
   computed: {
-    showGenPhrase () {
-      if (this.currentView === 0) {
-        return -1
+    done () {
+      let amountDone = this.menmonics + this.hardware + 1
+      if (this.currentView === amountDone) {
+        return true
       } else {
-        return Number(this.menmonics + this.hardware + 1)
+        return false
       }
     }
   },

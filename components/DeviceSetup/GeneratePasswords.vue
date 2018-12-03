@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import { entropy } from '~/assets/crypto/genEntropy.js'
 import QrcodeVue from 'qrcode.vue'
 export default {
   name: 'GenPass',
@@ -81,8 +80,6 @@ export default {
     qrobject: function () {
       let codestuff = {}
       let jsonString = ''
-      codestuff['aes-gcmPass'] = entropy(32)
-      codestuff['serverIdentity'] = entropy(16)
       jsonString = JSON.stringify(codestuff)
       this.codedObject = codestuff
       return jsonString
