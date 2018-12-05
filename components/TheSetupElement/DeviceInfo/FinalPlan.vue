@@ -17,6 +17,12 @@
 
             <LaptopAndHardware v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'>
             </LaptopAndHardware>
+            <v-flex  text-xs-center xs1 align-center pb-2>
+            <v-layout justify-space-around>
+            <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+            <v-icon large color='secondary'>help</v-icon>
+            </v-layout>
+            </v-flex>
               </v-card>
             </v-flex>
 
@@ -37,6 +43,9 @@ export default {
   methods: {
     choose (option) {
       this.$emit('pickOption', option)
+    },
+    back (option) {
+      this.$emit('back')
     }
 
   },

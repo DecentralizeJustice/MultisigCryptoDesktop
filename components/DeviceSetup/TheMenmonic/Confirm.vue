@@ -18,14 +18,17 @@
          <h1 >Web Memnonic:</h1>
          <h1><slot name="web"></slot></h1>
 
-
-
-
-
             <v-btn flat color="success" v-on:click="submit">Confirm</v-btn>
 
-
       </v-container>
+      <v-flex  text-xs-center xs1 align-center pb-2>
+      <v-layout justify-space-around>
+      <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+      <v-icon large color='secondary'>help</v-icon>
+      </v-layout>
+      </v-flex>
+        </v-card>
+      </v-flex>
       </v-card>
 
 </template>
@@ -46,6 +49,9 @@ export default {
   methods: {
     submit () {
       this.$emit('confirm')
+    },
+    back () {
+      this.$emit('back')
     }
   }
 

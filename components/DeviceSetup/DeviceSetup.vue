@@ -3,11 +3,13 @@
     <v-layout row wrap align-center>
 
     <PickDevice  v-on:pickOption='pickDevice($event)'
+    v-on:back='back(-1)'
     v-if="shouldThisShow (0)">
     </PickDevice>
 
     <v-flex xs12 v-for="menmonic in menmonics" :key='menmonic.id'>
     <TheMenmonic  v-on:submitwordList='addToWord($event,menmonic)'
+    v-on:back='back(menmonics)'
     v-if="shouldThisShow (menmonic)">
     </TheMenmonic>
     </v-flex>
@@ -39,6 +41,12 @@ export default {
     addToWord (memInfo, index) {
       this.currentView += 1
       this.choiceObject.menmonics['menmonic' + index] = memInfo
+    },
+    back (num) {
+      if (num === -1) {
+        this.$store.dispatch('updateDevicePlan', '')
+      }
+      this.currentView = this.currentView - 1
     },
     async setXpubsandType (data, index) {
       this.choiceObject.xpubs['xpub' + index] = data.xPubs

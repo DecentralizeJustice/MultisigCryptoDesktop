@@ -1,6 +1,5 @@
 import Axios from 'axios'
 
-
 // Axios.prototype cannot be modified
 const axiosExtra = {
   setHeader (name, value, scopes = 'common') {
@@ -44,11 +43,6 @@ const extendAxiosInstance = axios => {
     axios[key] = axiosExtra[key].bind(axios)
   }
 }
-
-
-
-
-
 
 const setupProgress = (axios, ctx) => {
   if (process.server) {
@@ -110,34 +104,42 @@ const setupProgress = (axios, ctx) => {
 }
 
 export default (ctx, inject) => {
-  const axiosOptions = {
-    // baseURL
-    baseURL : process.browser
+  // baseURL
+  const baseURL = process.browser
       ? 'http://localhost:3000/'
-      : (process.env._AXIOS_BASE_URL_ || 'http://localhost:3000/'),
+      : (process.env._AXIOS_BASE_URL_ || 'http://localhost:3000/')
 
-    // Create fresh objects for all default header scopes
-    // Axios creates only one which is shared across SSR requests!
-    // https://github.com/mzabriskie/axios/blob/master/lib/defaults.js
-    headers: {
-      common : {
-        'Accept': 'application/json, text/plain, */*'
-      },
-      delete: {},
-      get: {},
-      head: {},
-      post: {},
-      put: {},
-      patch: {}
-    }
+  // Create fresh objects for all default header scopes
+  // Axios creates only one which is shared across SSR requests!
+  // https://github.com/mzabriskie/axios/blob/master/lib/defaults.js
+  const headers = {
+    common : {
+      'Accept': 'application/json, text/plain, */*'
+    },
+    delete: {},
+    get: {},
+    head: {},
+    post: {},
+    put: {},
+    patch: {}
   }
 
-  
+  const axiosOptions = {
+    baseURL,
+    headers
+  }
+
   // Proxy SSR request headers headers
   axiosOptions.headers.common = (ctx.req && ctx.req.headers) ? Object.assign({}, ctx.req.headers) : {}
   delete axiosOptions.headers.common['accept']
   delete axiosOptions.headers.common['host']
-  
+  delete axiosOptions.headers.common['cf-ray']
+  delete axiosOptions.headers.common['cf-connecting-ip']
+
+  if (process.server) {
+    // Don't accept brotli encoding because Node can't parse it
+    axiosOptions.headers.common['Accept-Encoding'] = 'gzip, deflate'
+  }
 
   // Create new axios instance
   const axios = Axios.create(axiosOptions)
@@ -146,10 +148,8 @@ export default (ctx, inject) => {
   extendAxiosInstance(axios)
 
   // Setup interceptors
-  
-  
-  setupProgress(axios, ctx) 
-  
+
+  setupProgress(axios, ctx)
 
   // Inject axios to the context as $axios
   ctx.$axios = axios

@@ -1,15 +1,18 @@
 <template>
 
   <v-card>
+
              <v-toolbar>
          <v-spacer></v-spacer>
          <v-toolbar-title>Setup {{numberstuff}} Hardware Wallet</v-toolbar-title>
          <v-spacer></v-spacer>
        </v-toolbar>
+
       <v-img
         src="/hardwares.jpg"
         aspect-ratio="4"
       ></v-img>
+
       <div v-if="shouldThisShow (0)">
       <v-card-title primary-title class="justify-center" >
         <div>
@@ -43,6 +46,7 @@
         </v-flex>
       </v-layout>
     </div>
+
     <div v-if="shouldThisShow (1)">
     <v-card-title primary-title class="justify-center" >
       <div>
@@ -66,6 +70,14 @@
       </v-flex>
     </v-layout>
   </div>
+
+  <v-flex  text-xs-center xs1 align-center pb-2>
+  <v-layout justify-space-around>
+  <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+  <v-icon large color='secondary'>help</v-icon>
+  </v-layout>
+  </v-flex>
+
     </v-card>
 
 
@@ -82,6 +94,13 @@ export default {
     chooseWalletType (option) {
       this.choiceObject['walletType'] = option
       this.choiceIndex += 1
+    },
+    back () {
+      if (this.choiceIndex === 1) {
+        this.choiceIndex -= 1
+      } else {
+        this.$emit('back')
+      }
     },
     shouldThisShow (index) {
       if (index === this.choiceIndex) { return true }

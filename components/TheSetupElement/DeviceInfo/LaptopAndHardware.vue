@@ -1,5 +1,5 @@
 <template>
-<div style="padding-bottom: 2%;">
+<div >
   <v-layout xs12  wrap justify-space-around row fill-height>
 
   <v-flex xs12 sm3 v-for="(item,index) in this.laptops" :key="index">
@@ -44,6 +44,7 @@
   <div class="text-xs-center" style="margin-top:1%;">
     <v-btn color="info" @click.native="submit()" large >Confirm</v-btn>
   </div>
+
 
 </div>
 </template>

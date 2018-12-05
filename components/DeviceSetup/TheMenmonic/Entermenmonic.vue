@@ -34,6 +34,14 @@
             </v-layout>
         </v-flex>
           </v-layout>
+          <v-flex  text-xs-center xs1 align-center pb-2>
+          <v-layout justify-space-around>
+          <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+          <v-icon large color='secondary'>help</v-icon>
+          </v-layout>
+          </v-flex>
+            </v-card>
+          </v-flex>
         </v-card>
 
 </template>
@@ -80,6 +88,9 @@ export default {
     },
     submitwordList (option) {
       this.$emit('submitwordList', option)
+    },
+    back () {
+      this.$emit('back')
     },
     updateWord (option) {
       this.words = option

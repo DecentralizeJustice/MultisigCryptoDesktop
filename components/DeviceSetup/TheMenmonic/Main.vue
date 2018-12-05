@@ -1,12 +1,15 @@
 <template>
 
-<Entermenmonic v-on:submitwordList='submitwordList($event)' v-if="shouldShow (0)">
+<Entermenmonic v-on:submitwordList='submitwordList($event)'
+v-on:back='back(1)' v-if="shouldShow (0)">
 </Entermenmonic>
 
-<Confirm v-on:confirm='confirm($event)' v-else-if="shouldShow (1)">
+<Confirm v-on:confirm='confirm($event)' v-else-if="shouldShow (1)"
+v-on:back='back(2)'>
   <div slot='web'>{{finalMenmonic}}</div>
   <div slot='metal'>{{convertWordListToString(wordList)}}</div>
 </Confirm>
+
 
 </template>
 
@@ -56,6 +59,14 @@ export default {
     confirm () {
       this.currentIndex += 1
       this.$emit('submitwordList', this.finalMenmonic)
+    },
+    back (index) {
+      if (index === 1) {
+        this.$emit('back')
+      }
+      if (index === 2) {
+        this.currentIndex -= 1
+      }
     },
     convertWordListToString (WordList) {
       let string = ''

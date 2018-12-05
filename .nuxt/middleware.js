@@ -2,7 +2,7 @@
 const files = require.context('@/middleware', false, /^\.\/(?!-)[^.]+\.(js|mjs)$/)
 const filenames = files.keys()
 
-function getModule (filename) {
+function getModule(filename) {
   const file = files(filename)
   return file.default || file
 }
@@ -15,4 +15,3 @@ for (const filename of filenames) {
 }
 
 export default middleware
-

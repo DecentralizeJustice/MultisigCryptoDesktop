@@ -1,5 +1,5 @@
 <template>
-<v-content>
+
    <v-container  fluid fill-height>
       <v-layout>
         <v-flex xs12 fluid>
@@ -47,12 +47,18 @@
                     </v-flex>
               </v-layout>
             </v-container>
-
+            <v-flex  text-xs-center xs1 align-center pb-2>
+            <v-layout justify-space-around>
+            <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+            <v-icon large color='secondary'>help</v-icon>
+            </v-layout>
+            </v-flex>
           </v-card>
+
         </v-flex>
       </v-layout>
    </v-container>
-</v-content>
+
 </template>
 
 <script>
@@ -64,6 +70,9 @@ export default {
   methods: {
     choose (option) {
       this.$emit('pickOption', option)
+    },
+    back (option) {
+      this.$emit('back')
     },
     deviceType (num) {
       let device = this.devices['device' + num]

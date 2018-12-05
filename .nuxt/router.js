@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { interopDefault } from './utils'
 
-const _07c191c0 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
+const _07c191c0 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
-
 
 if (process.client) {
   window.history.scrollRestoration = 'manual'
@@ -18,7 +18,7 @@ const scrollBehavior = function (to, from, savedPosition) {
   if (to.matched.length < 2) {
     // scroll to the top of the page
     position = { x: 0, y: 0 }
-  } else if (to.matched.some((r) => r.components.default.options.scrollToTop)) {
+  } else if (to.matched.some(r => r.components.default.options.scrollToTop)) {
     // if one of the children has scrollToTop option set to true
     position = { x: 0, y: 0 }
   }
@@ -53,23 +53,20 @@ const scrollBehavior = function (to, from, savedPosition) {
   })
 }
 
-
-export function createRouter () {
+export function createRouter() {
   return new Router({
     mode: 'history',
     base: '/',
     linkActiveClass: 'nuxt-link-active',
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,
-    routes: [
-		{
-			path: "/",
-			component: _07c191c0,
-			name: "index"
-		}
-    ],
-    
-    
+
+    routes: [{
+      path: "/",
+      component: _07c191c0,
+      name: "index"
+    }],
+
     fallback: false
   })
 }
