@@ -6,7 +6,7 @@ v-on:back='back(1)' v-if="shouldShow (0)">
 
 <Confirm v-on:confirm='confirm($event)' v-else-if="shouldShow (1)"
 v-on:back='back(2)'>
-  <div slot='web'>{{finalMenmonic}}</div>
+  <div slot='web'>{{webWordList}}</div>
   <div slot='metal'>{{convertWordListToString(wordList)}}</div>
 </Confirm>
 
@@ -16,7 +16,6 @@ v-on:back='back(2)'>
 <script>
 import Entermenmonic from '~/components/DeviceSetup/TheMenmonic/Entermenmonic.vue'
 import Confirm from '~/components/DeviceSetup/TheMenmonic/Confirm.vue'
-import { makeBinaryWordList } from '~/assets/WordList/getWordIndex.js'
 import { createWebWordlist } from '~/assets/WordList/createWebWordlist.js'
 import { createFinalMenmonic } from '~/assets/WordList/createFinalMenmonic.js'
 export default {
@@ -40,14 +39,13 @@ export default {
   },
   methods: {
     submitwordList (wordList) {
-      this.currentIndex += 1
-      let binaryWordList = makeBinaryWordList(wordList)
-      let webWordList = createWebWordlist()
-      let webBinaryWordList = makeBinaryWordList((webWordList))
-      let finalMenmonic = createFinalMenmonic(webBinaryWordList, binaryWordList)
+      let passWordString = createWebWordlist()
+      let memString = this.convertWordListToString(wordList)
+      let finalMenmonic = createFinalMenmonic(memString, passWordString)
       this.wordList = wordList
-      this.webWordList = webWordList
+      this.webWordList = passWordString
       this.finalMenmonic = finalMenmonic
+      this.currentIndex += 1
     },
     shouldShow (index) {
       if (this.currentIndex === index) {
