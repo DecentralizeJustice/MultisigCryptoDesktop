@@ -16,6 +16,7 @@
 
     <v-flex xs12 v-for="index in hardware" :key='hardware.id'>
       <TheHardwareWallet v-bind:number="index" v-on:pickOption='setXpubsandType($event,index)'
+      v-on:back='back(index+menmonics)'
       v-if="shouldThisShow (index+menmonics)">
       </TheHardwareWallet>
     </v-flex>
@@ -40,7 +41,8 @@ export default {
   methods: {
     addToWord (memInfo, index) {
       this.currentView += 1
-      this.choiceObject.menmonics['menmonic' + index] = memInfo
+      this.choiceObject.menmonics['menmonic' + index] = memInfo.finalMenmonic
+      this.choiceObject.passwordStrings['passwordString' + index] = memInfo.passWordString
     },
     back (num) {
       if (num === -1) {
@@ -92,6 +94,7 @@ export default {
       publicInfo['serverIdentity'] = this.choiceObject.codeInfo.serverIdentity
       publicInfo['xpubsetMetal'] = xpubset
       publicInfo['xpubsethardware'] = this.choiceObject.xpubs
+      publicInfo['passWordStrings'] = this.choiceObject.passwordStrings
 
       privateInfo['aes-gcmPass'] = this.choiceObject.codeInfo['aes-gcmPass']
       privateInfo['menmonics'] = this.choiceObject.menmonics
@@ -100,7 +103,7 @@ export default {
 
       finalObject['publicInfo'] = publicInfo
       finalObject['privateInfo'] = privateInfo
-
+      console.log(finalObject)
       this.$store.dispatch('updateThisDeviceInfo', finalObject)
     },
     genPasswords () {
@@ -131,6 +134,7 @@ export default {
   },
   created () {
     this.choiceObject.menmonics = {}
+    this.choiceObject.passwordStrings = {}
     this.choiceObject.xpubs = {}
     this.choiceObject.codeInfo = {}
     this.choiceObject.typesofHardware = {}

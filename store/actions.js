@@ -5,5 +5,8 @@ export default {
   },
   updateThisDeviceInfo ({ commit }, deviceinfo) {
     commit('updateThisDeviceInfo', deviceinfo)
+  },
+  updateCurrentView ({ commit }, view) {
+    commit('updateCurrentView', view)
   }
 }

@@ -9,7 +9,8 @@ const createStore = () => {
       setupInfo: {
         devicePlan: '',
         thisdeviceInfo: ''
-      }
+      },
+      currentView: 0
 
     },
     actions,

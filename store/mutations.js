@@ -6,5 +6,8 @@ export default {
   },
   updateThisDeviceInfo (state, deviceinfo) {
     state.setupInfo.thisdeviceInfo = deviceinfo
+  },
+  updateCurrentView (state, view) {
+    state.currentView = view
   }
 }

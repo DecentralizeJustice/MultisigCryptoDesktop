@@ -112,12 +112,16 @@ export default {
     setupTrez: async function () {
       let keys = await getPublicKey()
       this.choiceObject['xPubs'] = keys
-      this.finalChoice()
+      if (!(Object.getOwnPropertyNames(this.choiceObject.xPubs).length === 0)) {
+        this.finalChoice()
+      }
     },
     setupLedgar: async function () {
       let keys = await getPublicKeyLegar()
       this.choiceObject['xPubs'] = keys
-      this.finalChoice()
+      if (!(Object.getOwnPropertyNames(this.choiceObject.xPubs).length === 0)) {
+        this.finalChoice()
+      }
     },
     getBoxTitle () {
       if (this.choiceObject['walletType'] === 'Ledger') {

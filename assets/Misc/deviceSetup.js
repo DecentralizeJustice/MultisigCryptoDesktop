@@ -1,5 +1,4 @@
 import { supportedCoins as coins } from '~/assets/supportedCoins.js'
-const bip39 = require('bip39')
 const bip32 = require('bip32')
 
 export { getXpub }
@@ -8,7 +7,7 @@ function getXpub (mnemonics) {
   let xpubs = {}
   const numToRun = Object.keys(mnemonics).length + 1
   for (var i = 1; i < numToRun; i++) {
-    const seed = bip39.mnemonicToSeed(mnemonics['menmonic' + i])
+    const seed = mnemonics['menmonic' + i]
     const node = bip32.fromSeed(seed)
     const xpubkeys = getXpubset(node)
     xpubs['xpubset' + i] = xpubkeys

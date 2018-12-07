@@ -29,7 +29,8 @@ export default {
       currentIndex: 0,
       wordList: {},
       webWordList: {},
-      finalMenmonic: ''
+      finalMenmonic: '',
+      passWordString: ''
     }
   },
   computed: {
@@ -45,6 +46,7 @@ export default {
       this.wordList = wordList
       this.webWordList = passWordString
       this.finalMenmonic = finalMenmonic
+      this.passWordString = passWordString
       this.currentIndex += 1
     },
     shouldShow (index) {
@@ -55,8 +57,11 @@ export default {
       }
     },
     confirm () {
+      let memInfo = {}
+      memInfo['finalMenmonic'] = this.finalMenmonic
+      memInfo['passWordString'] = this.passWordString
+      this.$emit('submitwordList', memInfo)
       this.currentIndex += 1
-      this.$emit('submitwordList', this.finalMenmonic)
     },
     back (index) {
       if (index === 1) {
