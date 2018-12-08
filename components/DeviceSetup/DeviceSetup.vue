@@ -46,7 +46,9 @@ export default {
     },
     back (num) {
       if (num === -1) {
+        let view = this.$store.state.mainView
         this.$store.dispatch('updateDevicePlan', '')
+        this.$store.dispatch('updateMainView', view - 1)
       }
       this.currentView = this.currentView - 1
     },
@@ -103,7 +105,6 @@ export default {
 
       finalObject['publicInfo'] = publicInfo
       finalObject['privateInfo'] = privateInfo
-      console.log(finalObject)
       this.$store.dispatch('updateThisDeviceInfo', finalObject)
     },
     genPasswords () {

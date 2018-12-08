@@ -1,7 +1,7 @@
 <template>
     <v-app  xs12 dark v-bind:style="styleObject" class='fullbackground'>
-      <TheSetupView v-if ="showSetupView" v-on:setDevicePlan='setDevicePlan($event)'></TheSetupView>
-      <DeviceSetup v-if ="showDeviceSetup"></DeviceSetup>
+      <TheSetupView v-if ="shouldThisShow(0)" v-on:setDevicePlan='setDevicePlan($event)'></TheSetupView>
+      <DeviceSetup v-if ="shouldThisShow(1)"></DeviceSetup>
     </v-app>
 </template>
 
@@ -21,24 +21,19 @@ export default {
     }
   },
   computed: {
-    showSetupView  () {
-      if (this.$store.state.setupInfo.devicePlan === '') {
-        return true
-      } else {
-        return false
-      }
-    },
-    showDeviceSetup  () {
-      if (!(this.showSetupView) && this.$store.state.setupInfo.thisdeviceInfo === '') {
-        return true
-      } else {
-        return false
-      }
-    }
   },
   methods: {
     setDevicePlan (plan) {
+      let view = this.$store.state.mainView
       this.$store.dispatch('updateDevicePlan', plan)
+      this.$store.dispatch('updateMainView', view + 1)
+    },
+    shouldThisShow  (index) {
+      if (this.$store.state.mainView === index) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
