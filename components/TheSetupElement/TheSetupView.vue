@@ -5,14 +5,9 @@
     v-if="shouldThisShow ([])">
     </TheSetupDeviceIntro>
 
-    <TheCodeorSetup v-on:pickOption='choose($event,1)'
+    <TheMultisigDevicesPlan v-on:pickOption='final($event)'
     v-on:back='back([])'
     v-if="shouldThisShow (['Setup'])">
-    </TheCodeorSetup>
-
-    <TheMultisigDevicesPlan v-on:pickOption='choose($event,2)'
-    v-on:back='back(["Setup"])'
-    v-if="shouldThisShow (['Setup','1stStepSetup'])">
     </TheMultisigDevicesPlan>
 
 
@@ -21,24 +16,25 @@
 
 <script>
 import TheSetupDeviceIntro from '~/components/TheSetupElement/TheDeviceorTools.vue'
-import TheCodeorSetup from '~/components/TheSetupElement/TheCodeorSetup.vue'
 import TheMultisigDevicesPlan from '~/components/TheSetupElement/TheMultisigDevicesPlan.vue'
 export default {
   name: 'TheSetupView',
   components: {
     TheSetupDeviceIntro,
-    TheCodeorSetup,
     TheMultisigDevicesPlan
   },
   methods: {
     choose (choice, index) {
       this.choiceArray.splice(index, 1, choice)
-      if (index === 2) {
-        this.$emit('setDevicePlan', choice)
-      }
     },
     back (index) {
       this.choiceArray = index
+    },
+    final (plan) {
+      let view = this.$store.state.mainView
+      this.$store.dispatch('updateDevicePlan', plan)
+      this.$store.dispatch('updateMainView', view + 1)
+      console.log(this.$store.state)
     },
     shouldThisShow (index) {
       if (index.length !== this.choiceArray.length) { return false }

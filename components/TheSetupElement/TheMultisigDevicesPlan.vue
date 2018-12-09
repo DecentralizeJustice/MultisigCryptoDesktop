@@ -8,16 +8,8 @@
         v-on:back='back(-1)'
         v-if="shouldThisShow (0)"></TheHardwareNumber>
 
-        <TheComputerNumber v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
+        <FinalPlan v-bind:choiceArray='choiceArray' v-on:pickOption='pickOption($event)'
         v-on:back='back(0)'
-        v-if="shouldThisShow (1)"></TheComputerNumber>
-
-        <ThePhoneNumber v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
-        v-on:back='back(1)'
-        v-if="shouldThisShow (2)"></ThePhoneNumber>
-
-        <FinalPlan v-bind:choiceArray=choiceArray v-on:pickOption='choose($event)'
-        v-on:back='back(2)'
         v-if="shouldThisShow (3)"></FinalPlan>
 
         </v-flex>
@@ -28,49 +20,33 @@
 </template>
 
 <script>
-import ThePhoneNumber from '~/components/TheSetupElement/DeviceInfo/ThePhoneNumber.vue'
 import TheHardwareNumber from '~/components/TheSetupElement/DeviceInfo/TheHardwareNumber.vue'
-import TheComputerNumber from '~/components/TheSetupElement/DeviceInfo/TheComputerNumber.vue'
 import FinalPlan from '~/components/TheSetupElement/DeviceInfo/FinalPlan.vue'
 
 export default {
   name: 'TheMultisigDevicesPlan',
   computed: {
-    showMenmonicIndex: function () {
-      if (this.hardwarenumbers.length === 0) {
-        return -1
-      } else {
-        return this.hardwarenumbers.length + 2
-      }
-    }
   },
   components: {
     TheHardwareNumber,
-    ThePhoneNumber,
-    TheComputerNumber,
     FinalPlan
   },
   methods: {
     pickOption (option) {
-      this.$emit('pickOption', option)
+      let plan = {}
+      plan['hardware'] = this.choiceArray[0]
+      plan['lab'] = this.choiceArray[1]
+      plan['phone'] = this.choiceArray[2]
+      this.$emit('pickOption', plan)
     },
     shouldThisShow (index) {
       if (index === this.choiceArray.length) { return true }
       return false
     },
-    finalplanindex () {
-      if (this.shouldPhoneShow() === -1) {
-        return 2
-      } else {
-        return 3
-      }
-    },
     choose (option) {
       this.choiceArray.push(option)
-      if (this.choiceArray.length > 3) {
-        this.pickOption(option)
-      }
-      // this.finalChoice(this.choiceArray)
+      this.choiceArray.push(1)
+      this.choiceArray.push(1)
     },
     back (option) {
       if (option === -1) {
@@ -82,7 +58,6 @@ export default {
         newArray[i] = this.choiceArray[i]
       }
       this.choiceArray = newArray
-      console.log(this.choiceArray)
     }
   },
   data () {

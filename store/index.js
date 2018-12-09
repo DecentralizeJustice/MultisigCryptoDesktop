@@ -8,7 +8,8 @@ const createStore = () => {
     state: {
       setupInfo: {
         devicePlan: '',
-        thisdeviceInfo: ''
+        thisdeviceInfo: '',
+        publicInfo: ''
       },
       mainView: 0
 

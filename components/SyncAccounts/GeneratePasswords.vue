@@ -6,7 +6,7 @@
            <v-card class="text-xs-center">
              <v-toolbar round>
          <v-spacer></v-spacer>
-         <v-toolbar-title>Sync Accounts</v-toolbar-title>
+         <v-toolbar-title>Sync Phone</v-toolbar-title>
          <v-spacer></v-spacer>
        </v-toolbar>
       <v-img
@@ -36,8 +36,6 @@
           </v-card>
         </v-flex>
 
-
-
         <v-flex xs12 sm3 >
           <v-card  >
              <v-toolbar>
@@ -50,7 +48,12 @@
           </v-card>
         </v-flex>
       </v-layout>
-      <v-btn flat color="success" v-on:click="submit">Continue Sync</v-btn>
+      <v-btn flat color="success" v-on:click="submit">Check for Sync</v-btn>
+      <v-flex  text-xs-center xs1 align-center pb-2>
+      <v-layout justify-space-around>
+      <v-icon large color='secondary'>help</v-icon>
+      </v-layout>
+      </v-flex>
     </v-card>
          </v-flex>
        </v-layout>
@@ -61,7 +64,7 @@
 <script>
 import QrcodeVue from 'qrcode.vue'
 export default {
-  name: 'GenPass',
+  name: 'FirstSync',
   components: {
     QrcodeVue
   },
@@ -73,12 +76,15 @@ export default {
   },
   methods: {
     submit () {
-      this.$emit('subCodes', this.codedObject)
+
     }
   },
   computed: {
     qrobject: function () {
       let codestuff = {}
+      codestuff['iden'] = this.$store.state.setupInfo.publicInfo.serverIdentity
+      codestuff['pass'] = this.$store.state.setupInfo.publicInfo.aesgcmPass
+      console.log(codestuff)
       let jsonString = ''
       jsonString = JSON.stringify(codestuff)
       this.codedObject = codestuff

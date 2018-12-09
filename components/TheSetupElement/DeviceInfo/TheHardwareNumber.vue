@@ -15,17 +15,14 @@
               </div>
             </v-card-title>
             <v-layout align-center justify-space-around row fill-height>
-              <!-- <v-btn  flat round color='secondary' @click.native="choose(1)">
-                <h3 class="headline" >Back</h3>
-              </v-btn> -->
+
                 <v-btn large flat round color='secondary' @click.native="choose(1)">
                   <h3 class="headline" >1</h3>
                 </v-btn>
                 <v-btn large flat round color='secondary' @click.native="choose(2)">
                   <h3 class="headline" >2</h3>
                 </v-btn>
-                <v-btn large flat round color='secondary' @click.native="choose(3)">
-                  <h3 class="headline" >3</h3>
+
                 </v-btn>
 
             </v-layout>

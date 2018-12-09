@@ -9,5 +9,8 @@ export default {
   },
   updateMainView (state, view) {
     state.mainView = view
+  },
+  updatePublicInfo (state, info) {
+    state.setupInfo.publicInfo = info
   }
 }

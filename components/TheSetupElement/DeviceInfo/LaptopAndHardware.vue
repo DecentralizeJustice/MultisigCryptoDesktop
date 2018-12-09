@@ -7,7 +7,7 @@
       <v-toolbar color="black" >
         <v-layout row wrap align-center>
           <v-flex headline class="text-xs-center " >
-          {{getOrdinal (index[3])}}  Laptop
+          Laptop
           </v-flex>
         </v-layout>
       </v-toolbar>
@@ -33,7 +33,7 @@
          <v-toolbar>
            <v-layout row wrap align-center>
              <v-flex headline class="text-xs-center">
-              {{getOrdinal(index-1)}} Cellphone
+              Cellphone
              </v-flex>
            </v-layout>
          </v-toolbar>

@@ -8,5 +8,8 @@ export default {
   },
   updateMainView ({ commit }, view) {
     commit('updateMainView', view)
+  },
+  updatePublicInfo ({ commit }, info) {
+    commit('updatePublicInfo', info)
   }
 }
