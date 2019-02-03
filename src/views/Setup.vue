@@ -10,7 +10,6 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-
   name: 'home',
   components: {
     // HelloWorld
@@ -18,7 +17,7 @@ export default {
   data () {
     return {
       styleObject: {
-        'background-image': "stars.jpg"
+        'background-image': 'url(/stars.jpg)'
       }
     }
   }
