@@ -1,17 +1,18 @@
 <template>
   <v-app  xs12 dark v-bind:style="styleObject" class='fullbackground'>
-    <HelloWorld msg="Hot"/>
+    <!-- <HelloWorld msg="Hot"/> -->
   </v-app>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
+// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    // HelloWorld
   },
   data () {
     return {
