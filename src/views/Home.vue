@@ -14,12 +14,12 @@ export default {
     HelloWorld
   },
   data () {
-  return {
-    styleObject: {
-      'background-image': 'url("https://images.pexels.com/photos/733475/pexels-photo-733475.jpeg?cs=srgb&dl=astronomy-cosmos-dark-733475.jpg&fm=jpg")'
+    return {
+      styleObject: {
+        'background-image': 'url("https://images.pexels.com/photos/733475/pexels-photo-733475.jpeg?cs=srgb&dl=astronomy-cosmos-dark-733475.jpg&fm=jpg")'
+      }
     }
   }
-},
 }
 </script>
 
