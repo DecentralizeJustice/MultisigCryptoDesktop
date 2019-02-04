@@ -48,7 +48,6 @@ export default {
       console.log(decodedString)
     },
     scan: function () {
-      console.log(this.$store.state.count)
       this.scanning = true
     },
     cancelscan: function () {

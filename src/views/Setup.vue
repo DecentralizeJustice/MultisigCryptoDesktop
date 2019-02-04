@@ -1,12 +1,11 @@
 <template>
-  <v-app   xs12 dark v-bind:style="styleObject" class='fullbackground'>
-    <v-container justify-center fill-height fluid>
-      <v-layout row wrap align-center>
-        <UsageKey fill-height/>
-      </v-layout>
 
-    </v-container>
-  </v-app>
+  <v-container justify-center fill-height fluid>
+    <v-layout row wrap align-center>
+      <UsageKey v-if="currentComponent == 0" fill-height/>
+    </v-layout>
+  </v-container>
+
 </template>
 
 <script>
@@ -22,16 +21,14 @@ export default {
     return {
       styleObject: {
         'background-image': 'url(/stars.jpg)'
-      }
+      },
+      currentComponent: 0,
+      information: {}
     }
   }
 }
 </script>
 
 <style scoped>
-.fullbackground {
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
-}
+
 </style>
