@@ -13,8 +13,8 @@
           aspect-ratio="5"
           v-if="!scanning"
         ></v-img>
-            <v-divider light v-if="scanning"></v-divider>
-        <qrcodeScanner class="qrcode mt-2" fill-height v-if="scanning"/>
+        <v-divider light v-if="scanning"/>
+        <qrcodeScanner @scannedSuccess="processScanned" class="qrcode mt-2" fill-height v-if="scanning"/>
         <div class="text-xs-center">
           <v-btn color="info" large v-if="!scanning" v-on:click="scan">Scan Code</v-btn>
           <v-btn color="error" large v-if="scanning" v-on:click="cancelscan">Cancel</v-btn>
@@ -41,11 +41,14 @@ export default {
     }
   },
   methods: {
-    onDecode (decodedString) {
+    processScanned: function (decodedString) {
+      // insert content checks
       this.scanned = true
+      this.scanning = false
       console.log(decodedString)
     },
     scan: function () {
+      console.log(this.$store.state.count)
       this.scanning = true
     },
     cancelscan: function () {
