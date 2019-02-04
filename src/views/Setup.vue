@@ -16,7 +16,7 @@ import UsageKey from '@/components/Setup/UsageKey.vue'
 export default {
   name: 'setup',
   components: {
-    UsageKey,
+    UsageKey
   },
   data () {
     return {

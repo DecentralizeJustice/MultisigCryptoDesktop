@@ -1,47 +1,66 @@
 <template>
 
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-          aspect-ratio="2.75"
-        ></v-img>
+    <v-flex sm10 offset-sm1>
 
-        <v-card-title primary-title>
+      <v-card >
+        <v-card-title primary-title class="justify-center">
           <div>
-            <h3 class="headline mb-0">Scan Usage Key</h3>
-
+            <h3 class="headline text-xs-center" >Scan Usage Key</h3>
           </div>
         </v-card-title>
-        <qrcode-stream @decode="onDecode"></qrcode-stream>
-        <v-divider light></v-divider>
-        <v-card-actions class="pa-3">
-          <v-btn ><v-icon color="orange">help</v-icon></v-btn>
-          <v-spacer></v-spacer>
-          <v-btn >Confirm <v-icon color="green">done</v-icon></v-btn>
-        </v-card-actions>
+        <v-img
+          src="https://images.pexels.com/photos/278430/pexels-photo-278430.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          aspect-ratio="5"
+          v-if="!scanning"
+        ></v-img>
+            <v-divider light v-if="scanning"></v-divider>
+        <qrcodeScanner class="qrcode mt-2" fill-height v-if="scanning"/>
+        <div class="text-xs-center">
+          <v-btn color="info" large v-if="!scanning" v-on:click="scan">Scan Code</v-btn>
+          <v-btn color="error" large v-if="scanning" v-on:click="cancelscan">Cancel</v-btn>
+        </div>
+        <bottomBar/>
       </v-card>
     </v-flex>
 
 </template>
 
 <script>
-import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
+import qrcodeScanner from '@/components/generalUtility/qrCodeScanner.vue'
+import bottomBar from '@/components/Setup/bottomBar.vue'
 export default {
   name: 'UsageKey',
   components: {
-  QrcodeStream,
-  QrcodeDropZone,
-  QrcodeCapture
+    qrcodeScanner,
+    bottomBar
+  },
+  data: function () {
+    return {
+      scanning: false,
+      scanned: false
+    }
   },
   methods: {
     onDecode (decodedString) {
+      this.scanned = true
       console.log(decodedString)
+    },
+    scan: function () {
+      this.scanning = true
+    },
+    cancelscan: function () {
+      this.scanning = false
     }
   }
 }
 </script>
 
 <style scoped>
-
+.qrcode {
+  width: 45%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
