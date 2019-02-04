@@ -1,18 +1,20 @@
 <template>
-  <v-app  xs12 dark v-bind:style="styleObject" class='fullbackground'>
-    <!-- <HelloWorld msg="Hot"/> -->
+  <v-app   xs12 dark v-bind:style="styleObject" class='fullbackground'>
+    <v-container justify-center fill-height fluid>
+      <UsageKey fill-height/>
+    </v-container>
   </v-app>
 </template>
 
 <script>
 // @ is an alias to /src
 
-// import HelloWorld from '@/components/HelloWorld.vue'
+import UsageKey from '@/components/Setup/UsageKey.vue'
 
 export default {
-  name: 'home',
+  name: 'setup',
   components: {
-    // HelloWorld
+    UsageKey
   },
   data () {
     return {

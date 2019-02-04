@@ -1,1 +1,1 @@
-# This is the repod for the deskto app for Multisig Crypto
+# This is the repo for the desktop app for Multisig Crypto
