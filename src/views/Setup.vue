@@ -1,7 +1,10 @@
 <template>
   <v-app   xs12 dark v-bind:style="styleObject" class='fullbackground'>
     <v-container justify-center fill-height fluid>
-      <UsageKey fill-height/>
+      <v-layout row wrap align-center>
+        <UsageKey fill-height/>
+      </v-layout>
+
     </v-container>
   </v-app>
 </template>
@@ -10,11 +13,10 @@
 // @ is an alias to /src
 
 import UsageKey from '@/components/Setup/UsageKey.vue'
-
 export default {
   name: 'setup',
   components: {
-    UsageKey
+    UsageKey,
   },
   data () {
     return {
