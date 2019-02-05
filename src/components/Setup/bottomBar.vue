@@ -4,7 +4,7 @@
     <v-card-actions class="pa-3">
     <v-btn ><v-icon color="orange">help</v-icon></v-btn>
     <v-spacer></v-spacer>
-    <v-btn v-if="false" >Confirm <v-icon color="green">done</v-icon></v-btn>
+    <v-btn v-on:click="moveToNext" v-if="readyToContinue" >Continue <v-icon color="green">done</v-icon></v-btn>
     </v-card-actions>
 </div>
 </template>
@@ -13,12 +13,13 @@
 
 export default {
   name: 'bottomBar',
+  props: ['readyToContinue'],
   components: {
 
   },
   methods: {
-    onDecode (decodedString) {
-      console.log(decodedString)
+    moveToNext: function () {
+      this.$emit('moveToNext')
     }
   }
 }

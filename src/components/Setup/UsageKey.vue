@@ -16,10 +16,10 @@
         <v-divider light v-if="scanning"/>
         <qrcodeScanner @scannedSuccess="processScanned" class="qrcode mt-2" fill-height v-if="scanning"/>
         <div class="text-xs-center">
-          <v-btn color="info" large v-if="!scanning" v-on:click="scan">Scan Code</v-btn>
+          <v-btn color="info" large v-if="!scanning && !scanned" v-on:click="scan">Scan Code</v-btn>
           <v-btn color="error" large v-if="scanning" v-on:click="cancelscan">Cancel</v-btn>
         </div>
-        <bottomBar/>
+        <bottomBar @moveToNext="moveToNext" v-bind:readyToContinue="readyToContinue"/>
       </v-card>
     </v-flex>
 
@@ -37,21 +37,27 @@ export default {
   data: function () {
     return {
       scanning: false,
-      scanned: false
+      scanned: false,
+      readyToContinue: false,
+      usageKey: ''
     }
   },
   methods: {
     processScanned: function (decodedString) {
       // insert content checks
-      this.scanned = true
       this.scanning = false
-      console.log(decodedString)
+      this.scanned = true
+      this.readyToContinue = true
+      this.usageKey = decodedString
     },
     scan: function () {
       this.scanning = true
     },
     cancelscan: function () {
       this.scanning = false
+    },
+    moveToNext: function () {
+      this.$emit('til', { usageKey: this.usageKey })
     }
   }
 }

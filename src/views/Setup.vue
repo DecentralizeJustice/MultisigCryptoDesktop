@@ -2,7 +2,7 @@
 
   <v-container justify-center fill-height fluid>
     <v-layout row wrap align-center>
-      <UsageKey v-if="currentComponent == 0" fill-height/>
+      <UsageKey @til="processScanned" v-if="currentComponent == 0" fill-height/>
     </v-layout>
   </v-container>
 
@@ -24,6 +24,12 @@ export default {
       },
       currentComponent: 0,
       information: {}
+    }
+  },
+  methods: {
+    processScanned: function (newInfo) {
+      this.currentComponent += 1
+      this.information = Object.assign(newInfo, this.information)
     }
   }
 }
