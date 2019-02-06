@@ -1,7 +1,7 @@
 import { crypto } from 'bitcoinjs-lib'
 import * as bippath from 'bip32-path'
 import * as BIP32 from 'bip32'
-import Transport from '@ledgerhq/hw-transport-u2f'
+import Transport from '@ledgerhq/hw-transport-node-hid'
 import AppBtc from '@ledgerhq/hw-app-btc'
 export { getXpub }
 
