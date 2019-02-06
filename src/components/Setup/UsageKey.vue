@@ -1,7 +1,7 @@
 <template>
 
     <v-flex sm10 offset-sm1>
-
+      <img alt="Vue logo" src="./assets/logo.png">
       <v-card >
         <v-card-title primary-title class="justify-center">
           <div>
@@ -57,7 +57,7 @@ export default {
       this.scanning = false
     },
     moveToNext: function () {
-      this.$emit('til', { usageKey: this.usageKey })
+      this.$emit('scanned', { usageKey: this.usageKey })
     }
   }
 }

@@ -2,7 +2,8 @@
 
   <v-container justify-center fill-height fluid>
     <v-layout row wrap align-center>
-      <UsageKey @til="processScanned" v-if="currentComponent == 0" fill-height/>
+      <UsageKey @scanned="processScanned" v-if="currentComponent == 0" fill-height/>
+      <setupLedger v-if="currentComponent == 1"/>
     </v-layout>
   </v-container>
 
@@ -10,12 +11,13 @@
 
 <script>
 // @ is an alias to /src
-
+import setupLedger from '@/components/Setup/setupLedger.vue'
 import UsageKey from '@/components/Setup/UsageKey.vue'
 export default {
   name: 'setup',
   components: {
-    UsageKey
+    UsageKey,
+    setupLedger
   },
   data () {
     return {
