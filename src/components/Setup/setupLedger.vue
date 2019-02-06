@@ -37,7 +37,7 @@
 <script>
 import bottomBar from '@/components/Setup/bottomBar.vue'
 
-// import { getPublicKeyLegar } from './assets/hi.js'
+import { getPublicKeyLegar } from '../../assets/ledger/main.js'
 export default {
   name: 'setupLedger',
   components: {
@@ -63,8 +63,8 @@ export default {
       console.log('ready')
     },
     setupLedgar: async function () {
-      // let keys = await getPublicKeyLegar()
-      // this.xpubs = keys
+      let keys = await getPublicKeyLegar()
+      this.xpubs = keys
       console.log(this.xpubs)
     }
   }

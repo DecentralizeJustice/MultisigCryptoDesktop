@@ -1,12 +1,12 @@
 <template>
 
   <v-container justify-center fill-height fluid>
-            <v-img
+            <!-- <v-img
           :src="require('../assets/logo.png')"
           class="my-3"
           contain
           height="200"
-        ></v-img>
+        ></v-img> -->
     <v-layout row wrap align-center>
       <UsageKey @scanned="processScanned" v-if="currentComponent == 0" fill-height/>
       <setupLedger v-if="currentComponent == 1"/>
@@ -19,10 +19,12 @@
 // @ is an alias to /src
 
 import UsageKey from '@/components/Setup/UsageKey.vue'
+import setupLedger from '@/components/Setup/setupLedger.vue'
 export default {
   name: 'setup',
   components: {
-    UsageKey
+    UsageKey,
+    setupLedger
   },
   data () {
     return {

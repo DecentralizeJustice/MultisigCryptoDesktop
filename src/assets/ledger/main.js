@@ -1,5 +1,5 @@
-import { getXpub } from '~/assets/ledger/getxpub.js'
-import { supportedCoins as coins } from '~/assets/supportedCoins.js'
+import { getXpub } from '../../assets/ledger/getxpub.js'
+import { supportedCoins as coins } from '../../assets/supportedCoins.js'
 
 async function getPublicKeyLegar () {
   let xpub = {}

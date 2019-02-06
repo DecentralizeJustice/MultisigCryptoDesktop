@@ -2,7 +2,12 @@
   <v-app  xs12 dark v-bind:style="styleObject" class='fullbackground'>
     <router-view/>
   </v-app>
-
+  <!-- <v-img
+:src="require('../assets/logo.png')"
+class="my-3"
+contain
+height="200"
+></v-img> -->
 </template>
 <script>
 export default {
