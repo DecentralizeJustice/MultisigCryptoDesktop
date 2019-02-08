@@ -37,7 +37,7 @@
 <script>
 import bottomBar from '@/components/Setup/bottomBar.vue'
 
-import { getPublicKeyLegar } from '../../assets/ledger/main.js'
+import { getBtcAddress } from '../../assets/ledger/main.js'
 export default {
   name: 'setupLedger',
   components: {
@@ -63,9 +63,20 @@ export default {
       console.log('ready')
     },
     setupLedgar: async function () {
-      let keys = await getPublicKeyLegar()
-      this.xpubs = keys
-      console.log(this.xpubs)
+      getBtcAddress().then(a => console.log(a))
+      console.log('ran')
+      const electron = require('electron')
+      const BrowserWindow = electron.remote.BrowserWindow
+
+      let basicWindowParams = {
+        show: true,
+        autoHideMenuBar: true
+      }
+      let win = new BrowserWindow(basicWindowParams)
+      win.loadURL('http://www.reddit.com/')
+      win.on('did-finish-load', () => {
+        win.show()
+      })
     }
   }
 }

@@ -1,16 +1,10 @@
-import { getXpub } from '../../assets/ledger/getxpub.js'
-import { supportedCoins as coins } from '../../assets/supportedCoins.js'
+import Transport from '@ledgerhq/hw-transport-node-hid'
+import AppBtc from '@ledgerhq/hw-app-btc'
+const getBtcAddress = async () => {
+  const transport = await Transport.create()
+  const btc = new AppBtc(transport)
+  const result = await btc.getWalletPublicKey("44'/0'/0'/0/0")
+  return result.bitcoinAddress
+}
 
-async function getPublicKeyLegar () {
-  let xpub = {}
-  for (var prop in coins) {
-    let goodPath = removeM(coins[prop].currentPath)
-    xpub[prop] = await getXpub(goodPath)
-  }
-  return xpub
-}
-function removeM (path) {
-  path = path.substring(2)
-  return path
-}
-export { getPublicKeyLegar }
+export { getBtcAddress }

@@ -2,12 +2,12 @@
 
     <v-flex sm10 offset-sm1>
 
-        <v-card-title primary-title class="justify-center">
-          <div>
-            <h3 class="headline text-xs-center" >Scan Usage Key</h3>
-          </div>
-        </v-card-title>
         <v-card >
+          <v-card-title primary-title class="justify-center">
+            <div>
+              <h3 class="headline text-xs-center" >Scan Usage Key</h3>
+            </div>
+          </v-card-title>
         <v-img
           src="https://images.pexels.com/photos/278430/pexels-photo-278430.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
           aspect-ratio="5"
