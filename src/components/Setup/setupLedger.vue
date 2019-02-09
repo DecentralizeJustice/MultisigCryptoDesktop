@@ -37,7 +37,7 @@
 <script>
 import bottomBar from '@/components/Setup/bottomBar.vue'
 
-// import { getBtcAddress } from '../../assets/ledger/main.js'
+import { getBtcAddress } from '../../assets/ledger/main.js'
 export default {
   name: 'setupLedger',
   components: {
@@ -62,16 +62,8 @@ export default {
       // insert content checks
       console.log('ready')
     },
-    setupLedgar: async function () {
-      // getBtcAddress().then(a => console.log(a))
-
-      const { fork } = require('child_process')
-      //
-      const forked = fork('src/assets/child.js')
-      forked.on('message', (msg) => {
-        console.log('Message from child', msg)
-      })
-      forked.send({ hello: 'world' })
+    async setupLedgar () {
+      getBtcAddress().then(a => console.log(a))
     }
   }
 }

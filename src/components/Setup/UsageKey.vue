@@ -37,7 +37,7 @@ export default {
   data: function () {
     return {
       scanning: false,
-      scanned: false,
+      scanned: true,
       readyToContinue: false,
       usageKey: ''
     }
