@@ -37,7 +37,7 @@
 <script>
 import bottomBar from '@/components/Setup/bottomBar.vue'
 
-import { getBtcAddress } from '../../assets/ledger/main.js'
+// import { getBtcAddress } from '../../assets/ledger/main.js'
 export default {
   name: 'setupLedger',
   components: {
@@ -63,20 +63,15 @@ export default {
       console.log('ready')
     },
     setupLedgar: async function () {
-      getBtcAddress().then(a => console.log(a))
-      console.log('ran')
-      const electron = require('electron')
-      const BrowserWindow = electron.remote.BrowserWindow
+      // getBtcAddress().then(a => console.log(a))
 
-      let basicWindowParams = {
-        show: true,
-        autoHideMenuBar: true
-      }
-      let win = new BrowserWindow(basicWindowParams)
-      win.loadURL('http://www.reddit.com/')
-      win.on('did-finish-load', () => {
-        win.show()
+      const { fork } = require('child_process')
+      //
+      const forked = fork('src/assets/child.js')
+      forked.on('message', (msg) => {
+        console.log('Message from child', msg)
       })
+      forked.send({ hello: 'world' })
     }
   }
 }
