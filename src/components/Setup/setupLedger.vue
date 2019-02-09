@@ -62,8 +62,8 @@ export default {
       // insert content checks
       console.log('ready')
     },
-    async setupLedgar () {
-      getBtcAddress().then(a => console.log(a))
+    setupLedgar: async function () {
+      await getBtcAddress().then(a => console.log(a))
     }
   }
 }

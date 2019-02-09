@@ -1,6 +1,7 @@
 'use strict'
 
 import { app, protocol, BrowserWindow } from 'electron'
+
 import {
   createProtocol,
   installVueDevtools

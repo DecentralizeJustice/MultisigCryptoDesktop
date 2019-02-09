@@ -38,7 +38,7 @@ export default {
     return {
       scanning: false,
       scanned: true,
-      readyToContinue: false,
+      readyToContinue: true,
       usageKey: ''
     }
   },
