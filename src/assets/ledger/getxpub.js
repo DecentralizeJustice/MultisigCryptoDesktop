@@ -1,16 +1,17 @@
 import { crypto } from 'bitcoinjs-lib'
 import * as bippath from 'bip32-path'
 import * as BIP32 from 'bip32'
-import Transport from '@ledgerhq/hw-transport-node-hid'
+import TransportNodeHid from '@ledgerhq/hw-transport-node-hid'
 import AppBtc from '@ledgerhq/hw-app-btc'
 export { getXpub }
 
 async function getXpub (path) {
-  const transport = await Transport.create()
+  const transport = await TransportNodeHid.create()
   const btc = new AppBtc(transport)
   let parentPath = await getParentPath(path)
   let child = await btc.getWalletPublicKey(path)
   let parent = await btc.getWalletPublicKey(parentPath)
+  transport.close()
   return createXPUB(path, child, parent)
 }
 
