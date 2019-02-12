@@ -11,7 +11,7 @@ async function getXpub (path) {
   let parentPath = await getParentPath(path)
   let child = await btc.getWalletPublicKey(path)
   let parent = await btc.getWalletPublicKey(parentPath)
-  transport.close()
+  await transport.close()
   return createXPUB(path, child, parent)
 }
 

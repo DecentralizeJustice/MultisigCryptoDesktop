@@ -28,7 +28,8 @@
         </div>
         </div>
 
-        <bottomBar @moveToNext="moveToNext" v-bind:readyToContinue="readyToContinue"/>
+        <bottomBar @moveToNext="moveToNext" @back="back"
+        v-bind="{ readyToContinue: readyToContinue, backOption: backOption }"/>
       </v-card>
     </v-flex>
 
@@ -47,23 +48,34 @@ export default {
     return {
       currentView: 0,
       readyToContinue: false,
-      xpubs: ''
+      xpubs: '',
+      backOption: false
     }
   },
   methods: {
     next: function () {
       // insert content checks
       this.currentView += 1
+      this.backOption = true
     },
     moveToNext: function () {
-      this.$emit('til', { usageKey: this.usageKey })
-    },
-    setupWallet: function () {
-      // insert content checks
-      console.log('ready')
+      this.$emit('xpubsDone', { xpubs: this.xpubs })
     },
     setupLedgar: async function () {
-      await getPublicKeyLegar().then(a => console.log(a))
+      let publickeys = await getPublicKeyLegar()
+      if (publickeys.btc !== undefined) {
+        this.xpubs = publickeys
+        this.readyToContinue = true
+      }
+    },
+    back: function () {
+      this.readyToContinue = false
+      if (this.currentView === 1) {
+        this.backOption = false
+      }
+      if (this.currentView !== 0) {
+        this.currentView = this.currentView - 1
+      }
     }
   }
 }

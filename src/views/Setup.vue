@@ -8,8 +8,8 @@
           height="200"
         ></v-img> -->
     <v-layout row wrap align-center>
-      <UsageKey @scanned="processScanned" v-if="currentComponent == 0" fill-height/>
-      <setupLedger v-if="currentComponent == 1"/>
+      <UsageKey @scanned="done" v-if="currentComponent == 0" fill-height/>
+      <setupLedger @xpubsDone="done" v-if="currentComponent == 1"/>
     </v-layout>
   </v-container>
 
@@ -36,7 +36,7 @@ export default {
     }
   },
   methods: {
-    processScanned: function (newInfo) {
+    done: function (newInfo) {
       this.currentComponent += 1
       this.information = Object.assign(newInfo, this.information)
     }

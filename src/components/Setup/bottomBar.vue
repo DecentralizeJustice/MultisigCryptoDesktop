@@ -2,6 +2,7 @@
   <div>
     <v-divider light></v-divider>
     <v-card-actions class="pa-3">
+    <v-btn v-on:click="back" v-if="backOption"><v-icon color="orange">arrow_back</v-icon></v-btn>
     <v-btn ><v-icon color="orange">help</v-icon></v-btn>
     <v-spacer></v-spacer>
     <v-btn v-on:click="moveToNext" v-if="readyToContinue" >Continue <v-icon color="green">done</v-icon></v-btn>
@@ -12,13 +13,25 @@
 <script>
 export default {
   name: 'bottomBar',
-  props: ['readyToContinue'],
+  props: {
+    readyToContinue: {
+      type: Boolean,
+      required: true
+    },
+    backOption: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
 
   },
   methods: {
     moveToNext: function () {
       this.$emit('moveToNext')
+    },
+    back: function () {
+      this.$emit('back')
     }
   }
 }
