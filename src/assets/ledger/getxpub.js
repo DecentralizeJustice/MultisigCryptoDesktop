@@ -38,8 +38,8 @@ const createXPUB = (path, child, parent) => {
   return hdnode.toBase58()
 }
 
-async function getParentPath (path) {
-  path = await bippath.fromString(path).toPathArray()
+function getParentPath (path) {
+  path = bippath.fromString(path).toPathArray()
   path.pop()
   let array = bippath.fromPathArray(path).toString()
   return array

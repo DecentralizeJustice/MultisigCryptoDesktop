@@ -19,13 +19,18 @@
         </div>
         </div>
 
-        <div v-if="currentView == 1">
+        <div v-if="currentView == 1 && !readyToContinue">
         <v-card-text class="justify-center">
           <h4 class="headline text-xs-center" >Insert Wallet To Setup</h4>
         </v-card-text>
         <div class="text-xs-center">
-          <v-btn color="info" large v-if="true" v-on:click="setupLedgar">Setup Wallet</v-btn>
+          <v-btn color="info" large  v-on:click="setupLedgar">Setup Wallet</v-btn>
         </div>
+        </div>
+        <div v-if="currentView == 1 && readyToContinue">
+        <v-card-text class="justify-center">
+          <h4 class="headline text-xs-center" >Click Contine</h4>
+        </v-card-text>
         </div>
 
         <bottomBar @moveToNext="moveToNext" @back="back"
@@ -47,14 +52,13 @@ export default {
   data: function () {
     return {
       currentView: 0,
-      readyToContinue: false,
+      readyToContinue: true,
       xpubs: '',
       backOption: false
     }
   },
   methods: {
     next: function () {
-      // insert content checks
       this.currentView += 1
       this.backOption = true
     },
