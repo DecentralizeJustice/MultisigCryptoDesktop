@@ -1,46 +1,49 @@
 <template>
+  <v-flex sm8 offset-sm2>
 
-        <v-card>
-          <v-layout  xs12 row wrap justify-space-around >
-          <v-img
-           src='https://cdn-images-1.medium.com/max/1600/1*51Kjfq6fe0mFTd8P8_Bz_A.jpeg'
-           aspect-ratio="5"
-         ></v-img>
+    <v-card>
 
-          <v-form xs12>
+        <v-card-title primary-title class="justify-center">
+          <div>
+            <h3 class="headline text-xs-center" >Metal Card Setup</h3>
+          </div>
+        </v-card-title>
+        <v-divider light/>
 
-            <v-container xs12 >
-              <v-layout  xs12 row wrap >
-
-                <wordBox v-on:updateWord='updateWord($event)' v-bind:number="key" v-bind:done='isDone(key)'
-                  v-for="(value,key) in words" :key="key" v-if='whichSide(key)' v-bind:word='value'>
-                </wordBox>
-
-              </v-layout>
-            </v-container>
-          </v-form>
-          <v-flex xs6 ma-2>
-            <v-layout align-center justify-space-around row>
-              <v-btn-toggle v-model="toggle_exclusive" mandatory>
-                <v-btn round :large='true' flat v-on:click="flipCard(true)"><h2>1-6</h2></v-btn>
-                <v-btn round :large='true' flat v-on:click="flipCard(false)"><h2>7-12</h2></v-btn>
-               </v-btn-toggle>
-            </v-layout>
-          </v-flex>
-          <v-flex xs12 ma-2>
-            <v-layout align-center justify-space-around row>
-              <v-btn round :large='true' color='success' v-on:click="submitList"
-              v-if='completeWordlist'><h3>Submit</h3></v-btn>
-            </v-layout>
-        </v-flex>
+      <v-form xs12>
+        <v-container xs12 >
+          <v-layout  xs12 row wrap >
+            <wordBox v-on:updateWord='updateWord($event)' v-bind:number="key" v-bind:done='isDone(key)'
+              v-for="(value,key) in words" :key="key" v-if='whichSide(key)' v-bind:word='value'>
+            </wordBox>
           </v-layout>
-          <v-flex  text-xs-center xs1 align-center pb-2>
-          <v-layout justify-space-around>
-          <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
-          <v-icon large color='secondary'>help</v-icon>
-          </v-layout>
-          </v-flex>
-            </v-card>
+        </v-container>
+      </v-form>
+
+      <v-flex xs12 ma-2>
+        <v-layout align-center justify-space-around row>
+          <v-btn-toggle v-model="toggle_exclusive" mandatory>
+            <v-btn round :large='true' flat v-on:click="flipCard(true)"><h2>1-6</h2></v-btn>
+            <v-btn round :large='true' flat v-on:click="flipCard(false)"><h2>7-12</h2></v-btn>
+           </v-btn-toggle>
+        </v-layout>
+      </v-flex>
+
+      <v-flex xs12 >
+        <v-layout align-center justify-space-around row>
+          <v-btn round :large='true' color='success' v-on:click="submitList"
+          v-if='completeWordlist'><h3>Submit</h3></v-btn>
+        </v-layout>
+    </v-flex>
+
+      <v-flex  text-xs-center xs1 align-center pb-2>
+      <v-layout justify-space-around>
+      <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
+
+      </v-layout>
+      </v-flex>
+        </v-card>
+  </v-flex>
 
 </template>
 

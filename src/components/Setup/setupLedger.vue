@@ -15,7 +15,7 @@
           <h4 class="headline text-xs-center" >Follow the video below:</h4>
         </v-card-text>
         <div class="text-xs-center">
-          <v-btn color="info" large v-if="true" v-on:click="next">Continue to Sync Wallet</v-btn>
+          <v-btn color="primary" large v-if="true" v-on:click="next">Continue to Sync Wallet</v-btn>
         </div>
         </div>
 
