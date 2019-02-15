@@ -10,7 +10,7 @@
     <v-layout row wrap align-center>
       <UsageKey @scanned="done" v-if="currentComponent == 0" fill-height/>
       <setupLedger @xpubsDone="done" v-if="currentComponent == 1"/>
-      <Menmonic @xpubsDone="done" v-if="currentComponent == 2"/>
+      <menmonicSetup @xpubsDone="done" v-if="currentComponent == 2"/>
     </v-layout>
   </v-container>
 
@@ -21,13 +21,13 @@
 
 import UsageKey from '@/components/Setup/UsageKey.vue'
 import setupLedger from '@/components/Setup/setupLedger.vue'
-import Menmonic from '@/components/Setup/menmonic/menmonic.vue'
+import menmonicSetup from '@/components/Setup/menmonic/main.vue'
 export default {
   name: 'setup',
   components: {
     UsageKey,
     setupLedger,
-    Menmonic
+    menmonicSetup
   },
   data () {
     return {

@@ -18,7 +18,7 @@ import Confirm from '@/components/Setup/menmonic/confirm.vue'
 import { createWebWordlist } from '@/assets/menmonic/createWebWordlist.js'
 import { createFinalMenmonic } from '@/assets/menmonic/createFinalMenmonic.js'
 export default {
-  name: 'TheMenmonic',
+  name: 'TheMetalMenmonic',
   components: {
     Entermenmonic,
     Confirm
