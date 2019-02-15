@@ -13,9 +13,11 @@
       <v-form xs12>
         <v-container xs12 >
           <v-layout  xs12 row wrap >
+
             <wordBox v-on:updateWord='updateWord($event)' v-bind:number="key" v-bind:done='isDone(key)'
               v-for="(value,key) in words" :key="key" v-if='whichSide(key)' v-bind:word='value'>
             </wordBox>
+
           </v-layout>
         </v-container>
       </v-form>
@@ -66,7 +68,7 @@ export default {
       get: function () {
         let words = {}
         for (let i = 1; i < 13; i++) {
-          words[i] = 'test'
+          words[i] = ''
         }
         return words
       },

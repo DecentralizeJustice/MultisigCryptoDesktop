@@ -1,25 +1,16 @@
 <template>
 
   <v-flex xs12 sm6 md3>
-    <v-autocomplete
-      v-model="model"
-      :items="states"
-      :readonly="!isEditing"
+    <v-text-field
       :label='number'
-      persistent-hint
-      prepend-icon="mdi-city"
+      :outline='true' v-model="thisWord" v-on:keyup="checkText (thisWord)"
     >
-    </v-autocomplete>
-    <!-- <v-text-field
-      :label='number'
-      :outline='true' v-model="thisWord"
-    > -->
-    <!-- <v-fade-transition slot="append">
-      <v-icon v-if="tempDone">check_circle</v-icon>
-      <v-icon v-else>error</v-icon>
+    <v-fade-transition slot="append">
+      <v-icon v-if="tempDone" color='success'>check_circle</v-icon>
+      <v-icon v-else color='error'>error</v-icon>
     </v-fade-transition>
 
-    </v-text-field> -->
+    </v-text-field>
   </v-flex>
 
 </template>
@@ -30,25 +21,7 @@ export default {
   data () {
     return {
       thisWord: this.word,
-      tempDone: false,
-      isEditing: true,
-      model: null,
-      states: [
-        'Alabama', 'Alaska', 'American Samoa', 'Arizona',
-        'Arkansas', 'California', 'Colorado', 'Connecticut',
-        'Delaware', 'District of Columbia', 'Federated States of Micronesia',
-        'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
-        'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-        'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
-        'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-        'Missouri', 'Montana', 'Nebraska', 'Nevada',
-        'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
-        'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio',
-        'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-        'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
-        'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
-        'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-      ]
+      tempDone: false
     }
   },
   name: 'wordBox',
@@ -56,16 +29,37 @@ export default {
   computed: {
   },
   mounted () {
-    this.tempDone = this.done // I'm text inside the component.
+    this.tempDone = this.done
   },
   methods: {
     updateWord (option) {
       this.$emit('updateWord', option)
     },
+    delete () {
+      console.log('ran')
+    },
     checkText (thing) {
-      this.updateWord(
-        { number: this.number,
-          whichWord: thing })
+      let word = thing
+      let wordInfo = ''
+      if (word.length === 4) {
+        if (word[3] === ' ') {
+          wordInfo = getWord(word.substring(0, 3) + '-')
+        } else {
+          wordInfo = getWord(word)
+        }
+        if (wordInfo.exist === true) {
+          this.tempDone = true
+          this.thisWord = wordInfo.value
+          this.updateWord(
+            { number: this.number,
+              whichWord: wordInfo.value })
+        }
+      } else {
+        this.tempDone = false
+        this.updateWord(
+          { number: this.number,
+            whichWord: '' })
+      }
     }
   }
 }
