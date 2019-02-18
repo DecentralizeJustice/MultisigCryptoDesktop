@@ -3,20 +3,21 @@
   <v-container justify-center fill-height fluid>
 
     <v-layout row wrap align-center>
-      <TheMetalMenmonic @scanned="done" v-if="currentComponent == 0" fill-height/>
-
+      <Entermenmonic v-on:submitwordList='submitwordList($event)'
+      v-on:back='back(1)' v-if="currentComponent == 0" fill-height/>
     </v-layout>
   </v-container>
 
 </template>
 
 <script>
-// @ is an alias to /src
-import TheMetalMenmonic from '@/components/Setup/menmonic/menmonic.vue'
+import Entermenmonic from '@/components/Setup/menmonic/enterMen.vue'
+import { createWebWordlist } from '@/assets/menmonic/createWebWordlist.js'
+import { createFinalMenmonic } from '@/assets/menmonic/createFinalMenmonic.js'
 export default {
   name: 'menmonicSetup',
   components: {
-    TheMetalMenmonic
+    Entermenmonic
   },
   data () {
     return {

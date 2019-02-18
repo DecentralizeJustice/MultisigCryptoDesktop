@@ -61,7 +61,7 @@ export default {
     return {
       showFront: true,
       toggle_exclusive: 0,
-      completeWordlist: true
+      completeWordlist: false
     }
   },
   computed: {
