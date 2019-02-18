@@ -1,8 +1,5 @@
 <template>
-  <v-flex sm8 offset-sm2>
-
-    <v-card>
-
+  <div>
         <v-card-title primary-title class="justify-center">
           <div>
             <h3 class="headline text-xs-center" >Metal Card Setup</h3>
@@ -32,22 +29,13 @@
         </v-layout>
       </v-flex>
 
-      <v-flex xs12 >
+      <v-flex xs12 mt-3 mb-2>
         <v-layout align-center justify-space-around row>
           <v-btn round :large='true' color='success' v-on:click="submitList"
-          v-if='completeWordlist'><h3>Submit</h3></v-btn>
+          v-if='completeWordlist' ><h3>Submit</h3></v-btn>
         </v-layout>
-    </v-flex>
-
-      <v-flex  text-xs-center xs1 align-center pb-2>
-      <v-layout justify-space-around>
-      <v-icon large color='secondary' @click.native="back()">arrow_back</v-icon>
-
-      </v-layout>
       </v-flex>
-        </v-card>
-  </v-flex>
-
+  </div>
 </template>
 
 <script>
@@ -69,7 +57,7 @@ export default {
       get: function () {
         let words = {}
         for (let i = 1; i < 13; i++) {
-          words[i] = ''
+          words[i] = 'test'
         }
         return words
       },
