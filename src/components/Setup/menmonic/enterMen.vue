@@ -29,12 +29,11 @@
         </v-layout>
       </v-flex>
 
-      <v-flex xs12 mt-3 mb-2>
-        <v-layout align-center justify-space-around row>
-          <v-btn round :large='true' color='success' v-on:click="submitList"
-          v-if='completeWordlist' ><h3>Submit</h3></v-btn>
-        </v-layout>
-      </v-flex>
+      <div class="text-xs-center">
+        <v-btn round :large='true' color='success' v-on:click="submitList"
+        v-if='completeWordlist' ><h3>Submit</h3></v-btn>
+      </div>
+
   </div>
 </template>
 

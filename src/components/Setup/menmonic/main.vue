@@ -11,8 +11,9 @@
         v-on:back='back' v-on:failed='back' v-if="currentComponent == 1"
         v-bind="{ wordList: wordList }"/>
 
-        <recordWebMen v-on:submitwordList='submitwordList($event)'
-        v-on:back='back' v-if="currentComponent == 2"/>
+        <recordWebMen v-on:done='done()'
+        v-on:back='back' v-bind="{webWordsObject:webWordsObject}"
+        v-if="currentComponent == 2"/>
 
         <bottomBar @back="back"
         v-bind="{ readyToContinue: readyToContinue, backOption: isBack }"/>
@@ -28,6 +29,8 @@ import Entermenmonic from '@/components/Setup/menmonic/enterMen.vue'
 import checkMetalMen from '@/components/Setup/menmonic/checkMetalMen.vue'
 import bottomBar from '@/components/Setup/bottomBar.vue'
 import recordWebMen from '@/components/Setup/menmonic/recordWebMen.vue'
+import { createWebWordlist } from '@/assets/menmonic/createWebWordlist.js'
+import { convertStringToObject } from '@/assets/menmonic/convertStringToObject.js'
 // import { convertWordListToString } from '@/assets/menmonic/convertWordListToString.js'
 // import { createFinalMenmonic } from '@/assets/menmonic/createFinalMenmonic.js'
 export default {
@@ -42,7 +45,7 @@ export default {
     return {
       currentComponent: 0,
       wordList: {},
-      webWordlist: '',
+      webWordlist: {},
       readyToContinue: false,
       backOption: false
     }
@@ -73,7 +76,14 @@ export default {
       if (this.currentComponent !== 0) {
         this.currentComponent -= 1
       }
+    },
+    done () {
+      this.currentComponent += 1
     }
+  },
+  mounted: function () {
+    const webWordStringTemp = createWebWordlist()
+    this.webWordsObject = convertStringToObject(webWordStringTemp)
   }
 }
 </script>
