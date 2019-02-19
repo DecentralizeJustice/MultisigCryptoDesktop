@@ -32,7 +32,7 @@ export default {
   },
   data () {
     return {
-      webWord: {}
+      webWords: {}
     }
   },
   methods: {
@@ -42,8 +42,8 @@ export default {
   },
   mounted: function () {
     const webWordString = createWebWordlist()
-    let test = convertStringToObject(webWordString)
-    console.log(test)
+    const webWordObject = convertStringToObject(webWordString)
+    this.webWords = webWordObject
   }
 }
 </script>
