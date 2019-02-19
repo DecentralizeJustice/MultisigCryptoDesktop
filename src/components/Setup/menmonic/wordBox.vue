@@ -35,9 +35,6 @@ export default {
     updateWord (option) {
       this.$emit('updateWord', option)
     },
-    delete () {
-      console.log('ran')
-    },
     checkText (thing) {
       let word = thing
       let wordInfo = ''

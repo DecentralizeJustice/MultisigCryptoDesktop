@@ -28,6 +28,7 @@ import Entermenmonic from '@/components/Setup/menmonic/enterMen.vue'
 import checkMetalMen from '@/components/Setup/menmonic/checkMetalMen.vue'
 import bottomBar from '@/components/Setup/bottomBar.vue'
 import recordWebMen from '@/components/Setup/menmonic/recordWebMen.vue'
+// import { convertWordListToString } from '@/assets/menmonic/convertWordListToString.js'
 // import { createFinalMenmonic } from '@/assets/menmonic/createFinalMenmonic.js'
 export default {
   name: 'menmonicSetup',
@@ -72,13 +73,6 @@ export default {
       if (this.currentComponent !== 0) {
         this.currentComponent -= 1
       }
-    },
-    convertWordListToString (WordList) {
-      let string = ''
-      for (let i = 1; i < 13; i++) {
-        string += WordList[i] + ' '
-      }
-      return string
     }
   }
 }
