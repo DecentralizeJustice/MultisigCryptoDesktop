@@ -5,11 +5,14 @@
       <v-flex sm8 offset-sm2>
         <v-card>
         <Entermenmonic v-on:submitwordList='submitwordList($event)'
-        v-on:back='back(1)' v-if="currentComponent == 0"/>
+        v-on:back='back' v-if="currentComponent == 0"/>
 
-        <checkMetalMen v-on:passedTests='done($event)'
-        v-on:back='back(1)' v-on:failed='back(1)' v-if="currentComponent == 1"
+        <checkMetalMen v-on:passedTests='passedMetalTest($event)'
+        v-on:back='back' v-on:failed='back' v-if="currentComponent == 1"
         v-bind="{ wordList: wordList }"/>
+
+        <recordWebMen v-on:submitwordList='submitwordList($event)'
+        v-on:back='back' v-if="currentComponent == 2"/>
 
         <bottomBar @back="back"
         v-bind="{ readyToContinue: readyToContinue, backOption: isBack }"/>
@@ -24,19 +27,21 @@
 import Entermenmonic from '@/components/Setup/menmonic/enterMen.vue'
 import checkMetalMen from '@/components/Setup/menmonic/checkMetalMen.vue'
 import bottomBar from '@/components/Setup/bottomBar.vue'
-// import { createWebWordlist } from '@/assets/menmonic/createWebWordlist.js'
+import recordWebMen from '@/components/Setup/menmonic/recordWebMen.vue'
 // import { createFinalMenmonic } from '@/assets/menmonic/createFinalMenmonic.js'
 export default {
   name: 'menmonicSetup',
   components: {
     Entermenmonic,
     checkMetalMen,
+    recordWebMen,
     bottomBar
   },
   data () {
     return {
       currentComponent: 0,
       wordList: {},
+      webWordlist: '',
       readyToContinue: false,
       backOption: false
     }
@@ -51,10 +56,12 @@ export default {
     }
   },
   methods: {
-    done: function (newInfo) {
+    passedMetalTest (info) {
       this.currentComponent += 1
-      this.information = Object.assign(newInfo, this.information)
-      // console.log(this.information)
+      // let passWordString = createWebWordlist()
+      // let memString = this.convertWordListToString(this.wordList)
+      // let finalMenmonic = createFinalMenmonic(memString, passWordString)
+      // console.log(finalMenmonic)
     },
     submitwordList (wordList) {
       this.wordList = wordList
@@ -65,6 +72,13 @@ export default {
       if (this.currentComponent !== 0) {
         this.currentComponent -= 1
       }
+    },
+    convertWordListToString (WordList) {
+      let string = ''
+      for (let i = 1; i < 13; i++) {
+        string += WordList[i] + ' '
+      }
+      return string
     }
   }
 }
