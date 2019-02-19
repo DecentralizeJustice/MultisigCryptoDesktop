@@ -1,8 +1,9 @@
 
 export function convertStringToObject (WordString) {
   let finalObject = {}
-  for (var i = 1; i < 13; i++) {
-    finalObject[i] = WordString[i]
+  let wordArray = WordString.split(' ')
+  for (let i = 0; i < wordArray.length; i++) {
+    finalObject[i + 1] = wordArray[i]
   }
   return finalObject
 }
